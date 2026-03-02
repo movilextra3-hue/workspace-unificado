@@ -18,10 +18,10 @@ Qué está **ya hecho** por el asistente y qué **solo tú** puedes hacer (datos
 
 ---
 
-## 3. Repo en GitHub — Git YA INICIALIZADO
+## 3. Repo en GitHub — YA CONFIGURADO
 
-- **Hecho:** El repositorio Git está inicializado en esta carpeta (`.git` existe).
-- **Solo tú:** Crear el repo en GitHub, añadir el remote (`git remote add origin <url>`) y hacer push. Así la URL del logo (raw.githubusercontent.com) funcionará cuando rellenes la config.
+- **Hecho:** Git inicializado, **commit creado**, **remote añadido** (`origin` → https://github.com/movilextra3-hue/workspace-unificado.git). Usuario y repo en `.env` y `trc20-token.config.json`.
+- **Solo tú:** Crear el repo en GitHub (una vez): abre https://github.com/new?name=workspace-unificado, inicia sesión, clic en **Create repository** (sin README). Luego ejecuta `.\scripts\push-a-github.ps1` o `git push -u origin master`.
 
 ---
 
