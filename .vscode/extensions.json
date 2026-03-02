@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "ackeeblockchain.tools-for-solidity",
+    "JuanBlanco.solidity",
+    "ms-vscode-remote.remote-containers"
+  ],
+  "unwantedRecommendations": ["cyfrin.aderyn"]
+}

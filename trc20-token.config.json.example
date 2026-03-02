@@ -1,0 +1,7 @@
+{
+  "githubUser": "TU_USUARIO_GITHUB",
+  "githubRepo": "TU_REPO",
+  "branch": "main",
+  "websiteUrl": "https://tudominio.com",
+  "logoPathInRepo": "blockchain/trc20-token/assets/tether-logo.webp"
+}

@@ -1,0 +1,27 @@
+'use strict';
+// Copiar este contenido a E:\.eslintrc.cjs (crear el archivo si no existe).
+// Así ESLint no analizará node_modules en toda E:\ y desaparecen los ~2100 problemas.
+module.exports = {
+  root: true,
+  env: { node: true, es2022: true },
+  parserOptions: { ecmaVersion: 2022 },
+  ignorePatterns: [
+    '**/node_modules/**',
+    '**/build/**',
+    '**/dist/**',
+    '**/archivos_delicados/**',
+    '**/.git/**',
+    '**/vendor/**',
+    '**/*.min.js'
+  ],
+  rules: {
+    'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    'no-undef': 'error',
+    'no-unreachable': 'error',
+    'no-constant-condition': 'warn',
+    'no-empty': 'warn',
+    'strict': ['warn', 'global'],
+    'semi': ['warn', 'always'],
+    'quotes': ['warn', 'single', { avoidEscape: true }]
+  }
+};

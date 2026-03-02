@@ -1,0 +1,16 @@
+{
+  "name": "Tether USD",
+  "symbol": "USDT",
+  "decimals": 6,
+  "description": "Token TRC-20 estable vinculado a USD en la red TRON. Compatible con wallets y exploradores estándar.",
+  "website": "https://tudominio.com",
+  "logo": "https://tudominio.com/tether-logo.webp",
+  "socials": {
+    "twitter": "https://twitter.com/tuproyecto",
+    "telegram": "https://t.me/tuproyecto",
+    "discord": "https://discord.gg/tuproyecto"
+  },
+  "network": "tron",
+  "contractAddress": "PEGAR_AQUI_tokenAddress_DE_deploy-info.json",
+  "_comment": "Copiar a token-metadata.json tras el despliegue. Sustituir contractAddress por tokenAddress de deploy-info.json. Logo: usar misma URL que en Tronscan (assets/tether-logo.webp subido a tu web o GitHub). Para CoinGecko/CMC listing."
+}

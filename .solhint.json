@@ -1,0 +1,13 @@
+{
+  "extends": "solhint:recommended",
+  "plugins": [],
+  "rules": {
+    "compiler-version": ["error", "^0.8.34"],
+    "func-visibility": ["warn", {"ignoreConstructors": true}],
+    "not-rely-on-time": "off",
+    "no-empty-blocks": "warn",
+    "max-states-count": ["warn", 25],
+    "gas-strict-inequalities": "off",
+    "gas-indexed-events": "off"
+  }
+}

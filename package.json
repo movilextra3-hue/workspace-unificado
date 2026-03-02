@@ -1,0 +1,41 @@
+{
+  "name": "trc20-token",
+  "version": "1.0.0",
+  "description": "Token TRC-20 para red TRON - desarrollo, despliegue y operación",
+  "scripts": {
+    "compile": "node scripts/compile-with-solc.js",
+    "compile:tronbox": "tronbox compile",
+    "migrate:nile": "tronbox migrate --network nile",
+    "migrate:shasta": "tronbox migrate --network shasta",
+    "migrate:mainnet": "tronbox migrate --network mainnet",
+    "test": "tronbox test",
+    "deploy:nile": "node scripts/deploy-upgradeable.js nile",
+    "deploy:shasta": "node scripts/deploy-upgradeable.js shasta",
+    "deploy:mainnet": "node scripts/deploy-upgradeable.js mainnet",
+    "upgrade:nile": "node scripts/upgrade.js nile",
+    "upgrade:shasta": "node scripts/upgrade.js shasta",
+    "upgrade:mainnet": "node scripts/upgrade.js mainnet",
+    "prepare:verification": "node scripts/prepare-verification.js",
+    "post-deploy:perfil": "node scripts/post-deploy-perfil.js",
+    "initialize-v2": "node scripts/initialize-v2.js",
+    "lint": "solhint \"contracts/**/*.sol\"",
+    "lint:js": "eslint scripts migrations test tronbox.js --ext .js",
+    "security-check": "npm run lint",
+    "audit:readme": "echo Ver docs/AUDITORIA.md para Slither, MythX y checklist",
+    "fix:eslint-e": "node scripts/instalar-eslintrc-en-E.js",
+    "lint:all": "npm run lint:js && npm run lint && node scripts/lint-otros-proyectos.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "tronweb": "^6.2.1"
+  },
+  "devDependencies": {
+    "solc": "0.8.34",
+    "solhint": "^6.0.3",
+    "tronbox": "^4.5.0",
+    "eslint": "^8.57.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

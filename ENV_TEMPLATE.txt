@@ -1,0 +1,17 @@
+# Variables de entorno. .env está en .gitignore; no se sube a Git.
+# Rellena al menos PRIVATE_KEY= (64 caracteres hex, sin 0x).
+# Para que la URL del logo salga sola en post-deploy:perfil, rellena GITHUB_USER y GITHUB_REPO
+# (o configura git remote origin en este repo y el script los tomará de ahí).
+
+PRIVATE_KEY=
+TRON_PRO_API_KEY=
+TOKEN_NAME=Tether USD
+TOKEN_SYMBOL=USDT
+TOKEN_DECIMALS=6
+TOKEN_SUPPLY=1000000
+
+# Cuenta GitHub (misma que uses en Cursor / git). Si no rellenas, el script usa git remote origin si existe.
+GITHUB_USER=
+GITHUB_REPO=
+GITHUB_BRANCH=main
+WEBSITE_URL=

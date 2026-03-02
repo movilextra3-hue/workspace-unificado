@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "trc20-token"
+    }
+  ],
+  "settings": {
+    "eslint.workingDirectories": ["."],
+    "eslint.validate": ["javascript"],
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/build": true
+    }
+  }
+}

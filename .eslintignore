@@ -1,0 +1,8 @@
+node_modules/
+build/
+archivos_delicados/
+*.min.js
+verification/
+.env
+ENV_CONSOLIDADO_COMPLETO.env
+INFORME_CONSOLIDACION_ENV.md

@@ -1,0 +1,14 @@
+{
+  "network": "nile",
+  "tokenAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "implementationAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "proxyAdminAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "constructorParams": {
+    "name": "Tether USD",
+    "symbol": "USDT",
+    "decimals": 6,
+    "initialSupply": "1000000"
+  },
+  "deployedAt": "2026-02-21T12:00:00.000Z",
+  "lastUpgrade": "2026-02-21T14:00:00.000Z"
+}
