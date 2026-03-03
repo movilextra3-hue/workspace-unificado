@@ -19,7 +19,7 @@ Tu seguridad es importante para nosotros. Si descubres una vulnerabilidad de seg
 
 ### Cómo Reportar
 
-1. **Email**: [Envía un correo a movilextra3-hue@ejemplo.com](mailto:movilextra3-hue@ejemplo.com) con los siguientes detalles:
+1. **Email**: [Envía un correo a movilextra3-hue@ejemplo.com](mailto:movilextra3@gmail.com) con los siguientes detalles:
    - Descripción clara de la vulnerabilidad
    - Versión(es) afectada(s)
    - Pasos detallados para reproducirla
