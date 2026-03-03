@@ -1,8 +1,7 @@
 /**
- * Actualiza el proxy a una nueva implementación.
+ * Actualiza el proxy a una nueva implementación en MAINNET.
  * Usa deploy-info.json para obtener proxy y ProxyAdmin.
- * Despliega la implementación actual (build) y ejecuta ProxyAdmin.upgrade.
- * Uso: node scripts/upgrade.js nile|shasta|mainnet
+ * Uso: node scripts/upgrade.js
  */
 'use strict';
 require('dotenv').config();
@@ -10,19 +9,11 @@ const TronWeb = require('tronweb');
 const path = require('path');
 const fs = require('fs');
 
-const networks = {
-  nile: { fullHost: 'https://nile.trongrid.io' },
-  shasta: { fullHost: 'https://api.shasta.trongrid.io' },
-  mainnet: { fullHost: 'https://api.trongrid.io' }
-};
+const MAINNET = { fullHost: 'https://api.trongrid.io' };
 
 async function upgrade() {
-  const networkName = process.argv[2] || 'nile';
-  const net = networks[networkName];
-  if (!net) {
-    console.error('Red no válida. Usar: nile, shasta, mainnet');
-    process.exit(1);
-  }
+  const networkName = 'mainnet';
+  const net = MAINNET;
 
   const privateKey = (process.env.PRIVATE_KEY || '').replace(/^0x/, '').trim();
   if (!privateKey || !/^[a-fA-F0-9]{64}$/.test(privateKey)) {
@@ -30,13 +21,17 @@ async function upgrade() {
     process.exit(1);
   }
 
+  const apiKey = (process.env.TRON_PRO_API_KEY || '').trim();
+  if (!apiKey) {
+    console.error('TRON_PRO_API_KEY obligatoria en .env para mainnet (https://www.trongrid.io/)');
+    process.exit(1);
+  }
+
   const tronWebConfig = {
     fullHost: net.fullHost,
-    privateKey
+    privateKey,
+    headers: { 'TRON-PRO-API-KEY': apiKey }
   };
-  if (process.env.TRON_PRO_API_KEY) {
-    tronWebConfig.headers = { 'TRON-PRO-API-KEY': process.env.TRON_PRO_API_KEY };
-  }
 
   const deployInfoPath = path.join(__dirname, '..', 'deploy-info.json');
   if (!fs.existsSync(deployInfoPath)) {
@@ -50,8 +45,8 @@ async function upgrade() {
     console.error('deploy-info.json inválido o corrupto:', e.message);
     process.exit(1);
   }
-  if (deployInfo.network !== networkName) {
-    console.error(`deploy-info.json es de red "${deployInfo.network}", no "${networkName}"`);
+  if (deployInfo.network && deployInfo.network !== 'mainnet') {
+    console.error('Este proyecto está configurado solo para mainnet. deploy-info.json debe ser de mainnet.');
     process.exit(1);
   }
 

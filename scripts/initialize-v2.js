@@ -1,32 +1,21 @@
 'use strict';
 /**
- * Llama a initializeV2(version, cap) en el token (vía proxy).
- * Usar tras un upgrade cuando la nueva implementación expone initializeV2.
- * Uso: node scripts/initialize-v2.js nile [version] [cap]
+ * Llama a initializeV2(version, cap) en el token (vía proxy) en MAINNET.
+ * Uso: node scripts/initialize-v2.js [version] [cap]
  * - version: número de versión (default 2)
- * - cap: supply máximo en unidades mínimas; "max" = type(uint256).max (default "max")
+ * - cap: supply máximo; "max" = type(uint256).max (default "max")
  */
 require('dotenv').config();
 const TronWeb = require('tronweb');
 const path = require('path');
 const fs = require('fs');
 
-const networks = {
-  nile: { fullHost: 'https://nile.trongrid.io' },
-  shasta: { fullHost: 'https://api.shasta.trongrid.io' },
-  mainnet: { fullHost: 'https://api.trongrid.io' }
-};
+const MAINNET = { fullHost: 'https://api.trongrid.io' };
 
 async function main() {
-  const networkName = process.argv[2] || 'nile';
-  const versionArg = process.argv[3] || '2';
-  const capArg = (process.argv[4] || 'max').toLowerCase();
-
-  const net = networks[networkName];
-  if (!net) {
-    console.error('Red no válida. Usar: nile, shasta, mainnet');
-    process.exit(1);
-  }
+  const versionArg = process.argv[2] || '2';
+  const capArg = (process.argv[3] || 'max').toLowerCase();
+  const net = MAINNET;
 
   const privateKey = (process.env.PRIVATE_KEY || '').replace(/^0x/, '').trim();
   if (!privateKey || !/^[a-fA-F0-9]{64}$/.test(privateKey)) {
@@ -34,10 +23,17 @@ async function main() {
     process.exit(1);
   }
 
-  const tronWebConfig = { fullHost: net.fullHost, privateKey };
-  if (process.env.TRON_PRO_API_KEY) {
-    tronWebConfig.headers = { 'TRON-PRO-API-KEY': process.env.TRON_PRO_API_KEY };
+  const apiKey = (process.env.TRON_PRO_API_KEY || '').trim();
+  if (!apiKey) {
+    console.error('TRON_PRO_API_KEY obligatoria en .env para mainnet');
+    process.exit(1);
   }
+
+  const tronWebConfig = {
+    fullHost: net.fullHost,
+    privateKey,
+    headers: { 'TRON-PRO-API-KEY': apiKey }
+  };
   const tronWeb = new TronWeb(tronWebConfig);
 
   const deployInfoPath = path.join(__dirname, '..', 'deploy-info.json');
@@ -53,8 +49,8 @@ async function main() {
     process.exit(1);
   }
 
-  if (deployInfo.network !== networkName) {
-    console.error(`deploy-info.json es de red "${deployInfo.network}", no "${networkName}"`);
+  if (deployInfo.network && deployInfo.network !== 'mainnet') {
+    console.error('Este proyecto está configurado solo para mainnet.');
     process.exit(1);
   }
 
@@ -94,7 +90,7 @@ async function main() {
   const capDecimal = capArg === 'max' ? 'type(uint256).max' : capArg;
   console.log(`Llamando initializeV2(${version}, ${capDecimal}) en ${proxyAddress}...`);
 
-  await token.initializeV2(version, cap).send({ feeLimit: 500 * 1e6 });
+  await token.initializeV2(version, cap).send({ feeLimit: 1e8 });
 
   console.log('initializeV2 ejecutado correctamente.');
 }

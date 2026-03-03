@@ -23,20 +23,14 @@ if (fs.existsSync(envPath)) {
 const deployInfoPath = path.join(__dirname, '..', 'deploy-info.json');
 
 if (!fs.existsSync(deployInfoPath)) {
-  console.error('No existe deploy-info.json. Ejecuta antes: npm run deploy:nile (o shasta/mainnet).');
+  console.error('No existe deploy-info.json. Ejecuta antes: npm run listo (despliegue en mainnet).');
   process.exit(1);
 }
 
 const info = JSON.parse(fs.readFileSync(deployInfoPath, 'utf8'));
 const tokenAddress = info.tokenAddress;
-const network = info.network || 'mainnet';
 
-const urls = {
-  mainnet: 'https://tronscan.org/#/tokens/create/TRC20',
-  nile: 'https://nile.tronscan.org/#/tokens/create/TRC20',
-  shasta: 'https://shasta.tronscan.org/#/tokens/create/TRC20'
-};
-const tronscanUrl = urls[network] || urls.mainnet;
+const tronscanUrl = 'https://tronscan.org/#/tokens/create/TRC20';
 
 const description = 'Token TRC-20 estable vinculado a USD en la red TRON. Compatible con wallets y exploradores estándar.';
 

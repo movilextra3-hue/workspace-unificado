@@ -1,5 +1,14 @@
 # Seguridad — Token TRC-20 Upgradeable
 
+## Datos sensibles (obligatorio)
+
+- **Nunca** subas a Git ni compartas en chat: contraseñas, claves privadas (`.env`), ni tokens de GitHub.
+- **GitHub:** Para `git push` GitHub **no acepta contraseña**; exige un [Personal Access Token (PAT)](https://github.com/settings/tokens). Crear uno con permiso `repo`, usarlo cuando Git pida "Password" y no guardarlo en ningún archivo del proyecto.
+- **Si alguna vez se expuso una contraseña o token:** cámbiala de inmediato en la web del servicio (GitHub → Settings → Password and authentication; o revoca el token y crea uno nuevo).
+- `.env` y `secrets/` están en `.gitignore`; no crear archivos con credenciales en la raíz ni con nombres que los contengan.
+
+---
+
 ## Análisis estático
 
 ### Slither (recomendado)

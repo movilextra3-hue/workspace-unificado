@@ -6,11 +6,11 @@ Tras el despliegue, abre la URL según tu red y pega estos datos en el perfil de
 
 ## 1. URLs de Tronscan (crear/editar perfil)
 
+**Este proyecto está configurado solo para mainnet.**
+
 | Red     | URL |
 |---------|-----|
 | Mainnet | https://tronscan.org/#/tokens/create/TRC20 |
-| Nile    | https://nile.tronscan.org/#/tokens/create/TRC20 |
-| Shasta  | https://shasta.tronscan.org/#/tokens/create/TRC20 |
 
 ---
 
@@ -37,9 +37,8 @@ Tronscan **no permite subir archivos**; pide una **URL** de la imagen. El format
 - **Logo:** `assets/tether-logo.webp`
 - **URL real:** Rellena `trc20-token.config.json` (githubUser, githubRepo, branch, y opcionalmente logoPathInRepo). Después de desplegar, ejecuta `npm run post-deploy:perfil` y se imprimirá la **URL del logo** lista para pegar en Tronscan.
 - Si no usas la config, sube el archivo a tu web o GitHub y construye la URL:
-  - GitHub raw: `https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/blockchain/trc20-token/assets/tether-logo.webp`
+  - GitHub raw: `https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/RAMA/blockchain/trc20-token/assets/tether-logo.webp` (sustituye TU_USUARIO, TU_REPO y **RAMA**: en este repo es `master`).
   - Tu web: `https://tudominio.com/tether-logo.webp`
-  - Sustituye TU_USUARIO, TU_REPO y rama.
 
 ---
 

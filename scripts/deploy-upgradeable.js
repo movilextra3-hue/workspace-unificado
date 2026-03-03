@@ -1,27 +1,19 @@
 'use strict';
 /**
- * Despliegue upgradeable: Proxy + Implementation + ProxyAdmin.
+ * Despliegue upgradeable en MAINNET: Proxy + Implementation + ProxyAdmin.
  * La dirección del TOKEN es la del Proxy (permanente).
- * Uso: node scripts/deploy-upgradeable.js nile|shasta|mainnet
+ * Uso: node scripts/deploy-upgradeable.js
  */
 require('dotenv').config();
 const TronWeb = require('tronweb');
 const path = require('path');
 const fs = require('fs');
 
-const networks = {
-  nile: { fullHost: 'https://nile.trongrid.io' },
-  shasta: { fullHost: 'https://api.shasta.trongrid.io' },
-  mainnet: { fullHost: 'https://api.trongrid.io' }
-};
+const MAINNET = { fullHost: 'https://api.trongrid.io' };
 
 async function deploy() {
-  const networkName = process.argv[2] || 'nile';
-  const net = networks[networkName];
-  if (!net) {
-    console.error('Red no válida. Usar: nile, shasta, mainnet');
-    process.exit(1);
-  }
+  const networkName = 'mainnet';
+  const net = MAINNET;
 
   const privateKey = (process.env.PRIVATE_KEY || '').replace(/^0x/, '').trim();
   if (!privateKey || !/^[a-fA-F0-9]{64}$/.test(privateKey)) {
@@ -29,13 +21,17 @@ async function deploy() {
     process.exit(1);
   }
 
+  const apiKey = (process.env.TRON_PRO_API_KEY || '').trim();
+  if (!apiKey) {
+    console.error('En mainnet es obligatoria TRON_PRO_API_KEY en .env (obtenerla en https://www.trongrid.io/)');
+    process.exit(1);
+  }
+
   const tronWebConfig = {
     fullHost: net.fullHost,
-    privateKey
+    privateKey,
+    headers: { 'TRON-PRO-API-KEY': apiKey }
   };
-  if (process.env.TRON_PRO_API_KEY) {
-    tronWebConfig.headers = { 'TRON-PRO-API-KEY': process.env.TRON_PRO_API_KEY };
-  }
   const tronWeb = new TronWeb(tronWebConfig);
 
   const buildDir = path.join(__dirname, '..', 'build', 'contracts');
@@ -71,12 +67,12 @@ async function deploy() {
   console.log(`Desplegando upgradeable en ${networkName}...`);
   console.log(`Token: ${name} (${symbol}), owner: ${ownerAddr}`);
 
-  // 1. Deploy Implementation
+  // 1. Deploy Implementation (mainnet: feeLimit suficiente)
   const implTx = await tronWeb.transactionBuilder.createSmartContract(
     {
       abi: JSON.stringify(implArtifact.abi),
       bytecode: (implArtifact.bytecode || '').replace(/^0x/, ''),
-      feeLimit: 1000 * 1e6,
+      feeLimit: 1e8,
       name: 'TRC20TokenUpgradeable'
     },
     ownerAddr
@@ -92,7 +88,7 @@ async function deploy() {
     {
       abi: JSON.stringify(adminArtifact.abi),
       bytecode: (adminArtifact.bytecode || '').replace(/^0x/, ''),
-      feeLimit: 500 * 1e6,
+      feeLimit: 1e8,
       name: 'ProxyAdmin'
     },
     ownerAddr
@@ -114,7 +110,7 @@ async function deploy() {
       abi: JSON.stringify(proxyArtifact.abi),
       bytecode: (proxyArtifact.bytecode || '').replace(/^0x/, ''),
       parameters: proxyParams.replace(/^0x/, ''),
-      feeLimit: 1500 * 1e6,
+      feeLimit: 1e8,
       name: 'TransparentUpgradeableProxy'
     },
     ownerAddr
@@ -127,7 +123,7 @@ async function deploy() {
 
   // 4. Llamar initialize en el proxy (delega a implementation)
   const tokenContract = await tronWeb.contract(implArtifact.abi, proxyAddress);
-  await tokenContract.initialize(name, symbol, decimals, initialSupply, ownerAddr).send({ feeLimit: 500 * 1e6 });
+  await tokenContract.initialize(name, symbol, decimals, initialSupply, ownerAddr).send({ feeLimit: 1e8 });
 
   console.log('\n=== TOKEN ADDRESS (permanente) ===');
   console.log(proxyAddress);

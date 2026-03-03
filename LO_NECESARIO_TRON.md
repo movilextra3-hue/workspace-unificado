@@ -1,6 +1,6 @@
-# Lo necesario para TRON — Resumen único
+# Lo necesario para TRON — Solo mainnet
 
-Todo lo imprescindible para desplegar el token TRC-20 en TRON y que se vea correctamente en Tronscan y billeteras.
+Proyecto configurado **solo para MAINNET**. Todo lo imprescindible para desplegar el token TRC-20 en mainnet y que se vea correctamente en Tronscan.
 
 ---
 
@@ -8,11 +8,12 @@ Todo lo imprescindible para desplegar el token TRC-20 en TRON y que se vea corre
 
 | Requisito | Dónde | Acción |
 |-----------|--------|--------|
-| **Clave privada** | `.env` | Crear `.env` desde `ENV_TEMPLATE.txt` y rellenar `PRIVATE_KEY=` (64 caracteres hex, sin 0x). |
-| **TRX en la wallet** | Red elegida | La dirección que desplegará (derivada de `PRIVATE_KEY`) debe tener TRX (Nile/Shasta testnet o mainnet). |
-| **Compilación** | Terminal | `npm run compile` (genera `build/contracts/` que usa el script de deploy). |
+| **Dos claves (obligatorias)** | `.env` | Abre `.env` (si no existe: `npm run setup`) y agrega `PRIVATE_KEY=` y `TRON_PRO_API_KEY=`. Ver [CLAVES_PEGAR.md](CLAVES_PEGAR.md). |
+| **TRX en mainnet** | Wallet | La dirección que desplegará (derivada de `PRIVATE_KEY`) debe tener TRX en **mainnet**. |
+| **Desplegar** | Terminal | `npm run listo` — compila y despliega en mainnet. |
 
-Opcional en `.env`: `TRON_PRO_API_KEY`, `TOKEN_NAME`, `TOKEN_SYMBOL`, `TOKEN_DECIMALS`, `TOKEN_SUPPLY` (por defecto ya vienen tipo USDT en la plantilla).
+El resto está configurado (token, símbolo, GitHub en `trc20-token.config.json`).  
+Proyecto configurado solo para mainnet. `TRON_PRO_API_KEY` es obligatoria (el script la exige y evita errores de TronGrid).
 
 ---
 
@@ -33,10 +34,7 @@ Al terminar se imprime la **dirección del token (Proxy)** y se crea `deploy-inf
 1. **Ejecutar:** `npm run post-deploy:perfil`  
    → Imprime la dirección del token, la URL de Tronscan y los textos para copiar/pegar.
 
-2. **Abrir Tronscan** (según red):
-   - Mainnet: https://tronscan.org/#/tokens/create/TRC20  
-   - Nile: https://nile.tronscan.org/#/tokens/create/TRC20  
-   - Shasta: https://shasta.tronscan.org/#/tokens/create/TRC20  
+2. **Abrir Tronscan (mainnet):** https://tronscan.org/#/tokens/create/TRC20  
 
 3. **Completar el perfil** con los datos de [docs/TRONSCAN_DATOS_PEGAR.md](docs/TRONSCAN_DATOS_PEGAR.md):
    - Dirección del contrato = `tokenAddress` de `deploy-info.json`
@@ -58,6 +56,7 @@ Ver **[LO_QUE_FALTA.md](LO_QUE_FALTA.md)** — lista real de lo que tienes que h
 
 | Documento | Para qué |
 |-----------|----------|
+| [CLAVES_PEGAR.md](CLAVES_PEGAR.md) | **Solo dos claves:** dónde poner PRIVATE_KEY y TRON_PRO_API_KEY |
 | [LO_QUE_FALTA.md](LO_QUE_FALTA.md) | Checklist real: qué falta y en qué orden hacerlo |
 | [DESPLIEGUE_TRON_CHECKLIST.md](DESPLIEGUE_TRON_CHECKLIST.md) | Checklist completo pre/post despliegue |
 | [docs/TRONSCAN_DATOS_PEGAR.md](docs/TRONSCAN_DATOS_PEGAR.md) | Textos y pasos para pegar en el perfil Tronscan |
@@ -66,6 +65,7 @@ Ver **[LO_QUE_FALTA.md](LO_QUE_FALTA.md)** — lista real de lo que tienes que h
 | [POST-DEPLOY.md](POST-DEPLOY.md) | Checklist post-despliegue (wallets, metadata, chainId) |
 | [docs/TRONSCAN_PERFIL_TOKEN.md](docs/TRONSCAN_PERFIL_TOKEN.md) | Guía del perfil del token en Tronscan |
 | [docs/COMPARATIVA_MAINNET_WEB.md](docs/COMPARATIVA_MAINNET_WEB.md) | Comparativa proyecto vs mainnet y web (Tronscan) |
+| [docs/ALINEACION_TRON_OFFICIAL.md](docs/ALINEACION_TRON_OFFICIAL.md) | Verificación frente a documentación oficial TRON (TRC-20, TronGrid, Tronscan) |
 | [assets/README.md](assets/README.md) | Uso del logo (tether-logo.webp) |
 | [docs/LOGO_MAINNET_REQUISITOS.md](docs/LOGO_MAINNET_REQUISITOS.md) | Formato, tamaño y requisitos del logo para mainnet |
 
@@ -73,4 +73,4 @@ Ver **[LO_QUE_FALTA.md](LO_QUE_FALTA.md)** — lista real de lo que tienes que h
 
 ## Resumen en una línea
 
-**Necesario:** `.env` con `PRIVATE_KEY` + TRX en la wallet → `npm run compile` → `npm run deploy:<red>` → `npm run post-deploy:perfil` → pegar datos en Tronscan según [docs/TRONSCAN_DATOS_PEGAR.md](docs/TRONSCAN_DATOS_PEGAR.md).
+**Necesario (solo mainnet):** Abrir `.env` y agregar **PRIVATE_KEY** y **TRON_PRO_API_KEY** ([CLAVES_PEGAR.md](CLAVES_PEGAR.md)) → TRX en mainnet en la wallet → `npm run listo` → `npm run post-deploy:perfil` → pegar datos en https://tronscan.org/#/tokens/create/TRC20

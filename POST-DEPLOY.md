@@ -3,11 +3,11 @@
 ## 1. Verificación del contrato
 
 - [ ] Ejecutar `npm run prepare:verification`
-- [ ] Ir a Tronscan → Contract Verify (según red: tronscan.org, nile.tronscan.org, shasta.tronscan.org)
+- [ ] Ir a Tronscan → Contract Verify: **https://tronscan.org** (mainnet)
 - [ ] Verificar **Token (Proxy)** — dirección `tokenAddress`, contrato TransparentUpgradeableProxy
 - [ ] Opcional: verificar Implementation y ProxyAdmin
 
-**Nota:** `deploy-info.json` se genera tanto con `deploy:nile` (TronWeb) como con `migrate:nile` (TronBox). Ver `VERIFICATION.md` para parámetros exactos.
+**Nota:** `deploy-info.json` se genera con `npm run listo` (deploy mainnet) o `tronbox migrate --network mainnet`. Ver `docs/VERIFICATION.md` para parámetros exactos.
 
 ## 2. Añadir token a wallets
 
@@ -38,7 +38,7 @@ Para que el token se muestre con **logo, descripción y web** como USDT:
 2. **Completar perfil del token:** logo (URL de `assets/tether-logo.webp` subido a tu web/GitHub), descripción, project website, redes sociales.  
    **Datos listos para copiar/pegar:** [docs/TRONSCAN_DATOS_PEGAR.md](docs/TRONSCAN_DATOS_PEGAR.md). Tras el despliegue ejecuta `npm run post-deploy:perfil` para imprimir tokenAddress y textos.  
    Guía paso a paso: [docs/TRONSCAN_PERFIL_TOKEN.md](docs/TRONSCAN_PERFIL_TOKEN.md).  
-   URLs: Mainnet `tronscan.org/#/tokens/create/TRC20`, Nile `nile.tronscan.org/#/tokens/create/TRC20`, Shasta `shasta.tronscan.org/#/tokens/create/TRC20`.  
+   URL (mainnet): **https://tronscan.org/#/tokens/create/TRC20**  
    Siempre usar **tokenAddress** (Proxy) de `deploy-info.json` como dirección del contrato.
 
 ## 4. Monitoreo
@@ -70,12 +70,12 @@ Tras el despliegue, conservar en `deploy-info.json` (o copia de seguridad):
 - tokenAddress (Proxy — dirección del token)
 - implementationAddress
 - proxyAdminAddress
-- Red (nile/shasta/mainnet)
+- Red (mainnet)
 
-`deploy-info.json` se genera automáticamente con `deploy:nile` o `migrate:nile` (y shasta/mainnet).
+`deploy-info.json` se genera automáticamente con `npm run listo` o `tronbox migrate --network mainnet`.
 
 ---
 
-**Checklist pre-mainnet:** compile → test → lint → deploy testnet → verify → token-metadata
+**Checklist pre-despliegue:** compile → lint → `npm run estimate:deploy` → `npm run listo` → verify → token-metadata
 
 **Referencias web:** [TRON Smart Contract Security](https://developers.tron.network/docs/smart-contract-security) · [TRC-20 Protocol](https://developers.tron.network/docs/trc20-protocol-interface) · [Upgradeable TRON (TRON DAO)](https://trondao.medium.com/building-upgradable-tron-smart-contracts-with-a-transparent-proxy-pattern-c4025006cdf0)

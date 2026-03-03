@@ -19,3 +19,11 @@ busqueda_env_exhaustiva_2.txt
 lista_archivos_env.txt
 ENV_CONSOLIDADO_COMPLETO.env
 INFORME_CONSOLIDACION_ENV.md
+
+# Credenciales y datos sensibles (nunca subir)
+*credential*
+*password*
+*secret*
+*.token
+*.pat
+GITHUB_TOKEN

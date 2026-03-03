@@ -1,7 +1,10 @@
 # Variables de entorno. .env está en .gitignore; no se sube a Git.
-# Rellena al menos PRIVATE_KEY= (64 caracteres hex, sin 0x).
-# Para que la URL del logo salga sola en post-deploy:perfil, rellena GITHUB_USER y GITHUB_REPO
-# (o configura git remote origin en este repo y el script los tomará de ahí).
+# Proyecto configurado SOLO para MAINNET.
+#
+# OBLIGATORIO rellenar estas dos líneas (ver CLAVES_PEGAR.md):
+#   PRIVATE_KEY=       → clave privada de la wallet (64 hex, sin 0x). La wallet debe tener TRX en mainnet.
+#   TRON_PRO_API_KEY=  → API key de https://www.trongrid.io/ (obligatoria en mainnet).
+# El resto tiene valores por defecto.
 
 PRIVATE_KEY=
 TRON_PRO_API_KEY=

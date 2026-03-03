@@ -1,27 +1,30 @@
 # Lo que falta (checklist real)
 
-Qué está **ya hecho** por el asistente y qué **solo tú** puedes hacer (datos privados o cuentas).
+Qué está **ya hecho** y qué **solo tú** puedes hacer (datos privados).  
+**Resumen:** Solo tienes que poner en `.env` la **PRIVATE_KEY** y la **TRON_PRO_API_KEY**. Ver **[CLAVES_PEGAR.md](CLAVES_PEGAR.md)**.
 
 ---
 
-## 1. `.env` — YA CREADO
+## 1. `.env` — solo dos claves
 
-- **Hecho:** El archivo `.env` existe en la raíz con todas las variables. `PRIVATE_KEY=` está vacío.
-- **Solo tú:** Pega tu clave privada (64 caracteres hex, sin `0x`) después de `PRIVATE_KEY=` en `.env`. Nadie más puede hacerlo (es tu clave).
+- **Hecho:** Plantilla lista (`ENV_TEMPLATE.txt`). Ejecuta `npm run setup` y se crea `.env` con todos los valores por defecto (token, símbolo, GitHub desde config, etc.).
+- **Solo tú:** Abre `.env` y rellena **solo**:
+  - `PRIVATE_KEY=` — tu clave privada (64 caracteres hex, sin `0x`)
+  - `TRON_PRO_API_KEY=` — tu API key de trongrid.io (recomendado para mainnet)
+  Nadie más puede hacerlo (son tus credenciales).
 
 ---
 
 ## 2. Cuenta GitHub (URL real del logo)
 
-- **Hecho:** El script `post-deploy:perfil` usa la cuenta de **.env** (`GITHUB_USER`, `GITHUB_REPO`, `GITHUB_BRANCH`, `WEBSITE_URL`) o, si no están, la de **git remote origin** (este repo o la carpeta padre). Así usas la misma cuenta que en Cursor/Git.
-- **Solo tú:** En `.env` rellena `GITHUB_USER=` y `GITHUB_REPO=` con tu usuario y repo de GitHub (o añade `git remote add origin https://github.com/USUARIO/REPO.git` y el script los tomará de ahí). Opcional: `trc20-token.config.json` con los mismos datos.
+- **Hecho:** `trc20-token.config.json` ya tiene `githubUser`, `githubRepo`, `branch` y `logoPathInRepo`. El script `post-deploy:perfil` usa ese config (o .env o git remote si no está).
+- **Solo tú:** No hace falta rellenar nada más para el logo si usas el repo actual; la URL del logo saldrá sola. Si cambias de repo, edita `trc20-token.config.json`.
 
 ---
 
-## 3. Repo en GitHub — YA CONFIGURADO
+## 3. Repo en GitHub — HECHO
 
-- **Hecho:** Git inicializado, **commit creado**, **remote añadido** (`origin` → https://github.com/movilextra3-hue/workspace-unificado.git). Usuario y repo en `.env` y `trc20-token.config.json`.
-- **Solo tú:** Crear el repo en GitHub (una vez): abre https://github.com/new?name=workspace-unificado, inicia sesión, clic en **Create repository** (sin README). Luego ejecuta `.\scripts\push-a-github.ps1` o `git push -u origin master`.
+- **Hecho:** Repo https://github.com/movilextra3-hue/workspace-unificado con el código del token. **Push completado.** La URL del logo para Tronscan es válida.
 
 ---
 
@@ -47,5 +50,5 @@ Qué está **ya hecho** por el asistente y qué **solo tú** puedes hacer (datos
 
 ## Resumen
 
-**Ya hecho:** `.env` creado (solo falta pegar PRIVATE_KEY), Git inicializado, config y scripts listos.  
-**Solo tú:** Pegar PRIVATE_KEY, rellenar config (usuario/repo/web), añadir remote y push a GitHub, TRX, deploy, pegar datos en Tronscan.
+**Ya hecho:** Todo implementado. Tras `npm install` se crea `.env`; config (GitHub, logo, web) en `trc20-token.config.json`; scripts `listo`, `listo:nile`, `listo:shasta` (compilan + despliegan).  
+**Solo tú (solo mainnet):** Agregar **PRIVATE_KEY** y **TRON_PRO_API_KEY** en `.env` (ambas obligatorias) → tener TRX en mainnet en la wallet → `npm run listo` → `npm run post-deploy:perfil` → perfil en Tronscan. Ver [CLAVES_PEGAR.md](CLAVES_PEGAR.md).

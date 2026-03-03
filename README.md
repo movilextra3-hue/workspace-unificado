@@ -2,11 +2,23 @@
 
 Token TRC-20 con proxy upgradeable para la red TRON: pausa, freeze, blacklist, EIP-2612 (permit), cap de supply y ownership en dos pasos.
 
+---
+
+## Empieza aquí (solo mainnet, sin errores)
+
+**Proyecto configurado solo para MAINNET.** Ver **[LISTO_AGREGA_LAS_CLAVES.md](LISTO_AGREGA_LAS_CLAVES.md)**.
+
+1. **Abre `.env`** (si no existe: `npm run setup`) y agrega **PRIVATE_KEY** y **TRON_PRO_API_KEY** (ambas obligatorias en mainnet).
+2. **`npm run listo`** — compila y despliega en mainnet.
+3. **`npm run post-deploy:perfil`** — datos para pegar en Tronscan.
+
+---
+
 ## Requisitos
 
 - **Node.js** >= 18
 - **TronBox** (incluido como devDependency)
-- Cuenta con TRX (Nile/Shasta para testnet, Mainnet para producción)
+- Cuenta con TRX en mainnet (para fees de despliegue; estimar con `npm run estimate:deploy`)
 - Variables de entorno en `.env` (ver [Configuración](#configuración))
 
 ## Instalación
@@ -15,24 +27,14 @@ Token TRC-20 con proxy upgradeable para la red TRON: pausa, freeze, blacklist, E
 npm install
 ```
 
-## Configuración
+## Configuración (solo dos claves)
 
-1. Copia las variables de entorno:
+Tras `npm install`, el archivo `.env` se crea solo. **Solo tienes que abrirlo y agregar** `PRIVATE_KEY` y `TRON_PRO_API_KEY`. Ver **[CLAVES_PEGAR.md](CLAVES_PEGAR.md)**.
 
-   ```bash
-   # Windows (PowerShell)
-   Copy-Item ENV_TEMPLATE.txt .env
-   # o crea .env manualmente con el contenido de ENV_TEMPLATE.txt
-   ```
-
-2. Edita `.env` y define al menos:
-
-   - `PRIVATE_KEY`: clave privada de la wallet (64 caracteres hex, sin `0x`)
-   - Opcional: `TRON_PRO_API_KEY` (TronGrid), `TOKEN_NAME`, `TOKEN_SYMBOL`, `TOKEN_DECIMALS`, `TOKEN_SUPPLY`
-
-**Importante:** Nunca subas `.env` a Git. Ver [SEGURIDAD.md](SEGURIDAD.md).
-
-3. **(Opcional pero recomendado)** Rellena `trc20-token.config.json` con tu usuario y repo de GitHub, rama y URL de tu web. Así `npm run post-deploy:perfil` mostrará la **URL real del logo** para pegar en Tronscan. Ver [LO_QUE_FALTA.md](LO_QUE_FALTA.md).
+- Si por algún motivo `.env` no existe: `npm run setup` lo crea.
+- El resto de variables (token, símbolo, GitHub) tiene valores por defecto; no hace falta tocarlas.
+- **Importante:** Nunca subas `.env` a Git. Ver [SECURITY.md](SECURITY.md).
+- Logo y web en Tronscan: `trc20-token.config.json` ya está configurado; `npm run post-deploy:perfil` muestra la URL del logo lista para pegar. **Para que esa URL funcione**, el código debe estar en GitHub (rama `master` en este repo); si aún no has subido: `.\scripts\push-a-github.ps1` (ver [docs/GITHUB_PUSH.md](docs/GITHUB_PUSH.md)).
 
 ## Compilación
 
@@ -58,51 +60,34 @@ Requiere un nodo local o configurar TronBox para testnet (por defecto usa `devel
 
 ## Despliegue
 
-### Con script (recomendado)
-
-Despliega implementación + ProxyAdmin + Proxy e inicializa el token en una red pública:
+### Despliegue (solo mainnet)
 
 ```bash
-npm run deploy:nile    # Testnet Nile
-npm run deploy:shasta  # Testnet Shasta
-npm run deploy:mainnet # Mainnet
+npm run listo
 ```
 
-La **dirección del token** que deben usar los usuarios es la del **Proxy** (se muestra al final y se guarda en `deploy-info.json`). Para que el token se muestre en billeteras con nombre, símbolo y decimales correctos, ver [Mostrar el token en billeteras](docs/WALLET_DISPLAY.md).
+Compila y despliega en **mainnet** (implementación + ProxyAdmin + Proxy + inicialización). La dirección del token es la del **Proxy** (se guarda en `deploy-info.json`). Ver [LISTO_AGREGA_LAS_CLAVES.md](LISTO_AGREGA_LAS_CLAVES.md).
 
-### Con TronBox migrate
+### Con TronBox (opcional)
 
 ```bash
-npx tronbox migrate --network nile
-# o shasta / mainnet
+npx tronbox migrate --network mainnet
 ```
 
-Genera `deploy-info.json` en Nile/Shasta/Mainnet para usar con `npm run upgrade:*`.
+Solo mainnet está configurado. Para upgrades usa `npm run upgrade`.
 
 ## Actualizar implementación (upgrade)
 
 1. Modifica los contratos en `contracts/` (respeta el [layout de storage](docs/COMPARATIVA_BUENAS_PRACTICAS.md)).
-2. Compila: `npm run compile:tronbox`
-3. Ejecuta el upgrade:
-
-   ```bash
-   npm run upgrade:nile
-   # o upgrade:shasta / upgrade:mainnet
-   ```
-
-4. Opcional: si la nueva versión usa `initializeV2` (p. ej. para fijar `cap` o versión), llámala una vez desde el proxy:
-
-   ```bash
-   node scripts/initialize-v2.js nile
-   ```
-
-   (Requiere `deploy-info.json` y que el contrato tenga `initializeV2`.)
+2. Compila: `npm run compile`
+3. Ejecuta: `npm run upgrade` (mainnet).
+4. Opcional: si la nueva versión expone `initializeV2`: `node scripts/initialize-v2.js [version] [cap]`
 
 ## Verificación y perfil en Tronscan
 
 1. Genera el paquete de verificación: `npm run prepare:verification`
-2. Sigue las instrucciones en [docs/VERIFICATION.md](docs/VERIFICATION.md) para verificar cada contrato en Tronscan (Nile/Shasta/Mainnet).
-3. Tras verificar, completa el perfil del token (logo, descripción, web) para que **se vea igual que USDT** en mainnet: [referencia Tronscan](https://tronscan.org/#/token20/TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t). Guía: [docs/TRONSCAN_PERFIL_TOKEN.md](docs/TRONSCAN_PERFIL_TOKEN.md) y [docs/PERFIL_IGUAL_QUE_USDT.md](docs/PERFIL_IGUAL_QUE_USDT.md).
+2. Sigue [docs/VERIFICATION.md](docs/VERIFICATION.md) para verificar cada contrato en Tronscan (mainnet).
+3. Completa el perfil del token (logo, descripción, web) en https://tronscan.org/#/tokens/create/TRC20: [referencia Tronscan](https://tronscan.org/#/token20/TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t). Guía: [docs/TRONSCAN_PERFIL_TOKEN.md](docs/TRONSCAN_PERFIL_TOKEN.md) y [docs/PERFIL_IGUAL_QUE_USDT.md](docs/PERFIL_IGUAL_QUE_USDT.md).
 
 Ver [POST-DEPLOY.md](POST-DEPLOY.md) para el checklist completo post-despliegue.
 
@@ -110,30 +95,30 @@ Ver [POST-DEPLOY.md](POST-DEPLOY.md) para el checklist completo post-despliegue.
 
 | Script | Descripción |
 |--------|-------------|
+| `npm run setup` | Crea `.env` desde plantilla (solo rellena PRIVATE_KEY y TRON_PRO_API_KEY; ver [CLAVES_PEGAR.md](CLAVES_PEGAR.md)) |
 | `npm run compile:tronbox` | Compila contratos con TronBox |
 | `npm run lint` | Ejecuta Solhint |
 | `npm run test` | Ejecuta tests (TronBox) |
-| `npm run deploy:nile` | Despliega en Nile |
-| `npm run deploy:shasta` | Despliega en Shasta |
-| `npm run deploy:mainnet` | Despliega en Mainnet |
-| `npm run upgrade:nile` | Actualiza implementación en Nile |
-| `npm run upgrade:shasta` | Actualiza implementación en Shasta |
-| `npm run upgrade:mainnet` | Actualiza implementación en Mainnet |
-| `npm run prepare:verification` | Prepara carpeta para verificación en Tronscan |
+| `npm run listo` | Compila + despliega en mainnet (requiere PRIVATE_KEY y TRON_PRO_API_KEY en .env) |
+| `npm run estimate:deploy` | Estima coste de despliegue en tiempo real (recursos cuenta + precio energía) |
+| `npm run upgrade` | Actualiza implementación en mainnet |
+| `npm run prepare:verification` | Prepara carpeta para verificación en Tronscan (mainnet) |
 | `npm run post-deploy:perfil` | Tras el despliegue: imprime tokenAddress y datos para pegar en Tronscan |
-| `npm run initialize-v2` | Llama a initializeV2 en el proxy (uso: `npm run initialize-v2 -- nile [version] [cap]`) |
+| `npm run initialize-v2` | Llama a initializeV2 en el proxy: `node scripts/initialize-v2.js [version] [cap]` |
 | `npm run security-check` | Lint (revisión de seguridad básica) |
 
 ## Documentación
 
+- **[Checklist para desplegar en mainnet (verificación GitHub)](docs/CHECKLIST_DESPLIEGUE_MAINNET.md)** — responde al checklist solicitado en GitHub (red, contrato, wallet, deploy, post-deploy, seguridad y archivos del repo).
 - **[Lo necesario para TRON (resumen único)](LO_NECESARIO_TRON.md)** — requisitos, despliegue y perfil en una página.
 - [API del token y proxy](docs/API_TOKEN_Y_PROXY.md)
 - [Comparativa y buenas prácticas](docs/COMPARATIVA_BUENAS_PRACTICAS.md)
 - [Auditoría e informe de correcciones](docs/AUDITORIA_INFORME.md)
 - [Herramientas de auditoría (Slither, MythX)](docs/AUDITORIA.md)
-- [Seguridad y variables sensibles](SEGURIDAD.md)
+- [Seguridad y variables sensibles](SECURITY.md)
 - [Verificación en Tronscan](docs/VERIFICATION.md)
 - [Datos listos para pegar en Tronscan (logo, descripción, web)](docs/TRONSCAN_DATOS_PEGAR.md)
+- [Alineación GitHub y token (operatividad, push, URL logo)](docs/ALINEAMIENTO_GITHUB_Y_TOKEN.md)
 - [Comparativa con mainnet y web Tronscan](docs/COMPARATIVA_MAINNET_WEB.md)
 - [Perfil del token en TronScan](docs/TRONSCAN_PERFIL_TOKEN.md)
 - [USDT en TRON: panorama mainnet y wallets](docs/USDT_TRON_PANORAMA_MAINNET_Y_WALLETS.md)

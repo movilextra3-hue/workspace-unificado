@@ -58,9 +58,8 @@ function main() {
   console.log('Paquete de verificación generado en verification/');
   CONTRACTS_TO_VERIFY.forEach(({ src }) => console.log(`- ${src}`));
   console.log('- verification-params.json');
-  console.log('\nTronscan: https://tronscan.org/#/contracts/verify');
-  console.log('Nile: https://nile.tronscan.org/#/contracts/verify');
-  console.log('Shasta: https://shasta.tronscan.org/#/contracts/verify');
+  console.log('\nMainnet - Verificar contratos en Tronscan:');
+  console.log('https://tronscan.org/#/contracts/verify');
 }
 
 main();
