@@ -1,0 +1,46 @@
+Total archivos con errores: 80
+
+Corregido: D:/WORKSPACE_DESARROLLO/recursos/bibliotecas/Repositorios_20251104_172933/dapptools/src/dapp-tests/pass/invariants.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/USDT_TETHER/BackedUSDT.sol
+Corregido: D:/WORKSPACE_DESARROLLO/recursos/bibliotecas/Repositorios_20251104_172933/dapptools/src/dapp-tests/fail/dsProveFail.sol
+Corregido: D:/QryptaQuantumToken_DIAMOND_SUPREME_FINAL.sol
+Corregido: D:/respaldo/respaldo/wallet 2/examples/node_modules/@ensdomains/resolver/contracts/Resolver.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/USDT_TETHER/TETHERUSDT.sol
+Corregido: D:/respaldo/respaldo/wallet 2/examples/node_modules/@ensdomains/resolver/contracts/DefaultReverseResolver.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/IMAGENES_QR/ValidatorWallet.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/IMAGENES_QR/DUP_2_VestingWalletCliff_0.sol
+Corregido: D:/DESARROLLO_COMPLETO/01_WALLETS/USDT_TETHER/USDT.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/USDT_TETHER/DUP_2_TETHERUSDT.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/IMAGENES_QR/VestingWalletCliff.sol
+Corregido: D:/respaldo/respaldo/wallet 2/examples/node_modules/@ensdomains/resolver/contracts/Migrations.sol
+Corregido: D:/WORKSPACE_DESARROLLO/recursos/bibliotecas/Repositorios_20251104_172933/dapptools/src/dapp-tests/integration/contracts/factor.sol
+Corregido: D:/respaldo/respaldo/wallet 2/examples/node_modules/@ensdomains/resolver/test/mocks/dummy.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/USDT_TETHER/DUP_3_TETHERUSDT_0.sol
+Corregido: D:/WORKSPACE_DESARROLLO/recursos/bibliotecas/Repositorios_20251104_172933/dapptools/src/dapp-tests/pass/abstract.sol
+Corregido: D:/respaldo/respaldo/wallet 2/examples/node_modules/@ensdomains/ens/contracts/TestRegistrar.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/IMAGENES_QR/VestingWalletUpgradeable_0.sol
+Corregido: D:/respaldo/respaldo/wallet 2/examples/node_modules/@ensdomains/ens/contracts/ENS.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/USDT_TETHER/DUP_4_TETHERUSDT_0.sol
+Corregido: D:/WORKSPACE_DESARROLLO/recursos/bibliotecas/Repositorios_20251104_172933/dapptools/src/dapp-tests/integration/contracts/stateful.sol
+Corregido: D:/respaldo/respaldo/wallet 2/examples/node_modules/@ensdomains/ens/contracts/Migrations.sol
+Corregido: D:/WORKSPACE_DESARROLLO/Libros_Bitcoin/ethereumbook/code/Solidity/Token.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/IMAGENES_QR/VestingWallet.sol
+Corregido: D:/WORKSPACE_DESARROLLO/recursos/bibliotecas/Repositorios_20251104_172933/dapptools/src/dapp-tests/pass/cheatCodes.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/IMAGENES_QR/DUP_2_ValidatorWalletCreator_0.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/IMAGENES_QR/ValidatorWalletCreator.sol
+Corregido: D:/WORKSPACE_DESARROLLO/recursos/bibliotecas/Repositorios_20251104_172933/dapptools/src/dapp-tests/pass/libraries.sol
+Corregido: D:/WORKSPACE_DESARROLLO/recursos/bibliotecas/Repositorios_20251104_172933/dapptools/src/dapp-tests/fail/cheatCodes.sol
+Corregido: D:/WORKSPACE_DESARROLLO/recursos/bibliotecas/Repositorios_20251104_172933/dapptools/src/dapp-tests/pass/constantinople.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/Nuevas/DUP_2_ValidatorWallet_0.sol
+Corregido: D:/WORKSPACE_DESARROLLO/recursos/bibliotecas/Repositorios_20251104_172933/dapptools/src/dapp-tests/pass/dsProvePass.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/Nuevas/DUP_2_VestingWallet_0.sol
+Corregido: D:/WORKSPACE_DESARROLLO/recursos/bibliotecas/Repositorios_20251104_172933/dapptools/src/dapp-tests/fail/invariantFail.sol
+Restaurado (archivo corrupto): D:/DESARROLLO_COMPLETO/01_WALLETS/USDT_TETHER/DUP_2_BackedUSDT_0.sol
+Corregido: D:/WORKSPACE_DESARROLLO/ethereumbook_source/code/Solidity/Token.sol
+Corregido: D:/facets/GovernanceFacet.sol
+
+=== RESUMEN ===
+Corregidos: 38
+No encontrados: 0
+Sin cambios necesarios: 42
+Errores al procesar: 0

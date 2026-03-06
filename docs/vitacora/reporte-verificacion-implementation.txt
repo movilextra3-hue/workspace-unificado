@@ -1,0 +1,24 @@
+# Reporte verificación Implementation TYqRvxioNWBqVa2nJGog8RkYQrXQdPJwR3
+
+Generado: 2026-03-04T08:32:57.260Z
+
+## Estado Tronscan
+No verificado (o no comprobado)
+verify_status=0 (2 = verificado)
+
+## OKLink API
+API no soporta TRX. Verificación manual en la web de OKLink.
+
+## Pasos manuales
+
+### Tronscan
+1. Ir a https://tronscan.org/#/contracts/verify
+2. Contract Address: TYqRvxioNWBqVa2nJGog8RkYQrXQdPJwR3
+3. Main Contract: TRC20TokenUpgradeable
+4. Compiler: 0.8.30 o 0.8.25. Optimization: Yes. Runs: 200. EVM: por defecto.
+5. Subir: verification/TRC20TokenUpgradeable.sol
+
+### OKLink (si ofrecen compilador 0.8.34)
+1. Ir a https://www.oklink.com/tron/verify-contract-preliminary
+2. Contract address: TYqRvxioNWBqVa2nJGog8RkYQrXQdPJwR3
+3. Compiler: 0.8.34. Subir: verification/TRC20TokenUpgradeable-oklink.sol
