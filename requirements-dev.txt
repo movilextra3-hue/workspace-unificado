@@ -1,0 +1,3 @@
+# Dependencias de desarrollo (lint, etc.)
+# Instalar: pip install -r requirements-dev.txt
+ruff>=0.15.0

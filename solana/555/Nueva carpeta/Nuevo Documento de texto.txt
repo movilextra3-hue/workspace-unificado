@@ -1,0 +1,36 @@
+const { ethers } = require("ethers");
+
+// 1. TU RPC ACTUAL (Limitado)
+const RPC_TENDERLY = "https://mainnet.gateway.tenderly.co/6Tc4umR3NHtZjXdN0UqaiB";
+
+// 2. UN RPC PÚBLICO (Gratis e Ilimitado)
+const RPC_PUBLICO = "https://rpc.ankr.com/eth";
+
+const WALLET_ORIGEN = "0x0df5a363166243a30fc9efc06ab50f81295d75a7";
+
+exports.handler = async (ev, context) => {
+    console.log("🕵️ INICIANDO DIAGNÓSTICO DE RED...");
+    
+    // PRUEBA A: Vía Tenderly
+    try {
+        const p1 = new ethers.providers.JsonRpcProvider(RPC_TENDERLY);
+        const s1 = await p1.getBalance(WALLET_ORIGEN);
+        console.log(`[TENDERLY] Ve saldo: ${ethers.utils.formatEther(s1)} ETH`);
+    } catch(e) { console.log(`[TENDERLY] Error: ${e.message}`); }
+
+    // PRUEBA B: Vía Pública
+    try {
+        const p2 = new ethers.providers.JsonRpcProvider(RPC_PUBLICO);
+        const s2 = await p2.getBalance(WALLET_ORIGEN);
+        console.log(`[PÚBLICO]  Ve saldo: ${ethers.utils.formatEther(s2)} ETH`);
+        
+        if (!s2.isZero()) {
+            console.log("🎉 ¡BUENAS NOTICIAS! Tu saldo existe en la red pública.");
+            console.log("✅ Puedes cambiar el RPC por 'https://rpc.ankr.com/eth' y adiós límites.");
+        } else {
+            console.log("🔒 TU SALDO ES CERO EN LA RED PÚBLICA.");
+            console.log("⚠️ Conclusión: Estás en un FORK VIRTUAL. Solo existes en Tenderly.");
+            console.log("👉 Debes usar el código 'Modo Ahorro' (el del mensaje anterior).");
+        }
+    } catch(e) { console.log(`[PÚBLICO] Error: ${e.message}`); }
+};

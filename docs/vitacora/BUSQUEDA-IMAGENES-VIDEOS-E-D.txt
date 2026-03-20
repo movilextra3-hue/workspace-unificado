@@ -1,0 +1,77 @@
+================================================================================
+BÚSQUEDA IMÁGENES Y VIDEOS — E: y D:
+Extensión: PNG, JPG, JPEG, GIF, BMP, WEBP, TIFF, TIF, ICO, HEIC, MP4, MKV, AVI, MOV, WMV, FLV, WEBM, M4V, MPG, MPEG, 3GP
+Fecha: 2026-03-09
+Método: búsqueda por lotes (carpetas individuales) para mayor rapidez
+================================================================================
+
+RESUMEN
+--------------------------------------------------------------------------------
+E:     1 875 archivos (completo)
+D:     ~5 000+ archivos (parcial — carpetas 02 WALLETS, 04 PROGRAMAS, Recovered,
+       Restaurado_Unico, Programas; faltan 01 PROYECTOS, 03 DOCUMENTOS, 05 WORKSPACES,
+       07 OTROS, MONARCA, DESARROLLO, Scripts, WORKSPACE por timeout)
+
+TOTAL ESTIMADO: ~7 000+ archivos
+
+
+E: — UBICACIONES PRINCIPALES (1875 archivos)
+--------------------------------------------------------------------------------
+- E:\(5) Facebook_files\         (imágenes descarga)
+- E:\amd_vga_driver_am5\        (iconos drivers AMD)
+- E:\Binary Viewer\             (Captura 2023-08-21, Multimedia1.mp4)
+- E:\CMAS\                      (WhatsApp Video)
+- E:\Cursor\                    (recursos app Cursor)
+- E:\workspace-unificado\       (proyectos)
+
+
+D: — UBICACIONES ENCONTRADAS
+--------------------------------------------------------------------------------
+
+D:\Recovered\dtc500m(F)\Archivos perdidos\Borrado\
+  Captura de pantalla 2023-08-21 161143.png (corrupto/zero)
+  Multimedia1.mp4 (corrupto/zero)
+
+D:\Restaurado_Unico\  (~30 archivos)
+  PNG, WebP, JPG, respaldo.mp4 (85 MB)
+
+D:\02 WALLETS\  (~200+ archivos)
+  BITCOIN_CORE, cla, CONFIGURACION, IMAGENES_QR, mas, SIN_CLASIFICAR
+
+D:\04 PROGRAMAS\  (MEmu, otros)
+  MEmu\resources\ad\, guide\, skins\
+
+D:\Programas\Microvirt\MEmu\  (duplicado/alias)
+  ad.jpg, button2*.png, com.tencent.*.png, desktop.png, preview.png
+
+
+ARCHIVOS ORIGINALES VÁLIDOS (de búsqueda anterior)
+--------------------------------------------------------------------------------
+E:\Binary Viewer\Captura de pantalla 2023-08-21 161143.png  (377 KB, PNG válido)
+E:\Binary Viewer\Multimedia1.mp4                             (14.3 MB, MP4 válido)
+
+
+CARPETAS D: NO ESCANEADAS (requieren búsqueda manual o más tiempo)
+--------------------------------------------------------------------------------
+- D:\01 PROYECTOS
+- D:\03 DOCUMENTOS
+- D:\05 WORKSPACES
+- D:\07 OTROS
+- D:\MONARCA
+- D:\DESARROLLO
+- D:\Scripts
+- D:\WORKSPACE
+
+Para completar D: ejecutar por cada carpeta:
+  Get-ChildItem "D:\01 PROYECTOS" -Recurse -Include *.png,*.jpg,*.jpeg,*.gif,*.bmp,*.webp,*.mp4,*.mkv,*.avi,*.mov -File -EA SilentlyContinue
+
+
+LISTADO COMPLETO E:
+--------------------------------------------------------------------------------
+Ver: C:\Users\oman_\.cursor\projects\e-workspace-unificado\agent-tools\382e2430-4c63-4f20-84f9-9e03a65d0aa3.txt
+
+LISTADO COMPLETO D: (parcial)
+--------------------------------------------------------------------------------
+Ver: C:\Users\oman_\.cursor\projects\e-workspace-unificado\terminals\819076.txt (~4850 archivos)
+
+================================================================================

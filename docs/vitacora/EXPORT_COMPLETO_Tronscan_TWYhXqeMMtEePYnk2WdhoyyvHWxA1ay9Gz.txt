@@ -1,0 +1,185 @@
+================================================================================
+EXPORT COMPLETO TRONSCAN — TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+Sin omisiones, exclusiones ni suposiciones. Reglas aplicadas.
+Fuente: Tronscan API (apilist.tronscanapi.com) — 2026-03-12
+================================================================================
+
+1. IDENTIFICACIÓN
+-----------------
+Dirección:        TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+Red:              TRON Mainnet
+Tipo:             EOA (wallet externa, no contrato)
+accountType:      0
+date_created:     1772500851000 (2026-03-03 06:40:51 UTC aprox.)
+witness:          0 (no es superrepresentante)
+name:             (vacío)
+addressTagLogo:   (vacío)
+blueTagUrl:       (vacío)
+risk:             false (normalAddressInfo)
+Riesgo:           Bajo
+
+2. OVERVIEW — BALANCES
+----------------------
+Balance TRX:      496.179533 TRX (496179533 sun)
+totalFrozen:      0
+frozenForBandWidth: 0
+frozenForEnergy:  0
+delegateFrozenForBandWidth: 0
+delegateFrozenForEnergy: 0
+acquiredDelegateFrozenForBandWidth: 0
+acquiredDelegateFrozenForEnergy: 0
+reward:           1
+rewardNum:        1229
+voteTotal:        0
+
+3. TOKENS TRC-10 (balances)
+---------------------------
+| Token ID | Nombre         | Símbolo   | Balance (raw) | Balance (dec) | Owner        |
+|----------|----------------|-----------|---------------|---------------|--------------|
+| _        | trx            | trx       | 496179533     | 496.179533    | —            |
+| 1005114  | GasFreeSolution| TRC20Ucom | 8888888       | 8.888888      | TDiWLmgmg... |
+| 1005118  | gas08com       | BuyEnergy | 10000         | 0.01          | TMa3858uo... |
+
+4. TOKENS TRC-20 (trc20token_balances)
+-------------------------------------
+[] (vacío — sin tokens TRC-20 en balance actual)
+
+5. TOKENS TRC-721
+-----------------
+[] (vacío)
+
+6. TRANSCRIPCIONES
+------------------
+totalTransactionCount: 69
+transactions_in:       41
+transactions_out:      8
+transactions:          49 (API alternativa)
+
+7. PERMISOS
+-----------
+ownerPermission:
+  permission_name: owner
+  threshold: 1
+  keys: [{"address":"TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz","weight":1}]
+
+activePermissions (Active, id 2):
+  operations: 7fff1fc0033ec30f000000000000000000000000000000000000000000000000
+  threshold: 1
+  keys: [{"address":"TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz","weight":1}]
+
+8. BANDWIDTH / ENERGY
+---------------------
+freeNetLimit:        600
+freeNetRemaining:   600
+freeNetUsed:        0
+freeNetPercentage:  0.0
+netLimit:           0
+netRemaining:       0
+netUsed:            0
+netPercentage:      0.0
+energyLimit:        0
+energyRemaining:    0
+energyUsed:         0
+energyPercentage:   0.0
+totalEnergyLimit:   180000000000
+totalEnergyWeight:  18941104164
+totalNetLimit:      43200000000
+totalNetWeight:     26706086059
+storageLimit:       0
+storageUsed:        0
+storageRemaining:   0
+storagePercentage:  0.0
+
+9. VOTOS (account/votes)
+------------------------
+{} (vacío)
+
+10. TRANSACCIONES INTERNAS (TRX recibido)
+----------------------------------------
+Total: 5. Origen: TSJEtPuqHpvSaVnSwvCsngaeBxrGUzp95Q (SUN: SunSwap UniversalRouter)
+
+| Block  | Hash (tx)  | call_value (sun) | TRX recibido | Fecha (block_ts)   |
+|--------|------------|------------------|--------------|--------------------|
+| 80748224 | 2d607f1b... | 524749996 | 524.749996 | 2026-03-07 19:23:36 |
+| 80640803 | 9f898f40... | 715792580 | 715.792580 | 2026-03-05 08:31:03 |
+| 80629467 | 103b9088... | 348962666 | 348.962666 | 2026-03-05 01:44:03 |
+| 80625097 | f8729a3e... | 170453824 | 170.453824 | 2026-03-04 22:00:00 |
+| 80620103 | 8636880d... | 177081546 | 177.081546 | 2026-03-04 20:22:00 |
+
+Total TRX recibido (internas): 1.937,040612 TRX
+
+11. TRANSFERENCIAS TRC-20 (token_trc20/transfers) — 10 registros
+----------------------------------------------------------------
+| # | Hash (tx)   | Block  | From                        | To                          | Cantidad (USDT) | Método         |
+|---|-------------|--------|-----------------------------|-----------------------------|----------------|----------------|
+| 1 | 2d607f1b... | 80748224 | TWYhXqeMMtEe... (wallet)   | TGUZpxeGtx... (contract)   | 150.00         | execute        |
+| 2 | bcdd6be7... | 80748200 | TKqJoXvhBRt... (wallet)    | TWYhXqeMMtEe... (wallet)   | 150.00         | transfer       |
+| 3 | 10d6a4d6... | 80645083 | T9yD14Nj9j... (Black Hole) | TWYhXqeMMtEe... (wallet)   | 1,000,000.00   | initialize (TV4P3sVf) |
+| 4 | 9f898f40... | 80640803 | TWYhXqeMMtEe... (wallet)   | TSUUVjysXV... (contract)   | 200.00         | execute        |
+| 5 | e5d3ad80... | 80640781 | TKqJoXvhBRt... (wallet)    | TWYhXqeMMtEe... (wallet)   | 200.00         | transfer       |
+| 6 | 103b9088... | 80629467 | TWYhXqeMMtEe... (wallet)   | TVjuTE3V5b... (SunSwap)    | 98.00          | execute        |
+| 7 | 9576238f... | 80627133 | TTmzL77p4b... (contract)   | TWYhXqeMMtEe... (wallet)   | 98.00          | permitTransfer |
+| 8 | f8729a3e... | 80625097 | TWYhXqeMMtEe... (wallet)   | TVjuTE3V5b... (SunSwap)    | 48.00          | execute        |
+| 9 | 973b484e... | 80624760 | TUsV4QQ6w8... (contract)   | TWYhXqeMMtEe... (wallet)   | 48.00          | permitTransfer |
+|10 | 8636880d... | 80620103 | TWYhXqeMMtEe... (wallet)   | TVjuTE3V5b... (SunSwap)    | 50.00          | execute        |
+|11 | 32bd9155... | 80619743 | TKqJoXvhBRt... (wallet)    | TWYhXqeMMtEe... (wallet)   | 50.00          | transfer       |
+
+Token: TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t (USDT — Tether USD). Todas confirmadas (confirmed: true, contractRet: SUCCESS).
+
+12. CONTRATOS CREADOS (según vitácora proyecto trc20-token)
+----------------------------------------------------------
+Creador: TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+
+Contratos documentados en vitácora (DESPLIEGUES_TWYhXqeMMtEe..., LISTADO_MAINNET):
+- TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm — Token Proxy (Colateral USD / USDT)
+- TVeVPZGiMc9GWQ8sQHvUwhfg19EDZt3UjZ — ProxyAdmin (en uso)
+- TXaXTSUKgdAdX76MhQoqQ98msE8azBwiFS — Implementation (actual)
+- TYqRvxio... — Implementation anterior (upgradeado)
+- TPK7VW, TNduz3, TDUPqTHo, TVeVPZGi, TXNE9tkk, TQJ6f3ec, TVCkDGbh, TTTT4AeR, TTMjwXXz — Otros contratos CreateSmartContract
+
+13. DIRECCIONES RELACIONADAS (contractInfo / tags)
+--------------------------------------------------
+| Dirección       | Tag/Nombre                    | Tipo        |
+|-----------------|-------------------------------|-------------|
+| TGUZpxeGtx...   | CreatedByContract             | Contrato    |
+| TTmzL77p4b...   | CreatedByContract             | Contrato    |
+| TSUUVjysXV...   | CreatedByContract             | Contrato    |
+| TVjuTE3V5b...   | SUN: SunSwapV4 PoolManager    | Contrato    |
+| TUsV4QQ6w8...   | CreatedByContract             | Contrato    |
+| TSJEtPuqHpv...  | SUN: SunSwap UniversalRouter  | Contrato    |
+| T9yD14Nj9j...   | Black Hole Address(0)         | Dirección   |
+| TKqJoXvhBRt...  | (sin tag)                     | Wallet      |
+
+14. FROZEN / DELEGATED
+----------------------
+frozen: { total: 0, balances: [] }
+frozen_supply: []
+delegated: {}
+representative: { lastWithDrawTime: 0, allowance: 0, enabled: false, url: "" }
+
+15. ALLOW EXCHANGE
+------------------
+[] (vacío)
+
+16. ENLACES TRONSCAN
+--------------------
+- Address: https://tronscan.org/#/address/TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+- Transacciones: https://tronscan.org/#/address/TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+- Token transfers: (incluidos en address)
+
+17. FUENTES API CONSULTADAS
+---------------------------
+- apilist.tronscanapi.com/api/account?address=TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+- apilist.tronscanapi.com/api/token_trc20/transfers?relatedAddress=TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+- apilist.tronscanapi.com/api/internal-transaction?address=TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+- apilist.tronscanapi.com/api/account/votes?address=TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+
+18. METADATOS Y REGLAS
+----------------------
+- Reglas aplicadas: vitácora única, sin omitir, excluir ni suponer
+- Fecha export: 2026-03-12
+- Datos obtenidos vía Tronscan API (verificables en tronscan.org)
+
+================================================================================
+FIN EXPORT — Sin omisiones
+================================================================================

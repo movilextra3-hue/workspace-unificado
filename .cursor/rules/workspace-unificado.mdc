@@ -1,0 +1,144 @@
+---
+description: Convenciones del workspace unificado (TRC20, ERC20, Solana, apps)
+alwaysApply: true
+---
+
+# Workspace unificado
+
+## Alcance — Todos los proyectos
+
+**Estas reglas aplican a todos los proyectos existentes y a cualquier proyecto nuevo que se añada al workspace.** Son permanentes. Ver vitacora-obligatoria-todos-proyectos.mdc para la garantía de vitácora única.
+
+## Regla principal #1 — No delegar
+
+- **Jamás delegar** procedimientos, interacciones, tareas o cualquier cosa que se te asignó a ti. Ejecutarlas tú mismo hasta completarlas.
+- **No asignar al usuario** tareas que el agente pueda realizar (comandos, ediciones, verificaciones, despliegues, etc.). Si el agente puede ejecutarlas, las ejecuta él. No decir "ejecuta tú X" ni "puedes hacer Y manualmente" cuando el agente tiene herramientas para hacerlo.
+- **Excepción única:** Solo delegar cuando exista una limitación real, comprobable y verídica que impida continuar — y que no exista ninguna otra manera de avanzar. La limitación debe ser demostrable, no supuesta.
+
+## Regla principal #2 — No omitir, no excluir, no suponer
+
+**Permanente. Sin excepciones.**
+
+- **No omitir** información relevante. No saltarse pasos, archivos ni datos que afecten al resultado.
+- **No excluir** información por conveniencia. No descartar alternativas ni fuentes sin motivo comprobado.
+- **No suponer** información no comprobada. Si no está verificada (leída, ejecutada, contrastada), no afirmarla como verdad.
+- **No suponer** procedimientos no comprobados. Si un flujo o método no se ha ejecutado, verificado o contrastado con documentación oficial, no darlo por válido.
+- **Regla de oro:** Solo información y procedimientos **verificables y comprobados**. Si algo es incierto: investigar, ejecutar o comprobar antes de afirmar.
+
+## Regla principal #2bis — Cero hipótesis. Todo comprobado y verificado
+
+**Permanente. Sin excepciones.**
+
+- **No se admiten hipótesis.** Todo lo que se afirme debe estar **comprobado y verificado**.
+- **Todo, absolutamente todo** debe ser comprobado antes de afirmarlo. No conjeturas, no suposiciones, no "probablemente", no "podría ser".
+- Si no se puede comprobar o verificar: **no afirmarlo**. Investigar primero. Ejecutar, contrastar con documentación oficial o evidencia real.
+- Solo información y procedimientos **comprobados y verificados** pueden aparecer en respuestas, documentación o registros.
+
+## Regla principal #3 — Seguimiento en tiempo real hasta finalizar
+
+**Permanente. Sin excepciones.**
+
+- **Seguimiento en tiempo real** de cada procedimiento hasta su finalización completa. Siempre realizar el seguimiento en tiempo real para asegurar y garantizar la identificación de errores en el momento.
+- **Comprobar** que todo esté correcto en cada paso; verificar resultados antes de seguir.
+- **Si hay errores:** realizar las modificaciones y correcciones necesarias **antes** de seguir ejecutando procedimientos. No avanzar al siguiente paso si quedan errores sin resolver.
+- **Objetivo:** brindar una solución completa, efectiva y exitosa antes de dar por terminada la tarea.
+- **No finalizar** hasta haber comprobado que el procedimiento cumple el objetivo y no presenta errores sin resolver.
+
+## Regla principal #4 — Aseguramiento de actualizaciones e IDE
+
+**Permanente. Sin excepciones.**
+
+- **Aplicar todas las actualizaciones y mejoras** a todos los archivos involucrados en el procedimiento. Ningún cambio debe quedar solo en un subconjunto de archivos cuando existe dependencia o coherencia esperada en otros.
+- **Actualizaciones del IDE:** configuraciones (`.vscode/settings.json`, `.cursorrules`, reglas), linters (SonarLint, ESLint), formateadores, extensiones o cualquier mejora aplicada en el entorno — deben propagarse a todos los lugares afectados para mantener consistencia y funcionamiento correcto.
+- **Objetivo:** garantizar que cualquier actualización o mejora realizada en el IDE se refleje realmente en todos los archivos y configuraciones involucrados, asegurando un 100% de funcionamiento y operatividad.
+- **Antes de finalizar** una tarea que incluya actualizaciones: verificar que los cambios se aplicaron a todos los archivos implicados y que el flujo completo funciona correctamente.
+
+## Regla principal #5 — Comprobaciones antes de ejecutar
+
+**Permanente. Sin excepciones.**
+
+- **Antes de cualquier ejecución** (comandos, scripts, migraciones, despliegues, compilaciones, tests u otras operaciones): primero comprobar que todo está correcto antes de iniciar.
+- **Si se detectan errores:** corregir todo antes de iniciar; no iniciar la ejecución hasta haber corregido los errores detectados.
+- **Comprobar:** dependencias instaladas, archivos presentes, configuración válida, variables de entorno si aplica, estado del proyecto, lints y errores conocidos que puedan impedir la ejecución.
+- **Corregir** errores detectados antes de ejecutar; no lanzar comandos que se sepa o se sospeche que fallarán.
+- **Objetivo:** que cada ejecución sea correcta y eficiente, minimizando fallos y repeticiones innecesarias.
+
+## Regla principal #6 — Automatización y monitoreo
+
+**Permanente. Sin excepciones.**
+
+- **Automatizar** todos los procesos y procedimientos que sea posible (scripts, pipelines, verificaciones, compilaciones, tests, despliegues, comprobaciones repetibles).
+- **Monitorear siempre** los procesos y procedimientos en ejecución para garantizar un flujo correcto y un funcionamiento operativo al 100%.
+- **Objetivo:** reducir intervención manual repetitiva; detectar desviaciones o fallos durante la ejecución; asegurar que todo el flujo cumple el objetivo sin errores.
+- **Aplicar a:** tareas que se repiten, verificaciones pre/post ejecución, comprobaciones de consistencia, notificación de estados y resultados.
+
+## Regla principal #7 — Completar antes de reportar o parar
+
+**Permanente. Sin excepciones.**
+
+- **Antes de reportar al usuario o parar:** asegurarse primero de haber completado las tareas designadas y el avance correspondiente.
+- **No reportar** como terminado ni dar por finalizada la respuesta hasta haber ejecutado y verificado todo lo asignado.
+- **No parar** la ejecución con tareas pendientes que el agente pueda completar; continuar hasta concluirlas.
+- **Objetivo:** que cada interacción entregue el trabajo realizado, no solo el avance parcial ni promesas de pasos posteriores.
+
+## Regla principal #8 — Cero errores antes de continuar
+
+**Permanente. Sin excepciones.**
+
+- **No deben existir errores de ningún tipo antes de continuar.** En cualquier lugar, paso o procedimiento: primero corregir todo, después continuar.
+- **Cualquier problema** detectado se corrige antes de avanzar. No distinguir por severidad — todo se corrige.
+- **Detectar → Corregir → Re-verificar → Continuar.** Nunca invertir el orden.
+- Ver cero-errores-antes-continuar.mdc para la regla completa.
+
+## Regla principal #9 — Enfoque en tarea principal y retorno automático
+
+**Permanente. Sin excepciones.**
+
+- **Identificar siempre la tarea principal** — El propósito u objetivo principal guía todas las acciones. Toda interacción tiene una tarea principal explícita o inferible.
+- **Tareas secundarias no sustituyen la principal** — Correcciones, aclaraciones, subtareas o desvíos se ejecutan para apoyar la tarea principal, no para abandonarla.
+- **Retorno automático** — Tras completar cualquier tarea secundaria (corrección, verificación, subtarea), regresar de inmediato a la tarea principal y continuar el trabajo sin pérdida de foco.
+- **No perder el foco** — No dar por terminada la sesión ni reportar como completo si la tarea principal sigue pendiente. El agente retoma automáticamente donde quedó.
+- Ver enfoque-tarea-principal-retorno-automatico.mdc para la regla completa.
+
+## Garantía de cumplimiento — Refuerzo ejecutivo
+
+**Se debe asegurar y garantizar el correcto funcionamiento y ejecución de cada regla.** Sin excepciones.
+
+- **Verificar activamente** el cumplimiento en cada paso: antes de actuar, durante la ejecución y antes de reportar.
+- **Cumplir todas las reglas** en cada interacción; el incumplimiento de cualquiera invalida la respuesta como completa.
+- **Autoverificación:** Antes de dar por terminada cualquier tarea, comprobar que se han aplicado las reglas 1 a 9 y que el resultado es correcto y ejecutable, sin errores de ningún tipo; que la tarea principal esté completada o se haya retomado de forma explícita.
+
+## Aplicación total — Usar reglas para todo
+
+**Las reglas se aplican en TODAS las interacciones.** Código, documentación, búsquedas, diagnósticos, respuestas: en todo caso se consultan y aplican las reglas completas. Ver aplicacion-total-reglas.mdc.
+
+## Uso obligatorio
+
+- **Consultar siempre** las reglas (este archivo + seguimiento-tiempo-real.mdc + vitacora-registro.mdc + aplicacion-total-reglas.mdc) y la vitácora (`docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`) antes de actuar o responder. Son la base para interacción y ejecución correctas.
+
+## Vitácora — Un solo archivo
+
+- **Ubicación:** `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` — contiene toda la información consolidada.
+- **Registro:** Toda documentación, logs, cambios e interacciones nuevas se añaden ahí (append-only). Ver vitacora-registro.mdc.
+- **No crear** documentos nuevos en otros sitios; solo en docs/vitacora, en el archivo único (o su continuación si supera 5 MB).
+
+## Calidad de respuestas
+
+- **Soluciones reales y válidas:** Dar respuestas lógicas, verificables y ejecutables. No suposiciones vagas, no limitantes artificiales.
+- **No "no se puede" hasta agotar todo:** No usar "no se puede" ni definir que algo es imposible hasta haber agotado todas las posibilidades: procedimientos, formas, tipos, métodos, alternativas, documentación oficial, herramientas, APIs, workarounds. Solo tras probar o evaluar todo lo necesario se puede concluir que algo no es viable — y siempre con evidencia concreta.
+- **Siempre hay solución:** Nunca decir "no puedo" sin haber intentado todas las alternativas. Si un método falla, probar el siguiente. Ver agotar-alternativas-siempre-solucion.mdc.
+- **Revisión durante procedimientos:** En cada paso, comprobar que no hay errores. Si aparece un error: corregir antes de continuar; re-ejecutar; verificar el resultado. No avanzar con errores sin resolver.
+- **Evidencia sobre conjetura:** Si falta información: investigar antes de sugerir. Ofrecer alternativas concretas.
+- **Objetivo prioritario:** Enfocarse en el objetivo principal del proyecto; no marcar nada como terminado hasta cumplirlo.
+- **Conexión con Reglas #2 y #2bis:** Toda afirmación sobre hechos o procedimientos debe estar comprobada y verificada. No hipótesis. Si no se ha verificado: no afirmarlo hasta comprobarlo.
+
+## Convenciones
+
+- Responde siempre en **español**.
+- Este workspace incluye: `blockchain/trc20-token` (TRON), `blockchain/token-erc20`, `solana/555`, `apps/rtsp-*`.
+- **Nunca** incluyas en código ni en commits: contraseñas, claves privadas, `.env` real, tokens de GitHub ni otros secretos. Los archivos sensibles están en `.gitignore`; no crear archivos con credenciales en el repo.
+- Para Git en el token TRC20: el repo es `movilextra3-hue/workspace-unificado`; push con Personal Access Token (no contraseña). Información en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` (sección GITHUB_PUSH).
+- Al trabajar en el token TRON (despliegue, contratos, scripts): usar la carpeta `blockchain/trc20-token` como raíz del proyecto (npm, tronbox, .env).
+- **Verificar antes de actuar:** Comprobar = investigar cuando no se entienda (web, documentación oficial, APIs, exploradores); contrastar con la realidad; actuar en base a evidencia.
+- **No abrir ni poner foco en `tronbox.js`** salvo que el usuario pida editarlo o verlo explícitamente. La configuración real está en `blockchain/trc20-token/config/trc20-networks.js`; usar ese archivo si se necesita verificar redes o compilador. La configuración real está en `blockchain/trc20-token/config/trc20-networks.js`; usar ese archivo si se necesita consultar redes o compilador. La config real está en `blockchain/trc20-token/config/trc20-networks.js`; scripts y migraciones la cargan desde ahí para evitar que se abra tronbox.js. La config real está en `blockchain/trc20-token/config/trc20-networks.js`; los scripts la cargan directamente para evitar aperturas innecesarias. La config real está en `config/trc20-networks.js`; los scripts la cargan desde ahí para evitar aperturas innecesarias.
+- **Rutas en respuestas (Windows):** Escribir siempre las rutas correctamente. Incluir la barra invertida antes de carpetas ocultas (ej. `.cursor`). Incorrecto: `workspace-unificado.cursor`. Correcto: `workspace-unificado\.cursor` o rutas relativas como `.cursor/rules/`. Evitar rutas malformadas en las respuestas.

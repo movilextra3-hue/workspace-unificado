@@ -1,0 +1,21 @@
+{
+  "name": "Workspace unificado (multi-root)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {}
+  },
+  "postCreateCommand": "npm install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode-remote.remote-containers",
+        "NomicFoundation.hardhat-solidity",
+        "JuanBlanco.solidity",
+        "dbaeumer.vscode-eslint",
+        "mikestead.dotenv",
+        "EditorConfig.EditorConfig"
+      ]
+    }
+  },
+  "remoteUser": "node"
+}

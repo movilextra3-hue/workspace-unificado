@@ -1,0 +1,15 @@
+{
+  "name": "tenderly-tools",
+  "description": "Herramientas y librerías oficiales Tenderly para uso con la referencia y desarrollo Web3",
+  "private": true,
+  "dependencies": {
+    "@tenderly/sdk": "^0.3.1",
+    "ethers": "^6.9.0"
+  },
+  "devDependencies": {
+    "@tenderly/hardhat-tenderly": "^2.5.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

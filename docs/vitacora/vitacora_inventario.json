@@ -1,0 +1,1350 @@
+{
+  "archivos": [
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\ACTUALIZACION_DEPENDENCIAS.md",
+      "mtime": "2026-03-02 04:44:57",
+      "ctime": "2026-03-05 03:36:17",
+      "size": 2255,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\CHECKLIST_DESPLIEGUE_MAINNET.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:17",
+      "size": 11732,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\COMPROBACIONES.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:17",
+      "size": 2895,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\COMPROBACION_COMPLETA_WORKSPACE.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:17",
+      "size": 9091,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\INDICE_CONSOLIDACION_MD.md",
+      "mtime": "2026-03-06 19:36:39",
+      "ctime": "2026-03-06 19:36:00",
+      "size": 1589,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\INSPECCION_SINCRONIZACION_Y_TAREAS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 06:48:22",
+      "size": 11517,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\LINEA_DE_TIEMPO.md",
+      "mtime": "2026-03-06 19:39:20",
+      "ctime": "2026-03-05 06:34:21",
+      "size": 13818,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\LISTADO_WALLETS_IGUAL_QUE_USDT.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:17",
+      "size": 5360,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\MAPA_RUTAS_MD_CONSOLIDACION.json",
+      "mtime": "2026-03-06 19:34:24",
+      "ctime": "2026-03-06 19:34:17",
+      "size": 22730,
+      "tipo": "json"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\PROBLEMAS_EN_EL_PANEL.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:17",
+      "size": 3172,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\README.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:11",
+      "size": 3256,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\REGISTRO_INTERACCIONES.md",
+      "mtime": "2026-03-06 19:39:20",
+      "ctime": "2026-03-05 06:13:13",
+      "size": 8164,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\REVISION_COMPLETA_SIN_OMISIONES.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:17",
+      "size": 3125,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\apps\\rtsp-virtual-webcam\\README.md",
+      "mtime": "2026-03-01 20:53:15",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1784,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\apps\\rtsp-webcam\\README.md",
+      "mtime": "2026-03-01 19:57:30",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3174,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\blockchain\\tenderly_tools\\README.md",
+      "mtime": "2026-02-06 10:37:06",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 8092,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\blockchain\\token-erc20\\README.md",
+      "mtime": "2026-03-02 04:50:17",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2873,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\docs-origen\\ACTUALIZACION_DEPENDENCIAS.md",
+      "mtime": "2026-03-02 04:44:57",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2255,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\docs-origen\\CHECKLIST_DESPLIEGUE_MAINNET.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 11732,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\docs-origen\\COMPROBACIONES.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2895,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\docs-origen\\COMPROBACION_COMPLETA_WORKSPACE.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 9091,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\docs-origen\\ESTRUCTURA.md",
+      "mtime": "2026-03-05 03:36:51",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1742,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\docs-origen\\LISTADO_WALLETS_IGUAL_QUE_USDT.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 5360,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\docs-origen\\PROBLEMAS_EN_EL_PANEL.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3172,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\docs-origen\\REVISION_COMPLETA_SIN_OMISIONES.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3125,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\analisis_diferencias_tecnicas.md",
+      "mtime": "2026-02-01 09:04:57",
+      "ctime": "2026-03-05 06:05:27",
+      "size": 6708,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\comparacion_contratos.md",
+      "mtime": "2026-02-01 09:04:57",
+      "ctime": "2026-03-05 06:05:27",
+      "size": 10366,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\comparacion_contratos_vs_coingecko.md",
+      "mtime": "2026-02-01 09:38:39",
+      "ctime": "2026-03-05 06:05:27",
+      "size": 6683,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\creator_wallet_info_20260201_060021.txt",
+      "mtime": "2026-02-01 06:00:22",
+      "ctime": "2026-03-05 06:05:47",
+      "size": 8013,
+      "tipo": "txt"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\fix_log.txt",
+      "mtime": "2026-02-01 02:04:32",
+      "ctime": "2026-03-05 06:05:27",
+      "size": 4228,
+      "tipo": "txt"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\RESUMEN_ADMINISTRACION_TOKEN.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 06:05:27",
+      "size": 2849,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\RESUMEN_CORRECCIONES.md",
+      "mtime": "2026-02-01 02:06:38",
+      "ctime": "2026-03-05 06:05:27",
+      "size": 5179,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\RESUMEN_ENVIAR_SOL.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 06:05:27",
+      "size": 5861,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\rev.txt",
+      "mtime": "2026-02-01 01:59:53",
+      "ctime": "2026-03-05 06:05:47",
+      "size": 1192853,
+      "tipo": "txt"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\solana_address_info_20260201_055257.txt",
+      "mtime": "2026-02-01 05:52:58",
+      "ctime": "2026-03-05 06:05:47",
+      "size": 4334,
+      "tipo": "txt"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\solana_address_info_20260201_055946.txt",
+      "mtime": "2026-02-01 05:59:47",
+      "ctime": "2026-03-05 06:05:47",
+      "size": 4334,
+      "tipo": "txt"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\TOKEN_SPL_CREACION_RESUMEN.md",
+      "mtime": "2026-02-01 05:58:55",
+      "ctime": "2026-03-05 06:05:27",
+      "size": 3827,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\analisis_diferencias_tecnicas.md",
+      "mtime": "2026-02-01 09:04:57",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 6708,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\comparacion_contratos.md",
+      "mtime": "2026-02-01 09:04:57",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 10366,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\comparacion_contratos_vs_coingecko.md",
+      "mtime": "2026-02-01 09:38:39",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 6683,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\EXPLICACION_OWNER_VS_MINT_AUTHORITY.md",
+      "mtime": "2026-02-01 06:08:56",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 5493,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\explicacion_pools_gratis.md",
+      "mtime": "2026-02-01 09:10:03",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 7632,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\GUIA_ADMINISTRACION_TOKEN.md",
+      "mtime": "2026-02-01 06:06:21",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 10227,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\GUIA_COINGECKO_CLI.md",
+      "mtime": "2026-02-01 09:41:44",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2615,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\GUIA_ELIMINAR_TOKEN.md",
+      "mtime": "2026-02-01 06:13:00",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 6955,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\GUIA_INSTALACION_SOLANA.md",
+      "mtime": "2026-02-01 07:08:36",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2836,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\GUIA_SEGURIDAD_CLAVE_PRIVADA.md",
+      "mtime": "2026-02-01 06:03:03",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 5630,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\RESUMEN_ADMINISTRACION_TOKEN.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2849,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\RESUMEN_CORRECCIONES.md",
+      "mtime": "2026-02-01 02:06:38",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 5179,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\RESUMEN_ENVIAR_SOL.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 5861,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\solana\\555\\TOKEN_SPL_CREACION_RESUMEN.md",
+      "mtime": "2026-02-01 05:58:55",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3827,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ABI_Y_ARTIFACTS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3736,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ALINEACION_TRON_OFFICIAL.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4711,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ALINEAMIENTO_GITHUB_Y_TOKEN.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 3972,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ALTERNATIVAS_FINALIZAR_TAREA.md",
+      "mtime": "2026-03-05 22:12:29",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 6204,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ANALISIS_Y_VERIFICACION_ANTES_DE_GASTAR_TRX.md",
+      "mtime": "2026-03-03 11:38:19",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 3993,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\API_TOKEN_Y_PROXY.md",
+      "mtime": "2026-03-01 03:00:36",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 7903,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\AUDITORIA.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 2855,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\AUDITORIA_E_COMPLETA.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 7853,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\AUDITORIA_INFORME.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 6441,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\AUDITORIA_MAXIMO_NIVEL_SIN_OMISIONES.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 22518,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\AUDITORIA_PROFESIONAL_COMPLETA.md",
+      "mtime": "2026-03-03 20:01:13",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 6232,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\AVISO_AL_AGENTE_ANTERIOR.md",
+      "mtime": "2026-03-03 20:03:01",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4814,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\BUILD_SPEC_MAINNET_IMPLEMENTATION.md",
+      "mtime": "2026-03-05 15:20:00",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3294,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\CHANGELOG.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 13184,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\CHECKLIST_COMPROBACIONES_FINAL.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 6933,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\CHECKLIST_DESPLIEGUE_MAINNET.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 14870,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\CHECKLIST_PRE_DESPLIEGUE.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 06:05:31",
+      "size": 3219,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\CLAVES_PEGAR.md",
+      "mtime": "2026-03-02 17:25:28",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1509,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPARATIVA_BUENAS_PRACTICAS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 6581,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPARATIVA_MAINNET_WEB.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4167,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPLETAR_DESPLIEGUE_REVISION_Y_CHECKLIST.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4068,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPLETAR_INITIALIZE_SI_FALLO.md",
+      "mtime": "2026-03-03 22:30:37",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 1177,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPROBACIONES_FINALES_SIN_GASTAR.md",
+      "mtime": "2026-03-03 21:26:29",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 3823,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPROBACION_ARCHIVOS_Y_DELEGACIONES.md",
+      "mtime": "2026-03-03 20:22:31",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 8503,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPROBACION_BLOCKCHAIN_WEB_2026-03-05.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 06:58:30",
+      "size": 3739,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPROBACION_BYTECODE_2026-03-06.md",
+      "mtime": "2026-03-06 17:11:32",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2001,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPROBACION_COMPLETA_REPORTE.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 3910,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPROBACION_COMPLETA_Y_SIGUIENTES_PASOS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 6692,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPROBACION_OBLIGATORIOS_PERFIL_VERIFICACION.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 5256,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COMPROBACION_Y_CORRECCION_E_COMPLETA.md",
+      "mtime": "2026-03-02 03:49:33",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 6634,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\CONSOLIDACION_INFORMACION_TOKEN.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 11224,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\CONTEXTO_DESPLIEGUE_ACTUAL.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4660,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\CONTRATOS_DESPLIEGUE_Y_VERIFICACION.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 5192,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\COSTO_6_TX_CONTRATOS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 3621,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\CURSOR_ABRE_TRONBOX_Y_VENTANA.md",
+      "mtime": "2026-03-03 21:46:44",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 5360,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\DATOS_COMPLETOS_TOKEN.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 02:25:48",
+      "size": 4276,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\DESPLIEGUES_TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz.md",
+      "mtime": "2026-03-06 02:19:10",
+      "ctime": "2026-03-06 02:18:50",
+      "size": 5080,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\DESPLIEGUE_FLUJO_UNICO.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 2603,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\DESPLIEGUE_MAINNET_UN_PASO.md",
+      "mtime": "2026-03-03 07:58:30",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 645,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\DESPLIEGUE_TRON_CHECKLIST.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 5709,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\DETALLES_Y_VALORES_DEL_TOKEN.md",
+      "mtime": "2026-03-04 03:15:42",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3969,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\DIAGNOSTICO_PROBLEMA_REAL.md",
+      "mtime": "2026-03-03 22:11:13",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 3550,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\EJEMPLIFICACIONES_Y_PRUEBAS_COMPLETAS.md",
+      "mtime": "2026-03-03 01:44:39",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 6586,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\EJEMPLIFICACION_FUNCIONAMIENTO_Y_PENDIENTE.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 5139,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ENTORNO.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 4107,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ERRORES_DESPLIEGUE_ANTERIOR_Y_GARANTIAS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 6047,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ESTADO_COMPROBACIONES_Y_PASOS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 5015,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ESTADO_MAINNET.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 5076,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ESTADO_REAL_AVANCE_2026-03-05.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 4959,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ESTADO_SISTEMA_Y_RED.md",
+      "mtime": "2026-03-03 22:06:29",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 2207,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ESTADO_TRAS_MIGRATE_3_SAFE.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 2308,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\ETAPAS_Y_FASES_DEL_PROYECTO.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 06:05:31",
+      "size": 8897,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\EVITAR_PROBLEMAS_WALLETS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 7119,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\fix_log_E555.txt",
+      "mtime": "2026-02-01 02:04:32",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4228,
+      "tipo": "txt"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\fix_log_solana555.txt",
+      "mtime": "2026-02-01 02:04:32",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4228,
+      "tipo": "txt"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\FLUJO_VERIFICACION_OKLINK.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 479,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\GARANTIA_POST_DESPLIEGUE.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 06:05:31",
+      "size": 5195,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\GITHUB_PUSH.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1273,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\GUIA_VERIFICACION_Y_PERFIL_TOKEN.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 6561,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\HISTORIAL_TRANSACCIONES_TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz.md",
+      "mtime": "2026-03-03 07:54:32",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4783,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\INVESTIGACION_ALTERNATIVAS_VERIFICACION_TRON.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 6088,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\LAS_6_TX_DETALLE_ESTADO_Y_DIRECCIONES.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 5221,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\LISTADO_MAINNET_OWNER_TWYhXqe.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 24154,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\LISTADO_WALLETS_IGUAL_QUE_USDT.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 6574,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\LISTO_AGREGA_LAS_CLAVES.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1849,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\LOGO_MAINNET_REQUISITOS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2920,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\LO_NECESARIO_TRON.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 6674,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\LO_QUE_FALTA.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2835,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\migrate-log.txt",
+      "mtime": "2026-03-03 21:54:29",
+      "ctime": "2026-03-05 06:05:27",
+      "size": 0,
+      "tipo": "txt"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\migrate-run.log",
+      "mtime": "2026-03-03 21:40:40",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 1141,
+      "tipo": "log"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\NO_GASTAR_TRX_A_LO_PENDEJO.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 5332,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\PARCHE_MONARCA_WAKE.md",
+      "mtime": "2026-03-02 04:23:24",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2597,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\PASOS_A_SEGUIR.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 2583,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\PASOS_REMIX_NAVEGADOR_EXTERNO.md",
+      "mtime": "2026-03-03 11:52:57",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 1675,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\PASOS_TOKEN_GITHUB.md",
+      "mtime": "2026-03-02 16:54:24",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 1887,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\PENDIENTES_Y_LO_FALTANTE.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 8089,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\PENDIENTE_ORDEN_Y_PROCEDIMIENTO.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4900,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\PERFIL_IGUAL_QUE_USDT.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 3692,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\PERFIL_TOKEN_CHECKLIST_COMPLETO.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 5015,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\POR_QUE_IMPLEMENTATION_NO_VERIFICADA.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 13:13:17",
+      "size": 4101,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\POST-DEPLOY.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 6342,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\PROCEDIMIENTO_DESPLIEGUE_VERIFICACION.md",
+      "mtime": "2026-03-05 20:08:06",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 6302,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\PROXY_DATA_0x_MAINNET.md",
+      "mtime": "2026-03-06 02:45:40",
+      "ctime": "2026-03-06 02:45:40",
+      "size": 1745,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\README.md",
+      "mtime": "2026-02-26 04:10:49",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1744,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\README_blockchain_trc20-token.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 21147,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\README_blockchain_trc20-token_abi.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1377,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\README_blockchain_trc20-token_assets.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1983,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\RECUPERAR_DESPLIEGUE.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 5019,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\REDESPLIEGUE_IMPLEMENTATION_RECOMENDACION.md",
+      "mtime": "2026-03-04 03:08:10",
+      "ctime": "2026-03-05 06:05:31",
+      "size": 5661,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\reporte-verificacion-implementation-verification.txt",
+      "mtime": "2026-03-04 02:32:57",
+      "ctime": "2026-03-05 06:05:38",
+      "size": 813,
+      "tipo": "txt"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\reporte-verificacion-implementation.txt",
+      "mtime": "2026-03-04 02:32:57",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 813,
+      "tipo": "txt"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\REPORTE_REVISION_AGENTE_Y_CORRECCIONES.md",
+      "mtime": "2026-03-03 19:55:26",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 7278,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\RESPBALDO_Y_PROTECCION.md",
+      "mtime": "2026-03-01 20:15:32",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3409,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\REUSAR_PROXY_ADMIN.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 3452,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\REVISION_ERRORES_ACTUAL.md",
+      "mtime": "2026-03-02 04:20:29",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1279,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\REVISION_EXHAUSTIVA_SIN_OMISIONES.md",
+      "mtime": "2026-03-03 20:16:35",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 13581,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\REVISION_EXHAUSTIVA_VERIFICADA_WEB.md",
+      "mtime": "2026-03-03 10:53:29",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 9564,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\REVISION_MAINNET_VS_VERIFICACION.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 5819,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\SECURITY.md",
+      "mtime": "2026-03-03 03:02:35",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3603,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\SEGURIDAD.md",
+      "mtime": "2026-03-01 20:15:32",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1806,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\SI_DEPLOY_INFO_QUEDA_PLACEHOLDER.md",
+      "mtime": "2026-03-03 21:45:45",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 2281,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\SOLUCIONES_REALES.md",
+      "mtime": "2026-03-02 04:16:41",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3005,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\TOKEN_EN_BILLETERAS_RESUMEN.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 06:05:31",
+      "size": 3544,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\TRONBOX_INSTALACION.md",
+      "mtime": "2026-03-02 22:49:50",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1568,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\TRONSCAN_DATOS_PEGAR.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3528,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\TRONSCAN_PERFIL_TOKEN.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 5253,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\TRON_API_REFERENCIAS.md",
+      "mtime": "2026-03-03 10:53:29",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 5109,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\UPGRADEABLE.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3700,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\USDT_TRON_DATOS_EXACTOS.md",
+      "mtime": "2026-03-02 22:47:07",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 790,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\USDT_TRON_PANORAMA_MAINNET_Y_WALLETS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 9702,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\USDT_TRON_REFERENCIA.md",
+      "mtime": "2026-03-02 22:47:12",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 7557,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_AUTOMATIZADA.md",
+      "mtime": "2026-03-04 01:56:42",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 1766,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_DATOS_MAINNET.md",
+      "mtime": "2026-03-04 02:09:21",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 1965,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_FINAL.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 6960,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_FLUJOS_CONTRATOS.md",
+      "mtime": "2026-03-02 22:40:21",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 8539,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_FUNCIONAMIENTO_ESTABILIDAD.md",
+      "mtime": "2026-03-03 11:05:08",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 7550,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_IMPLEMENTATION_0.8.34.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 5534,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_IMPLEMENTATION_ALTERNATIVAS.md",
+      "mtime": "2026-03-05 13:52:01",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3694,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_OFICIAL_PLATAFORMAS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 9330,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_OFICIAL_TRON.md",
+      "mtime": "2026-03-04 03:02:24",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2941,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_OKLINK_PASOS.md",
+      "mtime": "2026-03-06 15:38:04",
+      "ctime": "2026-03-06 15:37:59",
+      "size": 1460,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_PARAMETROS_EXACTOS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 1979,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_POR_QUE_FALLABA.md",
+      "mtime": "2026-03-06 01:59:58",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3195,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_PRE_DESPLIEGUE.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4073,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_PRE_DESPLIEGUE_TIEMPO_REAL.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4941,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_SIN_GASTAR.md",
+      "mtime": "2026-03-03 21:11:02",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 1385,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICACION_TRONSCAN_PASOS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 4218,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICAR_AHORA.md",
+      "mtime": "2026-03-04 01:09:31",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 2483,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICAR_ANTES_DE_ACTUAR.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3020,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICAR_CONTRATO_ALTERNATIVAS.md",
+      "mtime": "2026-03-04 03:05:41",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 3116,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICAR_IMPLEMENTATION_0.8.30.md",
+      "mtime": "2026-03-05 15:08:31",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1333,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICAR_IMPLEMENTATION_Y_PROXYADMIN.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-05 03:36:18",
+      "size": 2624,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICAR_TYqRvxio_PASOS.md",
+      "mtime": "2026-03-06 19:35:05",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 1712,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICATION.md",
+      "mtime": "2026-03-04 01:09:31",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 4394,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VERIFICATION_blockchain_trc20-token.md",
+      "mtime": "2026-03-06 19:36:39",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 2459,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\VITACORA.md",
+      "mtime": "2026-03-06 19:36:39",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 8280,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\WALLET_ADAPTER_OFICIAL.md",
+      "mtime": "2026-03-06 19:36:39",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 4464,
+      "tipo": "md"
+    },
+    {
+      "ruta": "E:\\workspace-unificado\\docs\\vitacora\\trc20-token\\WALLET_DISPLAY.md",
+      "mtime": "2026-03-06 19:36:39",
+      "ctime": "2026-03-06 19:34:24",
+      "size": 8079,
+      "tipo": "md"
+    }
+  ],
+  "resumen": {
+    "total_archivos": 189,
+    "tamano_total_bytes": 2170578,
+    "tamano_total_kb": 2119.71,
+    "fecha_mtime_mas_antigua": "2026-02-01 01:59:53",
+    "fecha_mtime_mas_reciente": "2026-03-06 19:39:20",
+    "fecha_ctime_mas_antigua": "2026-03-05 03:36:11",
+    "fecha_ctime_mas_reciente": "2026-03-06 19:36:00",
+    "distribucion_por_carpeta": {
+      "trc20-token": 138,
+      "solana": 26,
+      "(raíz)": 13,
+      "docs-origen": 8,
+      "apps": 2,
+      "blockchain": 2
+    },
+    "distribucion_por_tipo": {
+      "md": 177,
+      "txt": 10,
+      "json": 1,
+      "log": 1
+    }
+  }
+}

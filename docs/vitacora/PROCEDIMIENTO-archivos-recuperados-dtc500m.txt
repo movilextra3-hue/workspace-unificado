@@ -1,0 +1,153 @@
+================================================================================
+PROCEDIMIENTO PARA TRABAJAR SOBRE ARCHIVOS RECUPERADOS
+Ruta: D:\Recovered\dtc500m(F)\Archivos perdidos\Borrado
+================================================================================
+
+Orden: de lo más fácil a lo más complicado. Todas las operaciones son de
+LECTURA (no modifican ni dañan los archivos).
+
+
+--------------------------------------------------------------------------------
+NIVEL 1 — MUY FÁCIL (lectura directa)
+--------------------------------------------------------------------------------
+
+1.1  LEER bootex.log
+     - Tipo: texto plano / log de arranque
+     - Tamaño: 8 KB
+     - Acción: Get-Content o Read del archivo
+     - Resultado: texto legible inmediato
+     - Riesgo: ninguno
+
+
+--------------------------------------------------------------------------------
+NIVEL 2 — FÁCIL (archivos estándar reconocibles)
+--------------------------------------------------------------------------------
+
+2.1  VER / ANALIZAR Captura de pantalla 2023-08-21 161143.png
+     - Tipo: imagen PNG
+     - Tamaño: 377 KB
+     - Acción: Read (herramienta soporta PNG) o verificación de cabecera
+     - Resultado: visualización o confirmación de integridad
+     - Riesgo: ninguno
+
+2.2  COMPARAR las tres versiones de la captura
+     - Original: Captura de pantalla 2023-08-21 161143.png
+     - Temp:    Captura de pantalla 2023-08-21 161143.png.~tmp (64 KB)
+     - Recup:   Captura...png~RFc89c4ed.TMP (377 KB)
+     - Acción: comparar tamaños, cabeceras, primeros bytes
+     - Resultado: saber qué versión está más completa o corrupta
+     - Riesgo: ninguno
+
+
+--------------------------------------------------------------------------------
+NIVEL 3 — MODERADO (archivos binarios con contenido legible)
+--------------------------------------------------------------------------------
+
+3.1  EXTRAER CADENAS DE TEXTO de .dtc500m.swp
+     - Tipo: archivo de intercambio (swap)
+     - Tamaño: 176 KB
+     - Acción: buscar secuencias de bytes ASCII/UTF-8 (strings)
+     - Herramienta: [System.IO.File]::ReadAllBytes + filtro por rangos
+     - Resultado: fragmentos de texto recuperables (rutas, nombres, datos)
+     - Riesgo: ninguno (solo lectura)
+
+
+--------------------------------------------------------------------------------
+NIVEL 4 — AVANZADO (archivos multimedia / binarios complejos)
+--------------------------------------------------------------------------------
+
+4.1  VERIFICAR INTEGRIDAD de Multimedia1.mp4
+     - Tipo: vídeo MP4
+     - Tamaño: ~14,3 MB
+     - Acción: leer cabecera (ftyp, moov, mdat), verificar firma del contenedor
+     - Resultado: saber si el archivo está corrupto o si puede reproducirse
+     - Riesgo: ninguno
+
+4.2  EXTRAER METADATOS del MP4
+     - Acción: leer atoms/boxes del MP4 (duración, codec, resolución si existen)
+     - Resultado: información técnica sin reproducir el vídeo
+     - Riesgo: ninguno
+
+
+--------------------------------------------------------------------------------
+NIVEL 5 — COMPLEJO (análisis forense o recuperación avanzada)
+--------------------------------------------------------------------------------
+
+5.1  ANÁLISIS HEX DETALLADO de .dtc500m.swp
+     - Acción: mapear estructuras internas del swap (páginas, bloques)
+     - Resultado: intentar reconstruir fragmentos de documentos/editores
+     - Requiere: conocer formato swap del software (dtc500m)
+
+5.2  RECONSTRUIR imagen PNG desde .~tmp o .TMP si la original está corrupta
+     - Acción: comparar bytes, identificar fragmentos válidos, posible merge
+     - Resultado: PNG reparado o parcialmente legible
+     - Requiere: conocimiento del formato PNG (chunks IHDR, IDAT, IEND)
+
+5.3  REPARAR MP4 si está truncado o con headers dañados
+     - Acción: analizar estructura, reescribir headers si es posible
+     - Resultado: vídeo reproducible
+     - Requiere: herramientas específicas (ffmpeg, etc.) y conocimiento MP4
+
+
+--------------------------------------------------------------------------------
+RESUMEN DE ORDEN RECOMENDADO
+--------------------------------------------------------------------------------
+
+ 1. bootex.log                          ← Empezar aquí
+ 2. Captura de pantalla...png           ← Verificar que abre
+ 3. Comparar 3 versiones de la captura
+ 4. Extraer strings de .dtc500m.swp
+ 5. Verificar integridad Multimedia1.mp4
+ 6. Extraer metadatos MP4
+ 7. Análisis forense swap (si hace falta)
+ 8. Reconstruir/reparar PNG (si hace falta)
+ 9. Reparar MP4 (si hace falta)
+
+
+--------------------------------------------------------------------------------
+ARCHIVOS Y UBICACIÓN
+--------------------------------------------------------------------------------
+
+D:\Recovered\dtc500m(F)\Archivos perdidos\Borrado\
+├── .dtc500m.swp
+├── bootex.log
+├── Captura de pantalla 2023-08-21 161143.png
+├── Captura de pantalla 2023-08-21 161143.png.~tmp
+├── Captura de pantalla 2023-08-21 161143.png~RFc89c4ed.TMP
+└── Multimedia1.mp4
+
+================================================================================
+EJECUCIÓN REALIZADA — 2026-03-08
+================================================================================
+
+Nivel 1 (bootex.log):
+  - Estado: SIN DATOS RECUPERABLES
+  - 8192 bytes, 0% no-cero (archivo completamente borrado/sobrescrito)
+  - Conclusión: vacío o zero-filled
+
+Nivel 2 (PNG y comparación):
+  - Las 3 versiones (original, .~tmp, .TMP): cabeceras 00 00 00 00...
+  - PNG válido: NO en ninguna (falta firma 89 50 4E 47 0D 0A 1A 0A)
+  - Conclusión: imágenes borradas o datos no recuperados correctamente
+
+Nivel 3 (.dtc500m.swp):
+  - Estado: ÚNICO ARCHIVO CON DATOS
+  - 180224 bytes, 99.62% no-cero
+  - Contenido: datos encriptados/comprimidos (formato propietario)
+  - No se encontraron rutas, URLs ni nombres de archivo legibles
+  - Bytes iniciales: 6B C5 83 C3 B1 51... (no es texto plano)
+  - Posible: swap de dispositivo dtc500m (cable transferencia datos 500MB)
+
+Nivel 4 (Multimedia1.mp4):
+  - Estado: SIN DATOS RECUPERABLES
+  - 15040018 bytes (14.34 MB), 0% no-cero
+  - Cabecera: todos zeros (archivo borrado/sobrescrito)
+  - Conclusión: vídeo no recuperable
+
+RESUMEN: De 6 archivos, solo .dtc500m.swp contiene datos; el contenido
+aparece en formato propietario/encriptado. bootex.log, las 3 PNG y el MP4
+están vacíos (zero-filled).
+
+================================================================================
+Generado: 2026-03-08
+================================================================================

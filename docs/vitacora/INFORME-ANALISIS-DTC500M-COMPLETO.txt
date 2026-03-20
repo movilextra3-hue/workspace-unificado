@@ -1,0 +1,192 @@
+================================================================================
+INFORME-ANALISIS-DTC500M-COMPLETO — Chat 2026-03-09 (sin omisiones)
+================================================================================
+
+1. OBJETO Y ALCANCE
+-------------------
+Informe integral de todo el análisis realizado sobre archivos F:\dtc500m, E:\Binary Viewer, D:\Recovered e instructivo de transferencia. Solo hechos verificables; inferencias marcadas explícitamente.
+
+--------------------------------------------------------------------------------
+
+2. ARCHIVOS ANALIZADOS
+----------------------
+
+2.1 E:\Binary Viewer\Multimedia1.mp4
+- Ruta: E:\Binary Viewer\Multimedia1.mp4
+- Tamaño: 15.040.018 bytes
+- Firma inicial (hex): 00-00-00-18-66-74-79-70-6D-70-34-32 (ftyp mp42)
+- Codec video: H.264, 1600×900, 10 fps
+- Codec audio: AAC, 44.1 kHz, mono
+- Duración: 44,605 segundos
+- creation_time (metadato): 2023-08-21T21:07:05.000000Z
+- Contenido visual (extracción frames): Escritorio Windows 11, Binary Viewer abierto, mensaje "No file is open"
+
+Hecho verificado: El video muestra Binary Viewer en estado inicial durante toda la grabación.
+
+2.2 F:\dtc500m
+- Ruta: F:\dtc500m
+- Tamaño: 453.949.521.920 bytes (422,77 GiB)
+- Sin extensión: Sí
+- Primeros bytes (hex): 8B-DF-3B-AF-28-C5-B5-C4-05-37-E6-15-26-9B-12-9F...
+- Entropía (muestra 64 bytes): 5,72–5,88 bits/byte
+- Entropía (muestra 16 KB): 7,99 bits/byte
+- Fecha creación: 20/08/2023 21:37:08
+- Fecha modificación: 20/08/2023 23:26:28
+- Búsqueda texto "HSBC", "DAES", "DTC", "500000000": No encontrado
+- Búsqueda cabeceras ZIP, PDF: No encontrado
+- Alternate Data Streams: Ninguno
+
+Hecho verificado: Contenido de alta entropía, sin texto legible ni firmas de formato estándar.
+
+2.3 E:\Binary Viewer\Captura de pantalla 2023-08-21 161143.png
+- Tamaño: 385.855 bytes
+- Firma PNG: 89-50-4E-47-0D-0A-1A-0A (válida)
+- SHA256: 6688023995D1864827200A4A20908B1A621E9CFEA1F43B6F4A2D9C97AA6C9349
+- Creación: 21/08/2023 15:11:49
+- Última modificación: 14/12/2025 19:36:59
+- Contenido: Mensaje bancario, fondo azul con marcas de agua HSBC
+
+Campos visibles: DATE 21/08/2023, TIME 11:10 AM, SERVICE DAES/DTC, BANK NAME HSBC, BANK ADDRESS HSBC Trinkaus und Burkhardt AG Düsseldorf Germany, ACCOUNT NUMBER /794521741, SWIFT /TUBDDEDD502, TYPE CODE /DTC, $CRED$ CODE /UYDEDKJFH-345FKVG-3EDF, AMOUNT €500.000.000, AUTHORIZATION TO VERIFY, y otros campos A2–A23.
+
+Hecho verificado: La imagen contiene un mensaje estructurado con datos bancarios.
+
+2.4 E:\Binary Viewer\decmap.txt
+- Tamaño archivo: 529.054.720 bytes
+- Bytes binarios representados: 201.544.653
+- Formato: Offset (10 hex) + 8 palabras de 4 bytes cada una
+- Primera línea: 0000000000 8BDF3BAF 28C5B5C4 0537E615 269B129F...
+- Offset final: 0x000C0353C0 (201.544.640)
+- Creación: 08/03/2026 18:34:57
+- Modificación: 08/03/2026 18:45:44
+
+Hecho verificado: Formato hex dump compatible con BytesPerLine=32 de Binary Viewer.
+
+2.5 E:\Binary Viewer\ProXoft\...\Clipboard.bin
+- Tamaño: 23.532.666.880 bytes
+- Primeros 32 bytes: 8BDF3BAF28C5B5C40537E615269B129F3F39879745A3DC61D01436554D78E9A2
+- Coincidencia con dtc500m: Primeros 10.485.760 bytes idénticos
+
+Hecho verificado: Inicio de Clipboard.bin coincide byte a byte con dtc500m hasta 10 MB.
+
+2.6 E:\Binary Viewer\ramdom
+- Tamaño: 102.400 bytes
+- Primeros 32 bytes: D520FADD13DB3C81F1B2C6C369B3845633C25976EE250F4F4CA3FFCAA34AF3E6
+- Entropía (1 KB): 7,81 bits/byte
+- Coincidencia con dtc500m (primeros 32 bytes): No
+- Búsqueda en decmap: Secuencia D520FADD no encontrada
+- Búsqueda en dtc500m (primeros 500 MB): No encontrada
+- Información del usuario: Indicó que se extrajo de Binary Viewer del archivo
+
+Hecho verificado: ramdom no coincide con inicio de dtc500m; su secuencia no aparece en los primeros 500 MB ni en decmap.
+
+2.7 Binary Viewer_UserSettings.xml
+- MRU: F:\dtc500m
+- UsageCount: 3
+- BytesPerLine: 32
+
+Hecho verificado: F:\dtc500m aparece en archivos recientes de Binary Viewer.
+
+2.8 Binary Viewer_Log20260308.txt
+- Open File: F:\dtc500m size: 0 — 2026.03.08 17:43:51
+- Open File: F:\dtc500m size: 0 — 2026.03.08 20:11:22
+
+Hecho verificado: El log registra la apertura de F:\dtc500m en esas fechas.
+
+--------------------------------------------------------------------------------
+
+3. RELACIONES VERIFICADAS (bytes o logs)
+---------------------------------------
+- decmap.txt ↔ dtc500m: Comparación byte a byte offsets 0, 256, 1000, 3200 → Idénticos
+- Clipboard.bin ↔ dtc500m: Primeros 10 MB → Idénticos
+- Binary Viewer ↔ dtc500m: MRU + Log → F:\dtc500m abierto por Binary Viewer
+
+--------------------------------------------------------------------------------
+
+4. UNIDAD F: — CONTENIDO
+------------------------
+- dtc500m: Archivo, 453.949.521.920 bytes
+- bootTel.dat: 112 bytes, contiene "ntfs"
+- found.000: Chkdsk; solo desktop.ini en subcarpetas
+- $RECYCLE.BIN: Con admin: solo desktop.ini; sin archivos $I/$R
+- System Volume Information: Acceso denegado sin admin
+- Etiqueta: dtc500m, NTFS, ~480 GB total, ~25 GB libres
+
+Hecho verificado: En F: no hay archivos con nombres "Credenciales", "Video", "Recurso" ni "Multimedia" aparte de dtc500m.
+
+--------------------------------------------------------------------------------
+
+5. D:\RECOVERED — CONTENIDO
+---------------------------
+5.1 dtc500m(F)\Archivos perdidos\Borrado:
+- .dtc500m.swp: 180.224 bytes, primeros 32 bytes distintos de dtc500m
+- bootex.log: 8.192 bytes, contenido mayormente ceros
+- Captura PNG: cabecera 00-00-00... (no PNG válido)
+- Multimedia1.mp4: mismo tamaño que E:; hash distinto
+
+Hashes Multimedia1.mp4:
+- D:\Recovered: 74D7811A77A33D437E1A94C143D302A829328DAD92D072A35F8FF6EF3EA43558
+- E:\Binary Viewer: 49E7BF1B8C0C2B4457F536328E6D7A44BF3597B6F6CBD827C5ECDDDF8E87629D
+
+Hecho verificado: Los archivos recuperados en D:\Recovered están dañados o difieren del original en E:\.
+
+5.2 Partición Perdida 1(NTFS): Windows RE, winre.wim, boot.sdi, Reload.xml, etc. Contenido de sistema.
+
+--------------------------------------------------------------------------------
+
+6. INSTRUCTIVO — CONTENIDO TEXTUAL
+----------------------------------
+Requerimientos: Disco ≥250 MB, Binary Viewer, FileZilla, TeamViewer.
+Proceso: Conectar con TeamViewer; en disco origen hay tres archivos: Recurso, Video, Credenciales; transferir Recurso con FileZilla (solo transferencia, no copiar); verificar con Binary Viewer (no ceros ni pantalla amarilla); si OK, borrar en origen; agregar archivo al Core del Banco; el Core muestra valores contables y monetarios para transferir a cuentas acordadas.
+Menciones: Archivo generado con Daes, protocolo FTP.
+
+Hecho verificado: El instructivo describe tres archivos en el disco origen.
+
+--------------------------------------------------------------------------------
+
+7. CRONOLOGÍA
+-------------
+20/08/2023 21:37 - dtc500m creación
+20/08/2023 23:26 - dtc500m modificación
+21/08/2023 15:08 - Multimedia1.mp4 creación
+21/08/2023 15:11 - Captura PNG creación
+14/12/2025 - Captura PNG modificación
+08/03/2026 17:43 - Binary Viewer abre F:\dtc500m
+08/03/2026 18:30 - ramdom creación
+08/03/2026 18:34 - decmap.txt creación
+08/03/2026 18:45 - decmap.txt modificación
+08/03/2026 20:11 - Binary Viewer abre F:\dtc500m
+
+--------------------------------------------------------------------------------
+
+8. INFORMACIÓN NO VERIFICADA / INFERENCIAS EXCLUIDAS
+----------------------------------------------------
+No se incluyen como hechos: que dtc500m sea el "Recurso" del instructivo; que Multimedia1.mp4 sea el "Video"; que el campo $CRED$ sea el archivo "Credenciales"; que F: sea el "disco origen"; que el flujo del instructivo corresponda a estos archivos.
+
+--------------------------------------------------------------------------------
+
+9. RESUMEN DE HECHOS VERIFICADOS
+---------------------------------
+1. decmap.txt es un hex dump de dtc500m (bytes idénticos).
+2. Clipboard.bin comienza con 10 MB idénticos a dtc500m.
+3. Binary Viewer abrió F:\dtc500m (MRU y Log).
+4. F: contiene únicamente dtc500m como archivo de datos relevante.
+5. En F: y E:\Binary Viewer no existe ningún archivo llamado "Credenciales".
+6. Multimedia1.mp4 está en E:\Binary Viewer.
+7. La captura PNG contiene un mensaje con datos bancarios y el campo $CRED$ CODE.
+8. Los archivos en D:\Recovered están corruptos o difieren de los de E:\.
+9. ramdom no coincide con el inicio de dtc500m; su contenido no se localizó en los primeros 500 MB.
+
+--------------------------------------------------------------------------------
+
+10. CONTENIDO ADICIONAL DEL CHAT (REFERENCIAS)
+----------------------------------------------
+Binary Viewer: Herramienta para ver bytes crudos. Usada según instructivo para verificar integridad.
+Apertura F:\dtc500m: File → Open en Binary Viewer.
+Core bancario: Sistema central; recibe archivo, descifra, valida, ejecuta.
+Requisitos ejecución (según instructivo): Computador, Binary Viewer, FileZilla, TeamViewer, códigos, Recurso, Credenciales, acceso Core, cuentas acordadas.
+Acceso F: con admin: Papelera solo desktop.ini; sin archivos recuperables.
+Distinción verificado vs supuesto: Solo afirmar lo comprobado; marcar inferencias.
+
+================================================================================
+Fin del informe
+================================================================================

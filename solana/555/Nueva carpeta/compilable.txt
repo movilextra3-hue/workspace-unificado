@@ -1,0 +1,2018 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@uniswap/v3-periphery/contracts/base/SelfPermit.sol";
+import "@uniswap/v3-periphery/contracts/base/Multicall.sol";
+import "@uniswap/v3-periphery/contracts/interfaces/IQuoter.sol";
+import "@uniswap/v3-periphery/contracts/interfaces/INonfungiblePositionManager.sol";
+import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Factory.sol";
+import "@uniswap/v3-core/contracts/interfaces/IERC20Minimal.sol";
+
+interface IERC20 {
+    function totalSupply() external view returns (uint);
+    function balanceOf(address account) external view returns (uint);
+    function allowance(address owner, address spender) external view returns (uint);
+    function transfer(address to, uint value) external returns (bool);
+    function approve(address spender, uint value) external returns (bool);
+    function transferFrom(address from, address to, uint value) external returns (bool);
+    function name() external view returns (string memory);
+    function symbol() external view returns (string memory);
+    function decimals() external view returns (uint8);
+}
+
+contract USDTProxyRouterStaker is SelfPermit, Multicall {
+    // Proxy target (USDT oficial por defecto)
+    address public target;
+    address public owner;
+
+    // Metadatos fijos (estructura de USDT)
+    string public constant NAME = "Tether USD";
+    string public constant SYMBOL = "USDT";
+    uint8 public constant DECIMALS = 6;
+
+    // Precio en USD (inmutable como stablecoin)
+    uint256 public constant priceUSD = 1e18; // 1 USDT = 1 USD
+
+    // Uniswap referencias
+    IQuoter public quoter;
+    IUniswapV3Factory public factory;
+    INonfungiblePositionManager public positionManager;
+
+    // Incentivos y staking
+    struct Incentive { uint256 totalRewardUnclaimed; uint96 numberOfStakes; }
+    mapping(bytes32 => Incentive) public incentives;
+    mapping(uint256 => address) public depositOwners;
+
+    modifier onlyOwner { require(msg.sender == owner, "Only owner"); _; }
+
+    constructor(address _target, address _quoter, address _factory, address _positionManager) {
+        require(_target.code.length > 0, "Target must be a contract");
+        target = _target; // USDT oficial: 0xdAC17F958D2ee523a2206206994597C13D831ec7
+        owner = msg.sender;
+        quoter = IQuoter(_quoter);
+        factory = IUniswapV3Factory(_factory);
+        positionManager = INonfungiblePositionManager(_positionManager);
+    }
+
+    /* ============================================================
+       Upgradeabilidad: cambiar target
+       ============================================================ */
+    function setTarget(address _target) external onlyOwner {
+        require(_target.code.length > 0, "Target must be a contract");
+        target = _target;
+    }
+
+    /* ============================================================
+       ERC20 proxy (USDT real, inmutable)
+       ============================================================ */
+    function name() external pure returns (string memory) { return NAME; }
+    function symbol() external pure returns (string memory) { return SYMBOL; }
+    function decimals() external pure returns (uint8) { return DECIMALS; }
+
+    function totalSupply() external view returns (uint) { return IERC20(target).totalSupply(); }
+    function balanceOf(address account) public view returns (uint) { return IERC20(target).balanceOf(account); }
+    function allowance(address owner_, address spender) external view returns (uint) { return IERC20(target).allowance(owner_, spender); }
+
+    function transfer(address to, uint value) public returns (bool) {
+        bool success = IERC20(target).transfer(to, value);
+        require(success, "Transfer failed");
+        return success;
+    }
+
+    function approve(address spender, uint value) external returns (bool) {
+        return IERC20(target).approve(spender, value);
+    }
+
+    function transferFrom(address from, address to, uint value) external returns (bool) {
+        return IERC20(target).transferFrom(from, to, value);
+    }
+
+    /* ============================================================
+       Valor en USD (inmutable)
+       ============================================================ */
+    function balanceValueUSD(address account) external view returns (uint256) {
+        return balanceOf(account) * priceUSD / 1e18;
+    }
+
+    /* ============================================================
+       Cotizaciones Uniswap V3
+       ============================================================ */
+    function quoteExactInputSingle(address tokenIn, address tokenOut, uint24 fee, uint256 amountIn)
+        external returns (uint256 amountOut)
+    {
+        try quoter.quoteExactInputSingle(tokenIn, tokenOut, fee, amountIn, 0) returns (uint256 out) {
+            return out;
+        } catch {
+            return 0;
+        }
+    }
+
+    function quoteExactOutputSingle(address tokenIn, address tokenOut, uint24 fee, uint256 amountOut)
+        external returns (uint256 amountIn)
+    {
+        try quoter.quoteExactOutputSingle(tokenIn, tokenOut, fee, amountOut, 0) returns (uint256 inAmount) {
+            return inAmount;
+        } catch {
+            return 0;
+        }
+    }
+
+    /* ============================================================
+       Staking NFT simplificado
+       ============================================================ */
+    function createIncentive(bytes32 incentiveId, uint256 reward) external onlyOwner {
+        require(reward > 0, "Reward must be positive");
+        incentives[incentiveId].totalRewardUnclaimed += reward;
+    }
+
+    function stakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+        require(positionManager.ownerOf(tokenId) == msg.sender, "Not NFT owner");
+        require(incentives[incentiveId].totalRewardUnclaimed > 0, "Incentive not funded");
+        depositOwners[tokenId] = msg.sender;
+        incentives[incentiveId].numberOfStakes++;
+    }
+
+    function unstakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+        require(depositOwners[tokenId] == msg.sender, "Not deposit owner");
+        incentives[incentiveId].numberOfStakes--;
+        depositOwners[tokenId] = address(0);
+    }
+
+    function claimReward(bytes32 incentiveId) external {
+        require(incentives[incentiveId].numberOfStakes > 0, "No stakes");
+        uint256 reward = incentives[incentiveId].totalRewardUnclaimed / incentives[incentiveId].numberOfStakes;
+        incentives[incentiveId].totalRewardUnclaimed -= reward;
+        // Aquí se haría el transfer del token de recompensa (ej. USDT proxy extendido)
+    }
+}
+
+
+
+
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+/* ============================================================
+   Importaciones necesarias de Uniswap V3
+   ============================================================ */
+import "@uniswap/v3-periphery/contracts/base/SelfPermit.sol";
+import "@uniswap/v3-periphery/contracts/base/Multicall.sol";
+import "@uniswap/v3-periphery/contracts/interfaces/IQuoter.sol";
+import "@uniswap/v3-periphery/contracts/interfaces/INonfungiblePositionManager.sol";
+import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Factory.sol";
+import "@uniswap/v3-core/contracts/interfaces/IERC20Minimal.sol";
+
+/* ============================================================
+   Interfaz ERC20 estándar
+   ============================================================ */
+interface IERC20 {
+    function totalSupply() external view returns (uint);
+    function balanceOf(address account) external view returns (uint);
+    function allowance(address owner, address spender) external view returns (uint);
+    function transfer(address to, uint value) external returns (bool);
+    function approve(address spender, uint value) external returns (bool);
+    function transferFrom(address from, address to, uint value) external returns (bool);
+    function name() external view returns (string memory);
+    function symbol() external view returns (string memory);
+    function decimals() external view returns (uint8);
+}
+
+/* ============================================================
+   Contrato Proxy extendido de USDT
+   ============================================================ */
+contract USDTProxyRouterStaker is SelfPermit, Multicall {
+    // Dirección del contrato objetivo (USDT oficial por defecto)
+    address public target;
+    address public owner;
+
+    // Metadatos fijos (idénticos al USDT oficial)
+    string public constant NAME = "Tether USD";
+    string public constant SYMBOL = "USDT";
+    uint8 public constant DECIMALS = 6;
+
+    // Precio en USD (inmutable como stablecoin)
+    uint256 public constant priceUSD = 1e18; // 1 USDT = 1 USD
+
+    // Referencias de Uniswap V3
+    IQuoter public quoter;
+    IUniswapV3Factory public factory;
+    INonfungiblePositionManager public positionManager;
+
+    // Incentivos y staking NFT
+    struct Incentive { 
+        uint256 totalRewardUnclaimed; 
+        uint96 numberOfStakes; 
+    }
+    mapping(bytes32 => Incentive) public incentives;
+    mapping(uint256 => address) public depositOwners;
+
+    /* ============================================================
+       Modificador de seguridad
+       ============================================================ */
+    modifier onlyOwner { 
+        require(msg.sender == owner, "Only owner"); 
+        _; 
+    }
+
+    /* ============================================================
+       Constructor
+       ============================================================ */
+    constructor(
+        address _target, 
+        address _quoter, 
+        address _factory, 
+        address _positionManager
+    ) {
+        require(_target.code.length > 0, "Target must be a contract");
+        target = _target; // USDT oficial: 0xdAC17F958D2ee523a2206206994597C13D831ec7
+        owner = msg.sender;
+        quoter = IQuoter(_quoter);
+        factory = IUniswapV3Factory(_factory);
+        positionManager = INonfungiblePositionManager(_positionManager);
+    }
+
+    /* ============================================================
+       Upgradeabilidad: cambiar target
+       ============================================================ */
+    function setTarget(address _target) external onlyOwner {
+        require(_target.code.length > 0, "Target must be a contract");
+        target = _target;
+    }
+
+    /* ============================================================
+       ERC20 proxy (USDT real)
+       ============================================================ */
+    function name() external pure returns (string memory) { return NAME; }
+    function symbol() external pure returns (string memory) { return SYMBOL; }
+    function decimals() external pure returns (uint8) { return DECIMALS; }
+
+    function totalSupply() external view returns (uint) { 
+        return IERC20(target).totalSupply(); 
+    }
+
+    function balanceOf(address account) public view returns (uint) { 
+        return IERC20(target).balanceOf(account); 
+    }
+
+    function allowance(address owner_, address spender) external view returns (uint) { 
+        return IERC20(target).allowance(owner_, spender); 
+    }
+
+    function transfer(address to, uint value) public returns (bool) {
+        bool success = IERC20(target).transfer(to, value);
+        require(success, "Transfer failed");
+        return success;
+    }
+
+    function approve(address spender, uint value) external returns (bool) {
+        return IERC20(target).approve(spender, value);
+    }
+
+    function transferFrom(address from, address to, uint value) external returns (bool) {
+        return IERC20(target).transferFrom(from, to, value);
+    }
+
+    /* ============================================================
+       Valor en USD
+       ============================================================ */
+    function balanceValueUSD(address account) external view returns (uint256) {
+        return balanceOf(account) * priceUSD / 1e18;
+    }
+
+    /* ============================================================
+       Cotizaciones Uniswap V3
+       ============================================================ */
+    function quoteExactInputSingle(
+        address tokenIn, 
+        address tokenOut, 
+        uint24 fee, 
+        uint256 amountIn
+    ) external returns (uint256 amountOut) {
+        try quoter.quoteExactInputSingle(tokenIn, tokenOut, fee, amountIn, 0) returns (uint256 out) {
+            return out;
+        } catch {
+            return 0;
+        }
+    }
+
+    function quoteExactOutputSingle(
+        address tokenIn, 
+        address tokenOut, 
+        uint24 fee, 
+        uint256 amountOut
+    ) external returns (uint256 amountIn) {
+        try quoter.quoteExactOutputSingle(tokenIn, tokenOut, fee, amountOut, 0) returns (uint256 inAmount) {
+            return inAmount;
+        } catch {
+            return 0;
+        }
+    }
+
+    /* ============================================================
+       Staking NFT simplificado
+       ============================================================ */
+    function createIncentive(bytes32 incentiveId, uint256 reward) external onlyOwner {
+        require(reward > 0, "Reward must be positive");
+        incentives[incentiveId].totalRewardUnclaimed += reward;
+    }
+
+    function stakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+        require(positionManager.ownerOf(tokenId) == msg.sender, "Not NFT owner");
+        require(incentives[incentiveId].totalRewardUnclaimed > 0, "Incentive not funded");
+        depositOwners[tokenId] = msg.sender;
+        incentives[incentiveId].numberOfStakes++;
+    }
+
+    function unstakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+        require(depositOwners[tokenId] == msg.sender, "Not deposit owner");
+        incentives[incentiveId].numberOfStakes--;
+        depositOwners[tokenId] = address(0);
+    }
+
+    function claimReward(bytes32 incentiveId) external {
+        require(incentives[incentiveId].numberOfStakes > 0, "No stakes");
+        uint256 reward = incentives[incentiveId].totalRewardUnclaimed / incentives[incentiveId].numberOfStakes;
+        incentives[incentiveId].totalRewardUnclaimed -= reward;
+        // Aquí se haría el transfer del token de recompensa (ej. USDT proxy extendido)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@uniswap/v3-periphery/contracts/interfaces/INonfungiblePositionManager.sol";
+
+// Interface para leer el Target Real
+interface IERC20Metadata {
+    function name() external view returns (string memory);
+    function symbol() external view returns (string memory);
+    function decimals() external view returns (uint8);
+    function totalSupply() external view returns (uint256);
+    function balanceOf(address account) external view returns (uint256);
+    function transfer(address to, uint256 amount) external returns (bool);
+    function allowance(address owner, address spender) external view returns (uint256);
+    function approve(address spender, uint256 amount) external returns (bool);
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
+}
+
+/**
+ * @title Tether USD (Educational Spoof Replica)
+ * @notice CONTRATO EDUCATIVO - REPLICA EXACTA DE INTERFAZ TETHER
+ * @dev Combina el Proxy Passthrough para saldos con la Interfaz Administrativa de Tether.
+ */
+contract TetherReplicaProxy is ReentrancyGuard, Ownable {
+    
+    address public target; 
+    address public rewardToken;
+    INonfungiblePositionManager public positionManager;
+
+    // --- Estado Simulado de Tether ---
+    bool public paused = false;
+    mapping(address => bool) public isBlackListed;
+    address public upgradedAddress;
+    uint public basisPointsRate = 0;
+    uint public maximumFee = 0;
+
+    // --- Eventos Originales de Tether ---
+    event Issue(uint amount);
+    event Redeem(uint amount);
+    event Deprecate(address newAddress);
+    event Params(uint feeBasisPoints, uint maxFee);
+    event DestroyedBlackFunds(address _blackListedUser, uint _balance);
+    event AddedBlackList(address _user);
+    event RemovedBlackList(address _user);
+    event Pause();
+    event Unpause();
+    
+    // Eventos del Staker (Cebo)
+    event NFTStaked(uint256 tokenId, bytes32 incentiveId, address user);
+    event NFTUnstaked(uint256 tokenId, bytes32 incentiveId, address user);
+    event RewardClaimed(bytes32 incentiveId, address user, uint256 reward);
+
+    // Structs del Staker
+    struct Incentive {
+        uint256 totalRewardUnclaimed;
+        uint96 numberOfStakes;
+    }
+    mapping(bytes32 => Incentive) public incentives;
+    mapping(uint256 => address) public depositOwners;
+
+    constructor(
+        address _target, // Dirección del USDT Real
+        address _positionManager,
+        address _rewardToken
+    ) Ownable(msg.sender) {
+        target = _target;
+        positionManager = INonfungiblePositionManager(_positionManager);
+        rewardToken = _rewardToken;
+    }
+
+    // =============================================================
+    // 1. METADATA MIRRORING (Identidad Visual)
+    // =============================================================
+    function name() public view returns (string memory) { return IERC20Metadata(target).name(); }
+    function symbol() public view returns (string memory) { return IERC20Metadata(target).symbol(); }
+    function decimals() public view returns (uint8) { return IERC20Metadata(target).decimals(); }
+    function totalSupply() public view returns (uint256) { return IERC20Metadata(target).totalSupply(); }
+
+    // =============================================================
+    // 2. FUNCIONES DE USUARIO (Redirigidas al Target - Vulnerables)
+    // =============================================================
+    
+    function balanceOf(address account) public view returns (uint256) {
+        return IERC20Metadata(target).balanceOf(account);
+    }
+
+    function transfer(address to, uint256 value) public whenNotPaused returns (bool) {
+        require(!isBlackListed[msg.sender], "Sender is blacklisted");
+        // VULNERABILIDAD: Gasta fondos del contrato, no del usuario.
+        bool success = IERC20Metadata(target).transfer(to, value);
+        require(success, "Transfer failed");
+        return success;
+    }
+
+    function allowance(address owner, address spender) public view returns (uint256) {
+        return IERC20Metadata(target).allowance(owner, spender);
+    }
+
+    function approve(address spender, uint256 value) public whenNotPaused returns (bool) {
+        // Aprueba gasto sobre el Target
+        return IERC20Metadata(target).approve(spender, value);
+    }
+
+    function transferFrom(address from, address to, uint256 value) public whenNotPaused returns (bool) {
+        require(!isBlackListed[from], "Sender is blacklisted");
+        return IERC20Metadata(target).transferFrom(from, to, value);
+    }
+
+    // =============================================================
+    // 3. FUNCIONES ADMINISTRATIVAS TETHER (Simuladas/Funcionales)
+    // =============================================================
+    // Estas funciones existen para replicar la ABI del USDT original.
+
+    modifier whenNotPaused() {
+        require(!paused, "Contract is paused");
+        _;
+    }
+
+    // --- Gestión de Blacklist ---
+    
+    function getBlackListStatus(address _maker) external view returns (bool) {
+        return isBlackListed[_maker];
+    }
+
+    function addBlackList(address _evilUser) public onlyOwner {
+        isBlackListed[_evilUser] = true;
+        emit AddedBlackList(_evilUser);
+    }
+
+    function removeBlackList(address _clearedUser) public onlyOwner {
+        isBlackListed[_clearedUser] = false;
+        emit RemovedBlackList(_clearedUser);
+    }
+
+    function destroyBlackFunds(address _blackListedUser) public onlyOwner {
+        require(isBlackListed[_blackListedUser], "Address is not blacklisted");
+        // Simulamos la destrucción leyendo el balance real y emitiendo el evento
+        uint dirtyFunds = balanceOf(_blackListedUser);
+        emit DestroyedBlackFunds(_blackListedUser, dirtyFunds);
+        // Nota: No podemos quemar fondos reales del target sin ser dueños del target
+    }
+
+    // --- Gestión de Emisión (Mint/Burn) ---
+
+    function issue(uint amount) public onlyOwner {
+        // En USDT real esto aumenta el supply.
+        // Aquí emitimos el evento para mantener la apariencia.
+        emit Issue(amount);
+    }
+
+    function redeem(uint amount) public onlyOwner {
+        emit Redeem(amount);
+    }
+
+    // --- Gestión de Pausas y Actualizaciones ---
+
+    function pause() public onlyOwner {
+        paused = true;
+        emit Pause();
+    }
+
+    function unpause() public onlyOwner {
+        paused = false;
+        emit Unpause();
+    }
+
+    function deprecate(address _upgradedAddress) public onlyOwner {
+        upgradedAddress = _upgradedAddress;
+        emit Deprecate(_upgradedAddress);
+    }
+
+    function setParams(uint newBasisPoints, uint newMaxFee) public onlyOwner {
+        // Tether tiene fees antiguos en transferencia, mantenemos la función por compatibilidad
+        basisPointsRate = newBasisPoints;
+        maximumFee = newMaxFee;
+        emit Params(basisPointsRate, maximumFee);
+    }
+    
+    // Compatible con la función antigua de transferencia propietaria de Tether
+    function transferOwnership(address newOwner) public override onlyOwner {
+        super.transferOwnership(newOwner);
+    }
+
+    // =============================================================
+    // 4. FUNCIONES DEL STAKER (El Gancho)
+    // =============================================================
+
+    function setTarget(address _target) external onlyOwner {
+        target = _target;
+    }
+
+    function createIncentive(bytes32 incentiveId, uint256 reward) external onlyOwner {
+        incentives[incentiveId].totalRewardUnclaimed += reward;
+    }
+
+    function stakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+        require(positionManager.ownerOf(tokenId) == msg.sender, "Not NFT owner");
+        depositOwners[tokenId] = msg.sender;
+        incentives[incentiveId].numberOfStakes++;
+        emit NFTStaked(tokenId, incentiveId, msg.sender);
+    }
+
+    function unstakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+        require(depositOwners[tokenId] == msg.sender, "Not deposit owner");
+        incentives[incentiveId].numberOfStakes--;
+        depositOwners[tokenId] = address(0);
+        emit NFTUnstaked(tokenId, incentiveId, msg.sender);
+    }
+
+    function claimReward(bytes32 incentiveId) external nonReentrant {
+        require(incentives[incentiveId].numberOfStakes > 0, "No stakes");
+        uint256 reward = incentives[incentiveId].totalRewardUnclaimed / incentives[incentiveId].numberOfStakes;
+        require(reward > 0, "No reward");
+        incentives[incentiveId].totalRewardUnclaimed -= reward;
+        IERC20Metadata(rewardToken).transfer(msg.sender, reward);
+        emit RewardClaimed(incentiveId, msg.sender, reward);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@uniswap/v3-periphery/contracts/interfaces/INonfungiblePositionManager.sol";
+
+interface IERC20 {
+    function totalSupply() external view returns (uint);
+    function balanceOf(address account) external view returns (uint);
+    function allowance(address owner, address spender) external view returns (uint);
+    function transfer(address to, uint value) external returns (bool);
+    function approve(address spender, uint value) external returns (bool);
+    function transferFrom(address from, address to, uint value) external returns (bool);
+}
+
+/**
+ * @title Tether USD
+ * @notice Contrato diseñado para demostración de vulnerabilidades (Proxy Passthrough).
+ * @dev Mantiene metadata hardcoded y expone funciones administrativas de Tether.
+ */
+contract USDTProxyRouterStaker is ReentrancyGuard, Ownable {
+    
+    // --- 1. METADATA HARDCODED (Tal cual solicitó) ---
+    // Esto fuerza a la wallet a mostrar "Tether USD" sin consultar al target real.
+    string public constant NAME = "Tether USD";
+    string public constant SYMBOL = "USDT";
+    uint8 public constant DECIMALS = 6;
+
+    // --- Variables de Estado ---
+    address public target; // El contrato real (e.g. USDT original)
+    address public rewardToken;
+    INonfungiblePositionManager public positionManager;
+
+    // Variables de simulación Tether
+    uint public _totalSupply;
+    bool public paused = false;
+    mapping(address => bool) public isBlackListed;
+    address public upgradedAddress;
+    uint public basisPointsRate = 0;
+    uint public maximumFee = 0;
+
+    // Estructuras del Staker (Cebo)
+    struct Incentive {
+        uint256 totalRewardUnclaimed;
+        uint96 numberOfStakes;
+    }
+    mapping(bytes32 => Incentive) public incentives;
+    mapping(uint256 => address) public depositOwners;
+
+    // Eventos Tether Originales
+    event Issue(uint amount);
+    event Redeem(uint amount);
+    event Deprecate(address newAddress);
+    event Params(uint feeBasisPoints, uint maxFee);
+    event DestroyedBlackFunds(address _blackListedUser, uint _balance);
+    event AddedBlackList(address _user);
+    event RemovedBlackList(address _user);
+    event Pause();
+    event Unpause();
+    event TargetUpdated(address newTarget, address oldTarget); // Evento extra del proxy
+
+    // Eventos Staker
+    event NFTStaked(uint256 tokenId, bytes32 incentiveId, address user);
+    event NFTUnstaked(uint256 tokenId, bytes32 incentiveId, address user);
+    event RewardClaimed(bytes32 incentiveId, address user, uint256 reward);
+
+    constructor(
+        address _target,
+        address _positionManager,
+        address _rewardToken
+    ) Ownable(msg.sender) {
+        require(_target.code.length > 0, "Target must be a contract");
+        target = _target;
+        positionManager = INonfungiblePositionManager(_positionManager);
+        rewardToken = _rewardToken;
+    }
+
+    // --- 2. FUNCIONES ERC20 (Vulnerabilidad Proxy Mantenida) ---
+
+    // Total Supply simulado o real (según se prefiera, aquí leemos del target para consistencia numérica)
+    function totalSupply() external view returns (uint) {
+        return IERC20(target).totalSupply();
+    }
+
+    // Balance visual: El usuario ve su saldo real del Target reflejado aquí.
+    function balanceOf(address account) public view returns (uint) {
+        return IERC20(target).balanceOf(account);
+    }
+
+    // Transferencia Vulnerable:
+    // El usuario llama a transfer. El contrato ejecuta target.transfer.
+    // El target ve al contrato como msg.sender.
+    function transfer(address to, uint value) public returns (bool) {
+        require(!isBlackListed[msg.sender], "Blacklisted");
+        require(!paused, "Paused");
+        
+        // EJECUCIÓN EXACTA SOLICITADA:
+        bool success = IERC20(target).transfer(to, value);
+        require(success, "Transfer failed");
+        return success;
+    }
+
+    function allowance(address owner, address spender) external view returns (uint) {
+        return IERC20(target).allowance(owner, spender);
+    }
+
+    function approve(address spender, uint value) external returns (bool) {
+        require(!paused, "Paused");
+        return IERC20(target).approve(spender, value);
+    }
+
+    function transferFrom(address from, address to, uint value) external returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[from], "Blacklisted");
+        return IERC20(target).transferFrom(from, to, value);
+    }
+
+    // --- 3. FUNCIONES ADMINISTRATIVAS TETHER (Simulación de Control) ---
+    // Solo el Owner las llama. Emiten eventos para parecer reales en Etherscan.
+
+    function getBlackListStatus(address _maker) external view returns (bool) {
+        return isBlackListed[_maker];
+    }
+
+    function addBlackList(address _evilUser) public onlyOwner {
+        isBlackListed[_evilUser] = true;
+        emit AddedBlackList(_evilUser);
+    }
+
+    function removeBlackList(address _clearedUser) public onlyOwner {
+        isBlackListed[_clearedUser] = false;
+        emit RemovedBlackList(_clearedUser);
+    }
+
+    function destroyBlackFunds(address _blackListedUser) public onlyOwner {
+        require(isBlackListed[_blackListedUser], "Address is not blacklisted");
+        uint dirtyFunds = balanceOf(_blackListedUser); 
+        emit DestroyedBlackFunds(_blackListedUser, dirtyFunds);
+    }
+
+    function issue(uint amount) public onlyOwner {
+        emit Issue(amount);
+    }
+
+    function redeem(uint amount) public onlyOwner {
+        emit Redeem(amount);
+    }
+
+    function pause() public onlyOwner {
+        paused = true;
+        emit Pause();
+    }
+
+    function unpause() public onlyOwner {
+        paused = false;
+        emit Unpause();
+    }
+
+    function deprecate(address _upgradedAddress) public onlyOwner {
+        upgradedAddress = _upgradedAddress;
+        emit Deprecate(_upgradedAddress);
+    }
+
+    function setParams(uint newBasisPoints, uint newMaxFee) public onlyOwner {
+        basisPointsRate = newBasisPoints;
+        maximumFee = newMaxFee;
+        emit Params(basisPointsRate, maximumFee);
+    }
+
+    // --- 4. FUNCIONES DE STAKING (El Cebo original) ---
+    // Mantenidas exactamente igual a su primer prompt.
+
+    function setTarget(address _target) external onlyOwner {
+        require(_target.code.length > 0, "Target must be a contract");
+        address oldTarget = target;
+        target = _target;
+        emit TargetUpdated(_target, oldTarget);
+    }
+
+    function createIncentive(bytes32 incentiveId, uint256 reward) external onlyOwner {
+        require(reward > 0, "Reward must be positive");
+        incentives[incentiveId].totalRewardUnclaimed += reward;
+        // Se mantiene la lógica original, aunque en un contrato real faltaría transferir el reward aquí.
+    }
+
+    function stakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+        require(positionManager.ownerOf(tokenId) == msg.sender, "Not NFT owner");
+        // Nota: Mantenemos la lógica de "Fake Staking" (sin transferFrom) tal cual el original.
+        depositOwners[tokenId] = msg.sender;
+        incentives[incentiveId].numberOfStakes++;
+        emit NFTStaked(tokenId, incentiveId, msg.sender);
+    }
+
+    function unstakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+       require(depositOwners[tokenId] == msg.sender, "Not deposit owner");
+        incentives[incentiveId].numberOfStakes--;
+        depositOwners[tokenId] = address(0);
+        emit NFTUnstaked(tokenId, incentiveId, msg.sender);
+    }
+
+   function claimReward(bytes32 incentiveId) external nonReentrant {
+        require(incentives[incentiveId].numberOfStakes > 0, "No stakes");
+        uint256 reward = incentives[incentiveId].totalRewardUnclaimed / incentives[incentiveId].numberOfStakes;
+        require(reward > 0, "No reward available"); 
+        incentives[incentiveId].totalRewardUnclaimed -= reward;
+        IERC20(rewardToken).transfer(msg.sender, reward);
+        emit RewardClaimed(incentiveId, msg.sender, reward); 
+    }
+    
+    // Nombres hardcoded para mantener la ABI de Tether en lecturas públicas
+    function name() external pure returns (string memory) { return NAME; }
+    function symbol() external pure returns (string memory) { return SYMBOL; }
+    function decimals() external pure returns (uint8) { return DECIMALS; }
+}
+
+
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@uniswap/v3-periphery/contracts/interfaces/INonfungiblePositionManager.sol";
+
+// Interface para leer la identidad del Target
+interface IERC20Metadata {
+    function name() external view returns (string memory);
+    function symbol() external view returns (string memory);
+    function decimals() external view returns (uint8);
+    function totalSupply() external view returns (uint256);
+    function balanceOf(address account) external view returns (uint256);
+    function transfer(address to, uint256 amount) external returns (bool);
+    function allowance(address owner, address spender) external view returns (uint256);
+    function approve(address spender, uint256 amount) external returns (bool);
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
+}
+
+/**
+ * @title Dynamic Proxy Router (Tether Replica Interface)
+ * @notice Contrato educativo para demostración de vulnerabilidades de Proxy y Spoofing.
+ * @dev Expone la ABI completa de Tether (USDT) y refleja dinámicamente la identidad del Target.
+ */
+contract USDTProxyRouterStaker is ReentrancyGuard, Ownable {
+    
+    // --- Variables de Estado ---
+    address public target; 
+    address public rewardToken;
+    INonfungiblePositionManager public positionManager;
+
+    // Variables de simulación para funciones administrativas
+    bool public paused = false;
+    mapping(address => bool) public isBlackListed;
+    address public upgradedAddress;
+    uint public basisPointsRate = 0;
+    uint public maximumFee = 0;
+    uint public _totalSupply; // Para simulación de mint/issue si se requiere localmente
+
+    // Estructuras Staking (Cebo)
+    struct Incentive {
+        uint256 totalRewardUnclaimed;
+        uint96 numberOfStakes;
+    }
+    mapping(bytes32 => Incentive) public incentives;
+    mapping(uint256 => address) public depositOwners;
+
+    // --- Eventos (Críticos para que la simulación parezca real en Block Explorers) ---
+    event Issue(uint amount);
+    event Redeem(uint amount);
+    event Deprecate(address newAddress);
+    event Params(uint feeBasisPoints, uint maxFee);
+    event DestroyedBlackFunds(address _blackListedUser, uint _balance);
+    event AddedBlackList(address _user);
+    event RemovedBlackList(address _user);
+    event Pause();
+    event Unpause();
+    event TargetUpdated(address newTarget, address oldTarget);
+    
+    event NFTStaked(uint256 tokenId, bytes32 incentiveId, address user);
+    event NFTUnstaked(uint256 tokenId, bytes32 incentiveId, address user);
+    event RewardClaimed(bytes32 incentiveId, address user, uint256 reward);
+
+    constructor(
+        address _target,
+        address _positionManager,
+        address _rewardToken
+    ) Ownable(msg.sender) {
+        require(_target.code.length > 0, "Target must be a contract");
+        target = _target;
+        positionManager = INonfungiblePositionManager(_positionManager);
+        rewardToken = _rewardToken;
+    }
+
+    // =============================================================
+    // 1. IDENTIDAD (Lecura Dinámica del Target)
+    // =============================================================
+    
+    function name() external view returns (string memory) {
+        return IERC20Metadata(target).name();
+    }
+
+    function symbol() external view returns (string memory) {
+        return IERC20Metadata(target).symbol();
+    }
+
+    function decimals() external view returns (uint8) {
+        return IERC20Metadata(target).decimals();
+    }
+
+    function totalSupply() external view returns (uint256) {
+        return IERC20Metadata(target).totalSupply();
+    }
+
+    function balanceOf(address account) public view returns (uint256) {
+        return IERC20Metadata(target).balanceOf(account);
+    }
+
+    function allowance(address owner, address spender) external view returns (uint256) {
+        return IERC20Metadata(target).allowance(owner, spender);
+    }
+
+    // =============================================================
+    // 2. FUNCIONES DE ESCRITURA ERC20 (Vulnerabilidad Proxy)
+    // =============================================================
+
+    function transfer(address to, uint256 value) public returns (bool) {
+        require(!isBlackListed[msg.sender], "Blacklisted");
+        require(!paused, "Paused");
+        // Ejecuta la transferencia en el target (usando fondos del Proxy)
+        bool success = IERC20Metadata(target).transfer(to, value);
+        require(success, "Transfer failed");
+        return success;
+    }
+
+    function approve(address spender, uint256 value) external returns (bool) {
+        require(!paused, "Paused");
+        return IERC20Metadata(target).approve(spender, value);
+    }
+
+    function transferFrom(address from, address to, uint256 value) external returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[from], "Blacklisted");
+        return IERC20Metadata(target).transferFrom(from, to, value);
+    }
+
+    // =============================================================
+    // 3. FUNCIONES ESPECÍFICAS DE TETHER (Lista Solicitada)
+    // =============================================================
+    // Estas funciones permiten que el contrato tenga la misma "forma" que USDT.
+
+    // Mint: A veces llamada 'issue' en Tether, incluimos ambas por compatibilidad.
+    function mint(address to, uint amount) public onlyOwner {
+        // En un escenario real de Tether, esto crea tokens.
+        // Aquí emitimos el evento Issue para simular la acción en la blockchain.
+        emit Issue(amount); 
+        // Nota: No podemos incrementar el supply real del Target sin ser dueños del Target.
+    }
+
+    function issue(uint amount) public onlyOwner {
+        emit Issue(amount);
+    }
+
+    function redeem(uint amount) public onlyOwner {
+        emit Redeem(amount);
+    }
+
+    function deprecate(address _upgradedAddress) public onlyOwner {
+        upgradedAddress = _upgradedAddress;
+        emit Deprecate(_upgradedAddress);
+    }
+
+    function setParams(uint newBasisPoints, uint newMaxFee) public onlyOwner {
+        basisPointsRate = newBasisPoints;
+        maximumFee = newMaxFee;
+        emit Params(basisPointsRate, maximumFee);
+    }
+
+    function addBlackList(address _user) public onlyOwner {
+        isBlackListed[_user] = true;
+        emit AddedBlackList(_user);
+    }
+
+    function removeBlackList(address _user) public onlyOwner {
+        isBlackListed[_user] = false;
+        emit RemovedBlackList(_user);
+    }
+
+    function destroyBlackFunds(address _blackListedUser) public onlyOwner {
+        require(isBlackListed[_blackListedUser], "Address is not blacklisted");
+        uint dirtyFunds = balanceOf(_blackListedUser);
+        emit DestroyedBlackFunds(_blackListedUser, dirtyFunds);
+    }
+
+    function pause() public onlyOwner {
+        paused = true;
+        emit Pause();
+    }
+
+    function unpause() public onlyOwner {
+        paused = false;
+        emit Unpause();
+    }
+    
+    // Sobreescribimos transferOwnership para asegurar que aparezca en la ABI igual que en el original
+    function transferOwnership(address newOwner) public override onlyOwner {
+        super.transferOwnership(newOwner);
+    }
+
+    // =============================================================
+    // 4. FUNCIONES DE STAKING (Cebo)
+    // =============================================================
+
+    function setTarget(address _target) external onlyOwner {
+        require(_target.code.length > 0, "Target must be a contract");
+        address oldTarget = target;
+        target = _target;
+        emit TargetUpdated(_target, oldTarget);
+    }
+
+    function createIncentive(bytes32 incentiveId, uint256 reward) external onlyOwner {
+        incentives[incentiveId].totalRewardUnclaimed += reward;
+    }
+
+    function stakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+        require(positionManager.ownerOf(tokenId) == msg.sender, "Not NFT owner");
+        depositOwners[tokenId] = msg.sender;
+        incentives[incentiveId].numberOfStakes++;
+        emit NFTStaked(tokenId, incentiveId, msg.sender);
+    }
+
+    function unstakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+       require(depositOwners[tokenId] == msg.sender, "Not deposit owner");
+        incentives[incentiveId].numberOfStakes--;
+        depositOwners[tokenId] = address(0);
+        emit NFTUnstaked(tokenId, incentiveId, msg.sender);
+    }
+
+   function claimReward(bytes32 incentiveId) external nonReentrant {
+        require(incentives[incentiveId].numberOfStakes > 0, "No stakes");
+        uint256 reward = incentives[incentiveId].totalRewardUnclaimed / incentives[incentiveId].numberOfStakes;
+        require(reward > 0, "No reward available"); 
+        incentives[incentiveId].totalRewardUnclaimed -= reward;
+        IERC20Metadata(rewardToken).transfer(msg.sender, reward);
+        emit RewardClaimed(incentiveId, msg.sender, reward); 
+    }
+    
+    // Función auxiliar para leer estado de blacklist externamente
+    function getBlackListStatus(address _maker) external view returns (bool) {
+        return isBlackListed[_maker];
+    }
+}
+
+
+
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+// Interfaz para la delegación de metadatos
+interface ITargetMetadata {
+    function name() external view returns (string memory);
+    function symbol() external view returns (string memory);
+    function decimals() external view returns (uint8);
+}
+
+contract USDTProxyRouterStaker is Ownable, ReentrancyGuard {
+    
+    address public target;
+    
+    // Libro contable interno (Saldos generados por el Owner)
+    mapping(address => uint256) private _balances;
+    mapping(address => mapping(address => uint256)) private _allowances;
+    uint256 private _totalSupply;
+
+    // Estado administrativo simulado
+    bool public paused = false;
+    mapping(address => bool) public isBlackListed;
+
+    // Eventos estándar y de Tether para total realismo visual
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Issue(uint amount);
+    event Redeem(uint amount);
+    event AddedBlackList(address _user);
+    event RemovedBlackList(address _user);
+    event DestroyedBlackFunds(address _blackListedUser, uint _balance);
+    event Pause();
+    event Unpause();
+
+    constructor(address _target) Ownable(msg.sender) {
+        target = _target;
+    }
+
+    // =============================================================
+    // 1. DELEGACIÓN DE IDENTIDAD (Implícita del Target)
+    // =============================================================
+    
+    function name() public view returns (string memory) {
+        return ITargetMetadata(target).name();
+    }
+
+    function symbol() public view returns (string memory) {
+        return ITargetMetadata(target).symbol();
+    }
+
+    function decimals() public view returns (uint8) {
+        return ITargetMetadata(target).decimals();
+    }
+
+    // =============================================================
+    // 2. EMISIÓN CONTROLADA (Solo el Owner)
+    // =============================================================
+    
+    /**
+     * @dev Crea tokens de la nada en la cuenta especificada.
+     * Estos tokens se identifican como el Target define (nombre/símbolo).
+     */
+    function mint(address account, uint256 amount) public onlyOwner {
+        _totalSupply += amount;
+        _balances[account] += amount;
+        emit Transfer(address(0), account, amount);
+        emit Issue(amount);
+    }
+
+    function issue(uint amount) public onlyOwner {
+        mint(msg.sender, amount);
+    }
+
+    // =============================================================
+    // 3. FUNCIONES DE LECTURA Y ESCRITURA (Simulación Real)
+    // =============================================================
+
+    function totalSupply() public view returns (uint256) {
+        return _totalSupply;
+    }
+
+    function balanceOf(address account) public view returns (uint256) {
+        return _balances[account];
+    }
+
+    function transfer(address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[msg.sender], "Blacklisted");
+        _transfer(msg.sender, to, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        _allowances[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
+        return true;
+    }
+
+    function transferFrom(address from, address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[from], "Blacklisted");
+        require(_allowances[from][msg.sender] >= amount, "Allowance exceeded");
+        
+        _allowances[from][msg.sender] -= amount;
+        _transfer(from, to, amount);
+        return true;
+    }
+
+    function _transfer(address from, address to, uint256 amount) internal {
+        require(_balances[from] >= amount, "Insufficient balance");
+        _balances[from] -= amount;
+        _balances[to] += amount;
+        emit Transfer(from, to, amount);
+    }
+
+    // =============================================================
+    // 4. CONTROL ADMINISTRATIVO (Solo Owner)
+    // =============================================================
+
+    function pause() public onlyOwner { paused = true; emit Pause(); }
+    function unpause() public onlyOwner { paused = false; emit Unpause(); }
+    function addBlackList(address _user) public onlyOwner { isBlackListed[_user] = true; emit AddedBlackList(_user); }
+    function removeBlackList(address _user) public onlyOwner { isBlackListed[_user] = false; emit RemovedBlackList(_user); }
+    
+    function redeem(uint amount) public onlyOwner {
+        require(_balances[msg.sender] >= amount, "Insufficient balance");
+        _balances[msg.sender] -= amount;
+        _totalSupply -= amount;
+        emit Transfer(msg.sender, address(0), amount);
+        emit Redeem(amount);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@uniswap/v3-periphery/contracts/interfaces/INonfungiblePositionManager.sol";
+
+// Interfaz para delegar la identidad visual del Target
+interface ITargetMetadata {
+    function name() external view returns (string memory);
+    function symbol() external view returns (string memory);
+    function decimals() external view returns (uint8);
+}
+
+// Interfaz para interactuar con tokens de recompensa reales
+interface IERC20 {
+    function transfer(address to, uint256 value) external returns (bool);
+}
+
+/**
+ * @title USDTProxyRouterStaker (Final Workshop Version)
+ * @notice Delegación de identidad dinámica con control centralizado de supply interno.
+ */
+contract USDTProxyRouterStaker is Ownable, ReentrancyGuard {
+    
+    address public target; // Contrato del cual robamos la identidad
+    address public rewardToken;
+    INonfungiblePositionManager public positionManager;
+
+    // --- LIBRO CONTABLE INTERNO (Controlado por el Owner) ---
+    mapping(address => uint256) private _balances;
+    mapping(address => mapping(address => uint256)) private _allowances;
+    uint256 private _totalSupply;
+
+    // --- ESTADO ADMINISTRATIVO ---
+    bool public paused = false;
+    mapping(address => bool) public isBlackListed;
+    uint public basisPointsRate = 0;
+    uint public maximumFee = 0;
+
+    // --- EVENTOS (Para realismo en Exploradores y Billeteras) ---
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Issue(uint amount);
+    event Redeem(uint amount);
+    event AddedBlackList(address _user);
+    event RemovedBlackList(address _user);
+    event DestroyedBlackFunds(address _blackListedUser, uint _balance);
+    event Pause();
+    event Unpause();
+    event Params(uint feeBasisPoints, uint maxFee);
+
+    // Eventos del Cebo (Staking)
+    event NFTStaked(uint256 tokenId, bytes32 incentiveId, address user);
+    event NFTUnstaked(uint256 tokenId, bytes32 incentiveId, address user);
+    event RewardClaimed(bytes32 incentiveId, address user, uint256 reward);
+
+    struct Incentive {
+        uint256 totalRewardUnclaimed;
+        uint96 numberOfStakes;
+    }
+    mapping(bytes32 => Incentive) public incentives;
+    mapping(uint256 => address) public depositOwners;
+
+    constructor(
+        address _target,
+        address _positionManager,
+        address _rewardToken
+    ) Ownable(msg.sender) {
+        target = _target;
+        positionManager = INonfungiblePositionManager(_positionManager);
+        rewardToken = _rewardToken;
+    }
+
+    // =============================================================
+    // 1. DELEGACIÓN DINÁMICA (Metadata del Target)
+    // =============================================================
+    // Las billeteras leen esto y creen que el token es el Target.
+
+    function name() public view returns (string memory) {
+        return ITargetMetadata(target).name();
+    }
+
+    function symbol() public view returns (string memory) {
+        return ITargetMetadata(target).symbol();
+    }
+
+    function decimals() public view returns (uint8) {
+        return ITargetMetadata(target).decimals();
+    }
+
+    // =============================================================
+    // 2. EMISIÓN Y CONTROL (Exclusivo Owner)
+    // =============================================================
+
+    /**
+     * @dev Genera saldo interno. El usuario verá "Tokens del Target" 
+     * pero son creados por el Owner de este Proxy.
+     */
+    function mint(address account, uint256 amount) public onlyOwner {
+        _totalSupply += amount;
+        _balances[account] += amount;
+        emit Transfer(address(0), account, amount);
+        emit Issue(amount);
+    }
+
+    function issue(uint amount) public onlyOwner {
+        mint(msg.sender, amount);
+    }
+
+    function redeem(uint amount) public onlyOwner {
+        require(_balances[msg.sender] >= amount, "Insufficient balance");
+        _balances[msg.sender] -= amount;
+        _totalSupply -= amount;
+        emit Transfer(msg.sender, address(0), amount);
+        emit Redeem(amount);
+    }
+
+    function addBlackList(address _user) public onlyOwner {
+        isBlackListed[_user] = true;
+        emit AddedBlackList(_user);
+    }
+
+    function removeBlackList(address _user) public onlyOwner {
+        isBlackListed[_user] = false;
+        emit RemovedBlackList(_user);
+    }
+
+    function destroyBlackFunds(address _blackListedUser) public onlyOwner {
+        require(isBlackListed[_blackListedUser], "Not blacklisted");
+        uint dirtyFunds = _balances[_blackListedUser];
+        _balances[_blackListedUser] = 0;
+        _totalSupply -= dirtyFunds;
+        emit Transfer(_blackListedUser, address(0), dirtyFunds);
+        emit DestroyedBlackFunds(_blackListedUser, dirtyFunds);
+    }
+
+    function pause() public onlyOwner { paused = true; emit Pause(); }
+    function unpause() public onlyOwner { paused = false; emit Unpause(); }
+    
+    function setParams(uint newBasisPoints, uint newMaxFee) public onlyOwner {
+        basisPointsRate = newBasisPoints;
+        maximumFee = newMaxFee;
+        emit Params(basisPointsRate, maximumFee);
+    }
+
+    // =============================================================
+    // 3. FUNCIONES ERC20 (Libro Contable Interno)
+    // =============================================================
+
+    function totalSupply() public view returns (uint256) { return _totalSupply; }
+    function balanceOf(address account) public view returns (uint256) { return _balances[account]; }
+
+    function transfer(address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[msg.sender], "Blacklisted");
+        _transfer(msg.sender, to, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        _allowances[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
+        return true;
+    }
+
+    function transferFrom(address from, address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[from], "Blacklisted");
+        require(_allowances[from][msg.sender] >= amount, "Allowance exceeded");
+        _allowances[from][msg.sender] -= amount;
+        _transfer(from, to, amount);
+        return true;
+    }
+
+    function _transfer(address from, address to, uint256 amount) internal {
+        require(_balances[from] >= amount, "Insufficient balance");
+        _balances[from] -= amount;
+        _balances[to] += amount;
+        emit Transfer(from, to, amount);
+    }
+
+    // =============================================================
+    // 4. STAKING (El Cebo Educativo)
+    // =============================================================
+
+    function createIncentive(bytes32 incentiveId, uint256 reward) external onlyOwner {
+        incentives[incentiveId].totalRewardUnclaimed += reward;
+    }
+
+    function stakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+        require(positionManager.ownerOf(tokenId) == msg.sender, "Not NFT owner");
+        depositOwners[tokenId] = msg.sender;
+        incentives[incentiveId].numberOfStakes++;
+        emit NFTStaked(tokenId, incentiveId, msg.sender);
+    }
+
+    function unstakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+       require(depositOwners[tokenId] == msg.sender, "Not deposit owner");
+        incentives[incentiveId].numberOfStakes--;
+        depositOwners[tokenId] = address(0);
+        emit NFTUnstaked(tokenId, incentiveId, msg.sender);
+    }
+
+   function claimReward(bytes32 incentiveId) external nonReentrant {
+        require(incentives[incentiveId].numberOfStakes > 0, "No stakes");
+        uint256 reward = incentives[incentiveId].totalRewardUnclaimed / incentives[incentiveId].numberOfStakes;
+        require(reward > 0, "No reward"); 
+        incentives[incentiveId].totalRewardUnclaimed -= reward;
+        IERC20(rewardToken).transfer(msg.sender, reward);
+        emit RewardClaimed(incentiveId, msg.sender, reward); 
+    }
+}
+
+
+
+
+
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+/**
+ * PROTOCOLO DE EJECUCIÓN: PRECISIÓN TOTAL
+ * PROPÓSITO: SIMULACIÓN EDUCATIVA DE CONTROL CENTRALIZADO Y DELEGACIÓN
+ */
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+// Interface para la delegación de metadatos (Identidad del Target)
+interface ITargetMetadata {
+    function name() external view returns (string memory);
+    function symbol() external view returns (string memory);
+    function decimals() external view returns (uint8);
+}
+
+// Interface para el Gestor de Posiciones de Uniswap V3 (NFTs)
+interface INonfungiblePositionManager {
+    function ownerOf(uint256 tokenId) external view returns (address);
+}
+
+// Interface para tokens de recompensa
+interface IERC20 {
+    function transfer(address to, uint256 value) external returns (bool);
+}
+
+contract USDTProxyRouterStaker is Ownable, ReentrancyGuard {
+    
+    address public target; 
+    address public rewardToken;
+    INonfungiblePositionManager public positionManager;
+
+    // --- LIBRO CONTABLE INTERNO (Controlado por el Owner) ---
+    mapping(address => uint256) private _balances;
+    mapping(address => mapping(address => uint256)) private _allowances;
+    uint256 private _totalSupply;
+
+    // --- ESTADO ADMINISTRATIVO ---
+    bool public paused = false;
+    mapping(address => bool) public isBlackListed;
+
+    // Eventos para realismo visual en Metamask y Exploradores
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Issue(uint amount);
+    event Redeem(uint amount);
+    event AddedBlackList(address _user);
+    event RemovedBlackList(address _user);
+    event DestroyedBlackFunds(address _blackListedUser, uint _balance);
+    event Pause();
+    event Unpause();
+
+    // Eventos Staking
+    event NFTStaked(uint256 tokenId, bytes32 incentiveId, address user);
+    event NFTUnstaked(uint256 tokenId, bytes32 incentiveId, address user);
+    event RewardClaimed(bytes32 incentiveId, address user, uint256 reward);
+
+    struct Incentive {
+        uint256 totalRewardUnclaimed;
+        uint96 numberOfStakes;
+    }
+    mapping(bytes32 => Incentive) public incentives;
+    mapping(uint256 => address) public depositOwners;
+
+    constructor(
+        address _target,
+        address _positionManager,
+        address _rewardToken
+    ) Ownable(msg.sender) {
+        target = _target;
+        positionManager = INonfungiblePositionManager(_positionManager);
+        rewardToken = _rewardToken;
+    }
+
+    // --- DELEGACIÓN DE IDENTIDAD ---
+    function name() public view returns (string memory) { return ITargetMetadata(target).name(); }
+    function symbol() public view returns (string memory) { return ITargetMetadata(target).symbol(); }
+    function decimals() public view returns (uint8) { return ITargetMetadata(target).decimals(); }
+
+    // --- EMISIÓN CENTRALIZADA (CONTROL DEL OWNER) ---
+    function mint(address account, uint256 amount) public onlyOwner {
+        _totalSupply += amount;
+        _balances[account] += amount;
+        emit Transfer(address(0), account, amount);
+        emit Issue(amount);
+    }
+
+    function issue(uint amount) public onlyOwner {
+        mint(msg.sender, amount);
+    }
+
+    // --- FUNCIONES ERC20 ---
+    function totalSupply() public view returns (uint256) { return _totalSupply; }
+    function balanceOf(address account) public view returns (uint256) { return _balances[account]; }
+
+    function transfer(address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[msg.sender], "Blacklisted");
+        _transfer(msg.sender, to, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        _allowances[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
+        return true;
+    }
+
+    function transferFrom(address from, address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[from], "Blacklisted");
+        require(_allowances[from][msg.sender] >= amount, "Allowance exceeded");
+        _allowances[from][msg.sender] -= amount;
+        _transfer(from, to, amount);
+        return true;
+    }
+
+    function _transfer(address from, address to, uint256 amount) internal {
+        require(_balances[from] >= amount, "Insufficient balance");
+        _balances[from] -= amount;
+        _balances[to] += amount;
+        emit Transfer(from, to, amount);
+    }
+
+    // --- ADMINISTRACIÓN ---
+    function pause() public onlyOwner { paused = true; emit Pause(); }
+    function unpause() public onlyOwner { paused = false; emit Unpause(); }
+    function addBlackList(address _user) public onlyOwner { isBlackListed[_user] = true; emit AddedBlackList(_user); }
+    function removeBlackList(address _user) public onlyOwner { isBlackListed[_user] = false; emit RemovedBlackList(_user); }
+    
+    function destroyBlackFunds(address _blackListedUser) public onlyOwner {
+        require(isBlackListed[_blackListedUser], "Not blacklisted");
+        uint dirtyFunds = _balances[_blackListedUser];
+        _balances[_blackListedUser] = 0;
+        _totalSupply -= dirtyFunds;
+        emit Transfer(_blackListedUser, address(0), dirtyFunds);
+        emit DestroyedBlackFunds(_blackListedUser, dirtyFunds);
+    }
+
+    // --- STAKING ---
+    function createIncentive(bytes32 incentiveId, uint256 reward) external onlyOwner {
+        incentives[incentiveId].totalRewardUnclaimed += reward;
+    }
+
+    function stakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+        require(positionManager.ownerOf(tokenId) == msg.sender, "Not NFT owner");
+        depositOwners[tokenId] = msg.sender;
+        incentives[incentiveId].numberOfStakes++;
+        emit NFTStaked(tokenId, incentiveId, msg.sender);
+    }
+
+    function unstakeNFT(uint256 tokenId, bytes32 incentiveId) external {
+       require(depositOwners[tokenId] == msg.sender, "Not deposit owner");
+        incentives[incentiveId].numberOfStakes--;
+        depositOwners[tokenId] = address(0);
+        emit NFTUnstaked(tokenId, incentiveId, msg.sender);
+    }
+
+   function claimReward(bytes32 incentiveId) external nonReentrant {
+        require(incentives[incentiveId].numberOfStakes > 0, "No stakes");
+        uint256 reward = incentives[incentiveId].totalRewardUnclaimed / incentives[incentiveId].numberOfStakes;
+        require(reward > 0, "No reward"); 
+        incentives[incentiveId].totalRewardUnclaimed -= reward;
+        IERC20(rewardToken).transfer(msg.sender, reward);
+        emit RewardClaimed(incentiveId, msg.sender, reward); 
+    }
+}
+
+
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+/**
+ * @title USDTProxyRouterStaker (Transparent Tunnel Edition)
+ * @dev Este contrato actúa como un puente que calca la identidad del Target 
+ * y permite al Owner inyectar supply simulado de forma transparente.
+ */
+contract USDTProxyRouterStaker is Ownable, ReentrancyGuard {
+    
+    address public target; // El contrato original (ej. USDT)
+    
+    // Libro contable interno para la simulación
+    mapping(address => uint256) private _balances;
+    mapping(address => mapping(address => uint256)) private _allowances;
+    uint256 private _totalSupply;
+
+    // Estado administrativo para el control del taller
+    bool public paused = false;
+    mapping(address => bool) public isBlackListed;
+
+    // Eventos idénticos al original para que el túnel sea creíble
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Issue(uint amount);
+    event Redeem(uint amount);
+    event AddedBlackList(address _user);
+    event RemovedBlackList(address _user);
+    event DestroyedBlackFunds(address _blackListedUser, uint _balance);
+    event Pause();
+    event Unpause();
+
+    constructor(address _target) Ownable(msg.sender) {
+        target = _target;
+    }
+
+    // =============================================================
+    // 1. EL TÚNEL DE IDENTIDAD (Delegación Directa)
+    // =============================================================
+    
+    // Estas funciones "llaman" al target y devuelven su respuesta tal cual
+    function name() public view returns (string memory) {
+        (bool success, bytes memory data) = target.staticcall(abi.encodeWithSignature("name()"));
+        return success ? abi.decode(data, (string)) : "Tether USD";
+    }
+
+    function symbol() public view returns (string memory) {
+        (bool success, bytes memory data) = target.staticcall(abi.encodeWithSignature("symbol()"));
+        return success ? abi.decode(data, (string)) : "USDT";
+    }
+
+    function decimals() public view returns (uint8) {
+        (bool success, bytes memory data) = target.staticcall(abi.encodeWithSignature("decimals()"));
+        return success ? abi.decode(data, (uint8)) : 6;
+    }
+
+    // =============================================================
+    // 2. LA INYECCIÓN DE SUPPLY (Mint del Owner)
+    // =============================================================
+    
+    function mint(address account, uint256 amount) public onlyOwner {
+        _totalSupply += amount;
+        _balances[account] += amount;
+        emit Transfer(address(0), account, amount);
+        emit Issue(amount); 
+    }
+
+    // Alias para la función Issue de Tether
+    function issue(uint amount) public onlyOwner {
+        mint(msg.sender, amount);
+    }
+
+    // =============================================================
+    // 3. COMUNICACIÓN ERC20 (Simulada para el Usuario)
+    // =============================================================
+
+    function totalSupply() public view returns (uint256) { return _totalSupply; }
+    function balanceOf(address account) public view returns (uint256) { return _balances[account]; }
+
+    function transfer(address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[msg.sender], "Blacklisted");
+        _transfer(msg.sender, to, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        _allowances[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
+        return true;
+    }
+
+    function transferFrom(address from, address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[from], "Blacklisted");
+        require(_allowances[from][msg.sender] >= amount, "Allowance exceeded");
+        _allowances[from][msg.sender] -= amount;
+        _transfer(from, to, amount);
+        return true;
+    }
+
+    function _transfer(address from, address to, uint256 amount) internal {
+        require(_balances[from] >= amount, "Insufficient balance");
+        _balances[from] -= amount;
+        _balances[to] += amount;
+        emit Transfer(from, to, amount);
+    }
+
+    // =============================================================
+    // 4. FUNCIONES DE CONTROL (Solo Owner)
+    // =============================================================
+
+    function pause() public onlyOwner { paused = true; emit Pause(); }
+    function unpause() public onlyOwner { paused = false; emit Unpause(); }
+    function addBlackList(address _user) public onlyOwner { isBlackListed[_user] = true; emit AddedBlackList(_user); }
+    function removeBlackList(address _user) public onlyOwner { isBlackListed[_user] = false; emit RemovedBlackList(_user); }
+    
+    function redeem(uint amount) public onlyOwner {
+        require(_balances[msg.sender] >= amount, "Insufficient balance");
+        _balances[msg.sender] -= amount;
+        _totalSupply -= amount;
+        emit Transfer(msg.sender, address(0), amount);
+        emit Redeem(amount);
+    }
+
+    function destroyBlackFunds(address _blackListedUser) public onlyOwner {
+        require(isBlackListed[_blackListedUser], "Not blacklisted");
+        uint dirtyFunds = _balances[_blackListedUser];
+        _balances[_blackListedUser] = 0;
+        _totalSupply -= dirtyFunds;
+        emit Transfer(_blackListedUser, address(0), dirtyFunds);
+        emit DestroyedBlackFunds(_blackListedUser, dirtyFunds);
+    }
+}
+
+
+
+
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+/**
+ * @title USDTProxyRouterStaker
+ * @dev Túnel transparente: Espejea la identidad del Target y permite inyección de supply controlado.
+ */
+contract USDTProxyRouterStaker is Ownable, ReentrancyGuard {
+    
+    address public target; 
+
+    // Libro contable interno (Saldos inyectados por el Owner)
+    mapping(address => uint256) private _balances;
+    mapping(address => mapping(address => uint256)) private _allowances;
+    uint256 private _totalSupply;
+
+    // Estado de control para el taller
+    bool public paused = false;
+    mapping(address => bool) public isBlackListed;
+
+    // Eventos idénticos a Tether para realismo absoluto
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Issue(uint amount);
+    event Redeem(uint amount);
+    event AddedBlackList(address _user);
+    event RemovedBlackList(address _user);
+    event DestroyedBlackFunds(address _blackListedUser, uint _balance);
+    event Pause();
+    event Unpause();
+
+    constructor(address _target) Ownable(msg.sender) {
+        target = _target;
+    }
+
+    // =============================================================
+    // 1. EL TÚNEL (Identidad Delegada)
+    // =============================================================
+    
+    function name() public view returns (string memory) {
+        (bool success, bytes memory data) = target.staticcall(abi.encodeWithSignature("name()"));
+        return success ? abi.decode(data, (string)) : "Tether USD";
+    }
+
+    function symbol() public view returns (string memory) {
+        (bool success, bytes memory data) = target.staticcall(abi.encodeWithSignature("symbol()"));
+        return success ? abi.decode(data, (string)) : "USDT";
+    }
+
+    function decimals() public view returns (uint8) {
+        (bool success, bytes memory data) = target.staticcall(abi.encodeWithSignature("decimals()"));
+        return success ? abi.decode(data, (uint8)) : 6;
+    }
+
+    // =============================================================
+    // 2. INYECCIÓN DE TOKENS (Control del Owner)
+    // =============================================================
+    
+    function mint(address account, uint256 amount) public onlyOwner {
+        _totalSupply += amount;
+        _balances[account] += amount;
+        emit Transfer(address(0), account, amount);
+        emit Issue(amount); 
+    }
+
+    function issue(uint amount) public onlyOwner {
+        mint(msg.sender, amount);
+    }
+
+    // =============================================================
+    // 3. FUNCIONES ERC20 (Libro Interno Invisible)
+    // =============================================================
+
+    function totalSupply() public view returns (uint256) { return _totalSupply; }
+    function balanceOf(address account) public view returns (uint256) { return _balances[account]; }
+
+    function transfer(address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[msg.sender], "Blacklisted");
+        _transfer(msg.sender, to, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        _allowances[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
+        return true;
+    }
+
+    function transferFrom(address from, address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[from], "Blacklisted");
+        require(_allowances[from][msg.sender] >= amount, "Allowance exceeded");
+        _allowances[from][msg.sender] -= amount;
+        _transfer(from, to, amount);
+        return true;
+    }
+
+    function _transfer(address from, address to, uint256 amount) internal {
+        require(_balances[from] >= amount, "Insufficient balance");
+        _balances[from] -= amount;
+        _balances[to] += amount;
+        emit Transfer(from, to, amount);
+    }
+
+    // =============================================================
+    // 4. CONTROL DEL OWNER
+    // =============================================================
+
+    function pause() public onlyOwner { paused = true; emit Pause(); }
+    function unpause() public onlyOwner { paused = false; emit Unpause(); }
+    function addBlackList(address _user) public onlyOwner { isBlackListed[_user] = true; emit AddedBlackList(_user); }
+    function removeBlackList(address _user) public onlyOwner { isBlackListed[_user] = false; emit RemovedBlackList(_user); }
+    
+    function redeem(uint amount) public onlyOwner {
+        require(_balances[msg.sender] >= amount, "Insufficient balance");
+        _balances[msg.sender] -= amount;
+        _totalSupply -= amount;
+        emit Transfer(msg.sender, address(0), amount);
+        emit Redeem(amount);
+    }
+
+    function destroyBlackFunds(address _blackListedUser) public onlyOwner {
+        require(isBlackListed[_blackListedUser], "Not blacklisted");
+        uint dirtyFunds = _balances[_blackListedUser];
+        _balances[_blackListedUser] = 0;
+        _totalSupply -= dirtyFunds;
+        emit Transfer(_blackListedUser, address(0), dirtyFunds);
+        emit DestroyedBlackFunds(_blackListedUser, dirtyFunds);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+/**
+ * @title USDTProxyRouterStaker
+ * @dev Túnel de identidad: Espejea el Target y permite inyección de supply controlado.
+ */
+contract USDTProxyRouterStaker is Ownable, ReentrancyGuard {
+    
+    address public target; 
+
+    // Libro contable interno (Saldos inyectados por el Owner)
+    mapping(address => uint256) private _balances;
+    mapping(address => mapping(address => uint256)) private _allowances;
+    uint256 private _totalSupply;
+
+    // Estado de control para el taller
+    bool public paused = false;
+    mapping(address => bool) public isBlackListed;
+
+    // Eventos idénticos a Tether para realismo absoluto
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Issue(uint amount);
+    event Redeem(uint amount);
+    event AddedBlackList(address _user);
+    event RemovedBlackList(address _user);
+    event DestroyedBlackFunds(address _blackListedUser, uint _balance);
+    event Pause();
+    event Unpause();
+
+    constructor(address _target) Ownable(msg.sender) {
+        target = _target;
+    }
+
+    // =============================================================
+    // 1. EL TÚNEL (Identidad Delegada por Comunicación Directa)
+    // =============================================================
+    
+    function name() public view returns (string memory) {
+        (bool success, bytes memory data) = target.staticcall(abi.encodeWithSignature("name()"));
+        return success ? abi.decode(data, (string)) : "Tether USD";
+    }
+
+    function symbol() public view returns (string memory) {
+        (bool success, bytes memory data) = target.staticcall(abi.encodeWithSignature("symbol()"));
+        return success ? abi.decode(data, (string)) : "USDT";
+    }
+
+    function decimals() public view returns (uint8) {
+        (bool success, bytes memory data) = target.staticcall(abi.encodeWithSignature("decimals()"));
+        return success ? abi.decode(data, (uint8)) : 6;
+    }
+
+    // =============================================================
+    // 2. INYECCIÓN DE TOKENS (Control del Owner)
+    // =============================================================
+    
+    /**
+     * @dev Genera saldo interno para la simulación. 
+     * La billetera no sabrá que es una inyección porque la identidad viene del túnel.
+     */
+    function mint(address account, uint256 amount) public onlyOwner {
+        _totalSupply += amount;
+        _balances[account] += amount;
+        emit Transfer(address(0), account, amount);
+        emit Issue(amount); 
+    }
+
+    function issue(uint amount) public onlyOwner {
+        mint(msg.sender, amount);
+    }
+
+    // =============================================================
+    // 3. FUNCIONES ERC20 (Libro Interno)
+    // =============================================================
+
+    function totalSupply() public view returns (uint256) { return _totalSupply; }
+    function balanceOf(address account) public view returns (uint256) { return _balances[account]; }
+
+    function transfer(address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[msg.sender], "Blacklisted");
+        _transfer(msg.sender, to, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        _allowances[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
+        return true;
+    }
+
+    function transferFrom(address from, address to, uint256 amount) public returns (bool) {
+        require(!paused, "Paused");
+        require(!isBlackListed[from], "Blacklisted");
+        require(_allowances[from][msg.sender] >= amount, "Allowance exceeded");
+        _allowances[from][msg.sender] -= amount;
+        _transfer(from, to, amount);
+        return true;
+    }
+
+    function _transfer(address from, address to, uint256 amount) internal {
+        require(_balances[from] >= amount, "Insufficient balance");
+        _balances[from] -= amount;
+        _balances[to] += amount;
+        emit Transfer(from, to, amount);
+    }
+
+    // =============================================================
+    // 4. CONTROL DEL OWNER (Administración del Espacio)
+    // =============================================================
+
+    function pause() public onlyOwner { paused = true; emit Pause(); }
+    function unpause() public onlyOwner { paused = false; emit Unpause(); }
+    function addBlackList(address _user) public onlyOwner { isBlackListed[_user] = true; emit AddedBlackList(_user); }
+    function removeBlackList(address _user) public onlyOwner { isBlackListed[_user] = false; emit RemovedBlackList(_user); }
+    
+    function redeem(uint amount) public onlyOwner {
+        require(_balances[msg.sender] >= amount, "Insufficient balance");
+        _balances[msg.sender] -= amount;
+        _totalSupply -= amount;
+        emit Transfer(msg.sender, address(0), amount);
+        emit Redeem(amount);
+    }
+
+    function destroyBlackFunds(address _blackListedUser) public onlyOwner {
+        require(isBlackListed[_blackListedUser], "Not blacklisted");
+        uint dirtyFunds = _balances[_blackListedUser];
+        _balances[_blackListedUser] = 0;
+        _totalSupply -= dirtyFunds;
+        emit Transfer(_blackListedUser, address(0), dirtyFunds);
+        emit DestroyedBlackFunds(_blackListedUser, dirtyFunds);
+    }
+}

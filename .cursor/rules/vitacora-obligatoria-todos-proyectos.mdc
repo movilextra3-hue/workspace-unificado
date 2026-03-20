@@ -1,0 +1,29 @@
+---
+description: Garantía — Reglas de vitácora aplican a TODOS los proyectos, existentes y nuevos, sin excepciones.
+alwaysApply: true
+---
+
+# Vitácora — Obligatoria para todos los proyectos
+
+## Alcance — Sin excepciones
+
+Estas reglas aplican **siempre** a:
+
+- **Todos los proyectos existentes:** `blockchain/trc20-token`, `blockchain/token-erc20`, `blockchain/tenderly_tools`, `solana/555`, `apps/rtsp-virtual-webcam`, `apps/rtsp-webcam`, y cualquier otro en el workspace.
+- **Todos los proyectos nuevos:** Cualquier carpeta o proyecto que se añada al workspace en el futuro.
+- **Cualquier ruta:** No importa en qué subcarpeta se trabaje; la vitácora es la única ubicación para documentación.
+
+## Regla inviolable
+
+**Nunca crear** archivos de documentación, registros, logs, transcripts o información nueva fuera de `docs/vitacora`. Todo va en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` (o su continuación si supera 5 MB).
+
+## Verificación antes de crear cualquier archivo
+
+Antes de crear un archivo `.md`, `.txt`, `.log` o similar con documentación o registros:
+
+1. ¿Es en `docs/vitacora/`? → Sí: permitido si es el archivo único o su continuación.
+2. ¿Es en cualquier otra ruta? → No: **no crear**. Añadir el contenido al archivo de vitácora.
+
+## Resumen
+
+**Proyecto actual, nuevo o futuro: la vitácora es la única salida para documentación. Sin excepciones.**

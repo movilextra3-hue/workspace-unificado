@@ -1,0 +1,26 @@
+﻿=== INFORMACIÓN COMPLETA DE DIRECCIÓN SOLANA ===
+Fecha: 2026-02-01 05:54:42
+Dirección: 3tTW7tvfNEKX6oVUpKdEE4YkTLVvTj4NfEngy3c9Ws9zpjwvwCawwwNyCiWg9roWSbmbmLa1exev3gyne4esnCDz
+
+--- BALANCE ---
+
+
+--- INFORMACIÓN DE CUENTA ---
+
+
+--- TOKENS ASOCIADOS ---
+
+
+--- TRANSACCIONES RECIENTES ---
+
+
+--- INFORMACIÓN DE PROGRAMA ---
+
+
+--- ENLACES ÚTILES ---
+Solana Explorer: https://explorer.solana.com/address/3tTW7tvfNEKX6oVUpKdEE4YkTLVvTj4NfEngy3c9Ws9zpjwvwCawwwNyCiWg9roWSbmbmLa1exev3gyne4esnCDz
+Solscan: https://solscan.io/account/3tTW7tvfNEKX6oVUpKdEE4YkTLVvTj4NfEngy3c9Ws9zpjwvwCawwwNyCiWg9roWSbmbmLa1exev3gyne4esnCDz
+Solana Beach: https://solanabeach.io/address/3tTW7tvfNEKX6oVUpKdEE4YkTLVvTj4NfEngy3c9Ws9zpjwvwCawwwNyCiWg9roWSbmbmLa1exev3gyne4esnCDz
+
+--- DATOS COMPLETOS (JSON) ---
+Ver archivo: C:\Users\Administrador\Desktop\solana_address_info2_20260201_055442.json

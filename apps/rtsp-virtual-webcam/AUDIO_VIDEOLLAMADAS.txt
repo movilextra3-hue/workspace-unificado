@@ -1,0 +1,8 @@
+AUDIO YA CONFIGURADO (VB-Cable instalado + OBS con monitoreo al cable).
+
+Pasos para videollamadas:
+1. Abre OBS con iniciar_obs.bat o comprobar_audio.bat
+2. En OBS: Iniciar Camara Virtual
+3. En Zoom/Teams: Camara = "OBS Virtual Camera" | Microfono = "CABLE Output (VB-Audio Virtual Cable)"
+
+Si no se oye: OBS - Ajustes - Audio - Dispositivo de monitoreo = "Altavoces (VB-Audio Virtual Cable)"

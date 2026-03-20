@@ -1,0 +1,8 @@
+# Wake: excluir verification (artefactos generados) y backups
+# Relativo a blockchain/trc20-token/
+
+[compiler.solc]
+exclude_paths = ["node_modules", "venv", ".venv", "lib", "script", "test", "verification", "temp_*.sol", "TRC20TokenUpgradeable-flattened-*.sol", ".forge-verify"]
+
+[detectors]
+exclude_paths = ["node_modules", "lib", "script", "verification", "temp_*.sol", "**/temp_*.sol", "*flattened*.sol", ".forge-verify"]

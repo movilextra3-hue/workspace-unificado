@@ -1,0 +1,19 @@
+{
+  "name": "usdtunified-polygon",
+  "version": "1.0.0",
+  "description": "Scripts de corrección y automatización para USDTUnified en Polygon",
+  "scripts": {
+    "fix:target": "node scripts/fix-target.js",
+    "fix:dex": "node scripts/set-pancake-params.js",
+    "fix:metadata": "node scripts/refresh-metadata.js",
+    "approve:router": "node scripts/approve-router.js",
+    "verify": "node scripts/verify-config.js",
+    "setup": "node scripts/full-setup.js",
+    "setup:paso": "node scripts/setup-paso-a-paso.js",
+    "check:flow": "node scripts/check-flow.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.0"
+  }
+}

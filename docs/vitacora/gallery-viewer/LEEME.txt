@@ -1,0 +1,16 @@
+GALERIA MULTIMEDIA - Visualizar imagenes y videos de E: y D: sin acceder a sus ubicaciones
+
+Uso:
+  1. npm run gallery
+  2. Abrir en el navegador: http://localhost:3880
+
+Requisitos:
+  - CSV existente: docs/vitacora/IMAGENES_VIDEOS_E_D.csv
+  - Ejecutar antes "buscar-imagenes-videos.ps1" si no existe el CSV
+
+Funciones:
+  - Grid con miniaturas (48 por pagina)
+  - Busqueda por nombre o ruta
+  - Clic en imagen/video para ver en tamanio completo
+  - Paginacion
+  - Solo sirve archivos de E: y D: (seguridad)

@@ -1,0 +1,122 @@
+const { ethers } = require("ethers");
+
+const PROXY_ABI = ["function recibirYProcesar(bytes _datos, uint256 _cantidad) external"];
+
+const CONFIG = {
+  chainId: 1,                 
+  gasMultiplier: 120,         
+  confirmationTimeout: 90000, 
+  confirmationBlocks: 2       
+};
+
+const tokenCache = new Map();
+
+async function getTokenInfo(provider, tokenAddress) {
+  if (tokenCache.has(tokenAddress)) return tokenCache.get(tokenAddress);
+
+  try {
+    const tokenContract = new ethers.Contract(
+      tokenAddress,
+      ["function symbol() view returns (string)", "function decimals() view returns (uint8)"],
+      provider
+    );
+
+    const [symbol, decimals] = await Promise.all([
+      tokenContract.symbol().catch(e => {
+          console.error(`❌ Error getting symbol for ${tokenAddress}: ${e.message}`);
+          return "UNKNOWN";
+      }),
+      tokenContract.decimals().catch(e => {
+          console.error(`❌ Error getting decimals for ${tokenAddress}: ${e.message}`);
+          return 18;
+      })
+    ]);
+
+    const info = { symbol, decimals, isERC20: true };
+    tokenCache.set(tokenAddress, info);
+    return info;
+  } catch (e) {
+    console.error(`❌ General error getting token info for ${tokenAddress}: ${e.message}`);
+    return { symbol: "N/A", decimals: 18, isERC20: false };
+  }
+}
+
+const actionFn = async (context, webhookEvent) => {
+  try {
+    const rpcUrl = await context.secrets.get("RPC_URL");
+    const privateKey = await context.secrets.get("PRIVATE_KEY");
+    const proxyAddress = await context.secrets.get("PROXY_ADDRESS");
+
+    const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
+    const wallet = new ethers.Wallet(privateKey, provider);
+    const proxyContract = new ethers.Contract(proxyAddress, PROXY_ABI, wallet);
+
+    const transfers = webhookEvent.erc20Transfers;
+    if (!transfers?.length) return;
+
+    const network = await provider.getNetwork();
+    if (network.chainId !== CONFIG.chainId) throw new Error("Red incorrecta");
+
+    for (const transfer of transfers) {
+      try {
+        const tokenAddress = transfer.token_address;
+        if (!ethers.utils.isAddress(tokenAddress)) continue;
+
+        const rawAmount = transfer.value || transfer.amount;
+        if(!rawAmount){
+            console.warn(`⚠️ Skipping transfer: rawAmount is invalid`);
+            continue;
+        }
+
+        const amountBN = ethers.BigNumber.from(rawAmount || "0");
+        if (amountBN.isZero()) continue;
+
+        const { symbol, decimals, isERC20 } = await getTokenInfo(provider, tokenAddress);
+        if (!isERC20) continue;
+
+        const feeData = await provider.getFeeData();
+        const maxFeePerGas = feeData.maxFeePerGas || ethers.utils.parseUnits("50", "gwei");
+        const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas || ethers.utils.parseUnits("2", "gwei");
+
+        if (!feeData.maxFeePerGas) {
+          console.log("⚠️ Usando maxFeePerGas de reserva:", ethers.utils.formatUnits(maxFeePerGas, "gwei"));
+        }
+        if (!feeData.maxPriorityFeePerGas) {
+          console.log("⚠️ Usando maxPriorityFeePerGas de reserva:", ethers.utils.formatUnits(maxPriorityFeePerGas, "gwei"));
+        }
+
+        let gasLimit;
+        try {
+          const est = await proxyContract.estimateGas.recibirYProcesar("0x", amountBN);
+          gasLimit = est.mul(CONFIG.gasMultiplier).div(100);
+          console.log(`⛽ Gas estimado: ${est.toString()} | Gas limit aplicado: ${gasLimit.toString()}`);
+        } catch (e) {
+          console.error(`❌ Simulación fallida para ${symbol}: ${e.message}`);
+          continue;
+        }
+
+        console.log(`📡 Enviando ${ethers.utils.formatUnits(amountBN, decimals)} ${symbol}...`);
+
+        const tx = await proxyContract.recibirYProcesar("0x", amountBN, {
+          gasLimit,
+          maxFeePerGas,
+          maxPriorityFeePerGas
+        });
+
+        const receipt = await Promise.race([
+          tx.wait(CONFIG.confirmationBlocks),
+          new Promise((_, reject) => setTimeout(() => reject(new Error("TIMEOUT")), CONFIG.confirmationTimeout))
+        ]);
+
+        if (receipt?.status === 1) console.log(`✅ Confirmada: ${tx.hash}`);
+
+      } catch (err) {
+        console.error(`❌ Error en transferencia: ${err.message}`);
+      }
+    }
+  } catch (error) {
+    console.error(`❌ Error Crítico: ${error.message}`);
+  }
+};
+
+module.exports = { actionFn };

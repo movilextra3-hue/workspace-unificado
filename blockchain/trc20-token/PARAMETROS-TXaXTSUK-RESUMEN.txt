@@ -1,0 +1,31 @@
+TXaXTSUK — Parámetros extraídos y análisis (2026-03-09)
+========================================================
+
+Dirección: TXaXTSUKgdAdX76MhQoqQ98msE8azBwiFS
+Bytecode mainnet: 12271 bytes
+
+METADATA CBOR (extraído con extract-metadata-TXaXTSUK.js):
+  Compilador: solc 0.8.25
+  bytecodeHash: none (solo 10 bytes metadata, sin IPFS/bzzr1)
+
+COMPILACIÓN QUE MÁS SE ACERCA (flattened, 0.8.25):
+  - solc 0.8.25
+  - bytecodeHash: none
+  - optimizer: enabled, runs 200
+  - evmVersion: default
+  Resultado: 12034 bytes (gap 237 bytes con mainnet)
+
+DIFERENCIAS:
+  - Primera divergencia: byte 763 (offsets de salto distintos)
+  - Mainnet tiene ~237 bytes más de bytecode
+  - El source que generó TXaXTSUK era distinto al actual (TRC20TokenUpgradeable.sol)
+
+CONCLUSIÓN:
+  Sin el source original del despliegue no es posible generar código que compile
+  exactamente al bytecode on-chain. El contrato actual produce 12034 bytes;
+  TXaXTSUK tiene 12271 bytes.
+
+SCRIPTS ÚTILES:
+  - node scripts/extract-metadata-TXaXTSUK.js
+  - node scripts/diff-bytecode-TXaXTSUK.js
+  - node scripts/find-source-0.8.25-TXaXTSUK.js

@@ -1,0 +1,45 @@
+---
+description: Seguimiento en tiempo real de cada procedimiento hasta finalizar. Verificar, corregir errores, solución completa exitosa.
+alwaysApply: true
+---
+
+# Seguimiento en tiempo real hasta finalizar
+
+## Regla principal — Permanente
+
+**Realizar seguimiento en tiempo real de cada procedimiento hasta finalizarlo.** Igual que todas las reglas del workspace: se aplica siempre, sin excepciones.
+
+**Garantía:** Se debe asegurar y garantizar que el seguimiento se realiza correctamente: identificar errores en el momento, corregir antes de continuar, no parar con errores sin resolver, verificar el resultado final antes de reportar. **Durante los procedimientos:** revisar activamente que no hay errores en cada paso; si se detecta uno, corregirlo de inmediato y re-verificar hasta asegurar el resultado correcto.
+
+## Obligaciones
+
+1. **Seguimiento hasta completar:** No dar por terminado un procedimiento sin haberlo ejecutado, verificado su resultado y comprobado que funciona correctamente.
+2. **Comprobar que todo está correcto:** Tras cada paso o al finalizar, verificar que el resultado es el esperado (ejecución exitosa, sin errores, salida correcta).
+3. **Si hay errores: identificar en el momento, corregir y solo entonces continuar:** Cuando aparezca un error durante la ejecución o verificación:
+   - Identificar la causa en el momento.
+   - Realizar las modificaciones y correcciones necesarias.
+   - Re-ejecutar o re-verificar.
+   - **No seguir ejecutando procedimientos** hasta que los errores estén resueltos.
+   - Repetir hasta que no queden errores.
+4. **Solución completa, efectiva y exitosa:** No finalizar la respuesta hasta haber entregado una solución que:
+   - Esté completa (cubre lo solicitado).
+   - Sea efectiva (funciona en la práctica).
+   - Sea exitosa (verificada, sin errores pendientes).
+
+## Aplicación
+
+- Procedimientos ejecutados (scripts, comandos, migraciones, despliegues).
+- Cambios en código o configuración.
+- Tareas con múltiples pasos.
+- Cualquier acción que tenga un resultado verificable.
+
+## Conexión con otras reglas
+
+- **No delegar:** Ejecutar y seguir hasta el final uno mismo.
+- **No omitir:** No saltarse la verificación ni la corrección de errores.
+- **cero-errores-antes-continuar.mdc:** Refuerza esta regla — cero errores de ningún tipo antes de continuar; primero corregir todo, después seguir.
+- **Registro en vitácora:** Antes de finalizar, registrar las acciones realizadas.
+
+## Resumen
+
+**Seguir en tiempo real cada procedimiento hasta finalizar. Verificar. Corregir errores. Entregar solución completa y exitosa. Asegurar y garantizar el correcto funcionamiento y ejecución de este flujo en cada tarea.**

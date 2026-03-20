@@ -1,0 +1,13 @@
+﻿# Archivos sensibles - NO indexar
+.env
+.env.*
+*.key
+*.pem
+deploy-info.json
+token-metadata.json
+verification/
+node_modules/
+build/
+*.log
+.DS_Store
+archivos_delicados/

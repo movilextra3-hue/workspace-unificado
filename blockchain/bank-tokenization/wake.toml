@@ -1,0 +1,12 @@
+# Wake — bank-tokenization (Hardhat, OpenZeppelin en node_modules)
+# Para que el IDE/Wake resuelva @openzeppelin al analizar este proyecto
+
+[compiler.solc]
+remappings = [
+  "@openzeppelin/contracts-upgradeable/=node_modules/@openzeppelin/contracts-upgradeable/",
+  "@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/"
+]
+exclude_paths = ["node_modules", "script", "test"]
+
+[detectors]
+exclude_paths = ["node_modules", "script", "test"]

@@ -1,0 +1,39 @@
+# Raíz
+node_modules/
+.env
+.env.local
+*.log
+.DS_Store
+
+# Subproyectos (referencias; cada uno puede tener el suyo)
+**/node_modules/
+**/build/
+**/.env
+**/deploy-info.json
+**/token-metadata.json
+**/verification/
+**/*.pem
+**/*.key
+**/secrets/
+**/archivos_delicados/
+**/venv/
+**/.mypy_cache/
+
+# Sincronización (logs del script)
+sync-*.log
+
+# Herramientas descargadas (hashcat, etc.)
+tools/
+
+# Backups duplicados del proyecto (no versionar)
+**/trc20-token-backup*.zip
+**/trc20-token-backup-*/
+
+# Recuperación de disco / diagnóstico local (no versionar)
+diskpart_*.txt
+testdisk*.zip
+testdisk_salida.txt
+recycle_f.txt
+system_vol_f.txt
+__pycache__/
+*.pyc

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe completo — Análisis ZIP emisión 300M USD y dirección 0x38d4...</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #fafbfc;
+      --color-text: #1a1a2e;
+      --color-text-muted: #4a5568;
+      --color-accent: #2563eb;
+      --color-warning: #dc2626;
+      --color-success: #059669;
+      --color-border: #e2e8f0;
+      --font-serif: 'Source Serif 4', Georgia, serif;
+      --font-sans: 'IBM Plex Sans', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 11pt;
+      line-height: 1.6;
+      color: var(--color-text);
+      background: var(--color-bg);
+      margin: 0;
+      padding: 2rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-serif);
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      border-bottom: 2px solid var(--color-accent);
+      padding-bottom: 0.25em;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      color: var(--color-accent);
+    }
+
+    h3 {
+      font-size: 1.15rem;
+    }
+
+    h4 {
+      font-size: 1rem;
+    }
+
+    .cover {
+      text-align: center;
+      padding: 4rem 2rem;
+      border: 1px solid var(--color-border);
+      background: #fff;
+      margin-bottom: 3rem;
+    }
+
+    .cover h1 {
+      border: none;
+      font-size: 1.8rem;
+    }
+
+    .cover .subtitle {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+
+    .cover .date {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 10pt;
+      background: #fff;
+      border: 1px solid var(--color-border);
+    }
+
+    th,
+    td {
+      border: 1px solid var(--color-border);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .alert {
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+
+    .alert-warning {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+
+    .alert-info {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+    }
+
+    .diagram {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: #fff;
+      border: 1px solid var(--color-border);
+      overflow-x: auto;
+    }
+
+    .diagram svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .diagram-title {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .toc {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: #f8fafc;
+      border: 1px solid var(--color-border);
+    }
+
+    .toc ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .toc li {
+      padding: 0.25rem 0;
+      border-bottom: 1px dotted var(--color-border);
+    }
+
+    .toc a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    code,
+    .mono {
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.9em;
+    }
+
+    .hash {
+      word-break: break-all;
+    }
+
+    hr.doc-separator {
+      margin: 3rem 0;
+    }
+
+    .doc-footer {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        padding: 1rem;
+      }
+
+      .cover {
+        border: none;
+        box-shadow: none;
+      }
+
+      .page-break {
+        page-break-before: always;
+      }
+
+      table {
+        page-break-inside: avoid;
+      }
+
+      .diagram {
+        page-break-inside: avoid;
+      }
+
+      a {
+        color: #2563eb;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cover">
+    <h1>Informe de análisis forense</h1>
+    <p class="subtitle">ZIP emisión 300M USD Muhammad Umar — Dirección 0x38d4bcdad624540051e9934dcd971c77b9547dc1</p>
+    <p class="date">Fecha del informe: 18 de marzo de 2026</p>
+    <p class="date">Workspace Unificado — Vitácora consolidada</p>
+  </div>
+
+  <div class="toc">
+    <h2>Índice</h2>
+    <ul>
+      <li><a href="#parte1">Parte 1 — Análisis del archivo ZIP</a></li>
+      <li><a href="#parte2">Parte 2 — Análisis blockchain dirección 0x38d4...</a></li>
+      <li><a href="#diagramas">Diagramas</a></li>
+    </ul>
+  </div>
+
+  <!-- ========== PARTE 1: INFORME ZIP ========== -->
+  <h1 id="parte1">Parte 1 — Análisis del archivo ZIP</h1>
+  <p><strong>Archivo analizado:</strong> <code>emision_300m_usd_muhammad_umar_CONFIRMADA_20251214_235429.zip</code></p>
+  <p><strong>Origen:</strong> WhatsApp Desktop (transferencias). Análisis exhaustivo sin omisiones, exclusiones ni
+    suposiciones.</p>
+
+  <h2>1.1 Resumen ejecutivo</h2>
+  <table>
+    <tr>
+      <th>Campo</th>
+      <th>Valor</th>
+    </tr>
+    <tr>
+      <td><strong>Archivo</strong></td>
+      <td>ZIP (6 archivos, ~12,5 KB total)</td>
+    </tr>
+    <tr>
+      <td><strong>Contenido declarado</strong></td>
+      <td>Emisión $300.000.000 USD "CONFIRMADA" para Muhammad Umar</td>
+    </tr>
+    <tr>
+      <td><strong>Wallet asociada</strong></td>
+      <td><span class="mono hash">0x38d4bcdad624540051e9934dcd971c77b9547dc1</span></td>
+    </tr>
+    <tr>
+      <td><strong>Hallazgo crítico</strong></td>
+      <td>La transacción blockchain asociada transfirió <strong>0 ETH</strong> ($0.00)</td>
+    </tr>
+    <tr>
+      <td><strong>Veredicto</strong></td>
+      <td><strong>Posible esquema fraudulento / advance-fee scam</strong></td>
+    </tr>
+  </table>
+
+  <h2>1.2 Contenido del ZIP</h2>
+  <table>
+    <tr>
+      <th>Archivo</th>
+      <th>Tamaño</th>
+      <th>Tipo real</th>
+      <th>Contenido</th>
+    </tr>
+    <tr>
+      <td>emision_20251214_230604.dll</td>
+      <td>2047 B</td>
+      <td>JSON (ext. incorrecta)</td>
+      <td>DATOS_LIQUIDACION_LOGISTICA — beneficiario, tx_hash, master_wallet</td>
+    </tr>
+    <tr>
+      <td>emision_20251214_230604.fin</td>
+      <td>2134 B</td>
+      <td>JSON</td>
+      <td>DATOS_FINANCIEROS — monto 300M USD, estado EMITIDO</td>
+    </tr>
+    <tr>
+      <td>emision_20251214_230604.json</td>
+      <td>2359 B</td>
+      <td>JSON</td>
+      <td>Emisión completa: beneficiario, passport (mascarado), tx, archivos</td>
+    </tr>
+    <tr>
+      <td>SWIFT_NET_REPORT_EMISION_300M_USD_*.pdf</td>
+      <td>2096 B</td>
+      <td>PDF</td>
+      <td>Presunto informe SWIFT (tamaño muy pequeño para informe real)</td>
+    </tr>
+    <tr>
+      <td>codigo_descarga_20251213_184614.json</td>
+      <td>3523 B</td>
+      <td>JSON</td>
+      <td>Código descarga, transferencia $100M, coordenadas destino</td>
+    </tr>
+    <tr>
+      <td>resumen_emision_CONFIRMADA_*.json</td>
+      <td>841 B</td>
+      <td>JSON</td>
+      <td>Resumen: emisión $300M, estado CONFIRMADA_BLOCKCHAIN</td>
+    </tr>
+  </table>
+
+  <h2>1.3 Verificación blockchain (Etherscan)</h2>
+  <p><strong>Tx hash asociada:</strong> <code
+      class="hash">0xdc1741580fb3aff1378b934cc7fa4946e0982806de0d4b8bc64142fc07a1cc9a</code></p>
+  <table>
+    <tr>
+      <th>Campo</th>
+      <th>Valor</th>
+    </tr>
+    <tr>
+      <td>From</td>
+      <td><span class="mono hash">0x00e4ec0F0d570841EDdDf9b08fbE259bE57C8aA1</span></td>
+    </tr>
+    <tr>
+      <td>To</td>
+      <td><span class="mono hash">0x38d4BCdad624540051e9934Dcd971C77B9547Dc1</span></td>
+    </tr>
+    <tr>
+      <td><strong>Value</strong></td>
+      <td><strong>0 ETH ($0.00)</strong></td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td>Success</td>
+    </tr>
+    <tr>
+      <td>Block</td>
+      <td>24015443 (15 dic 2025)</td>
+    </tr>
+    <tr>
+      <td>Input Data</td>
+      <td>JSON embebido con claim de $300M y datos beneficiario</td>
+    </tr>
+  </table>
+  <p><strong>Conclusión:</strong> La transacción movió <strong>cero valor</strong>. El claim de emisión de $300M está
+    solo en metadata (Input Data), no en fondos transferidos.</p>
+
+  <h2>1.4 Desajustes y contradicciones</h2>
+  <ul>
+    <li><strong>Wallet 0x38d4...</strong> — Balance real ~$0.31, no $300M.</li>
+    <li><strong>Tx dc1741580fb...</strong> — Value = 0 ETH; ningún activo enviado.</li>
+    <li><strong>Otra tx (codigo_descarga):</strong> 0x4f2e65ab... — también 0 ETH.</li>
+    <li><strong>PDF SWIFT:</strong> 2096 bytes — demasiado pequeño para informe SWIFT real.</li>
+    <li><strong>Dominio craftedsolution.online:</strong> No asociado a entidad financiera regulada conocida.</li>
+  </ul>
+
+  <h2>1.5 Exposición de credenciales (ALERTA SEGURIDAD)</h2>
+  <div class="alert alert-warning">
+    <strong>Expuesto en múltiples archivos del ZIP:</strong>
+    <ul>
+      <li><strong>Alchemy API key</strong> — Visible en JSON y en Input Data de la tx (público en blockchain)</li>
+      <li><strong>IP:</strong> 72.60.226.65</li>
+      <li><strong>Dominio:</strong> craftedsolution.online</li>
+      <li><strong>user_login:</strong> cyrptohost</li>
+    </ul>
+    <p><strong>Recomendación:</strong> Revocar/rotar inmediatamente la API key de Alchemy; cambiar credenciales del
+      dominio.</p>
+  </div>
+
+  <h2>1.6 Datos personales en el paquete</h2>
+  <ul>
+    <li><strong>Beneficiario:</strong> Muhammad Umar, pakistaní, nacimiento 1993-06-30, Sialkot.</li>
+    <li><strong>Pasaporte:</strong> Número mascarado BL******92; autoridad Pakistan DG Immigration.</li>
+    <li><strong>Documento nacional:</strong> 34601*********-*</li>
+    <li><strong>Padre:</strong> Billa, M********* (mascarado).</li>
+  </ul>
+
+  <h2>1.7 Patrón de posible fraude</h2>
+  <ol>
+    <li><strong>Claim:</strong> Emisión de $300M USD "confirmada" en blockchain.</li>
+    <li><strong>Realidad on-chain:</strong> Transacciones de 0 ETH con JSON en Input Data.</li>
+    <li><strong>Documentación:</strong> PDF "SWIFT" de tamaño mínimo; JSON con estructura similar a sistemas
+      financieros.</li>
+    <li><strong>Credenciales expuestas:</strong> API key, IP, dominio.</li>
+    <li><strong>Patrón típico:</strong> Advance-fee: pedir comisiones, impuestos o "liberación" para acceder a fondos
+      inexistentes.</li>
+  </ol>
+
+  <div class="page-break"></div>
+
+  <!-- ========== PARTE 2: ANÁLISIS DIRECCIÓN 0x38d4 ========== -->
+  <h1 id="parte2">Parte 2 — Análisis blockchain dirección 0x38d4...</h1>
+  <p><strong>Fuentes:</strong> Etherscan (Ethereum mainnet), BscScan (BNB Chain), PolygonScan.</p>
+
+  <h2>2.1 Resumen ejecutivo</h2>
+  <table>
+    <tr>
+      <th>Campo</th>
+      <th>Valor</th>
+    </tr>
+    <tr>
+      <td><strong>Dirección</strong></td>
+      <td><span class="mono hash">0x38d4BCdad624540051e9934Dcd971C77B9547Dc1</span></td>
+    </tr>
+    <tr>
+      <td><strong>Tipo</strong></td>
+      <td>EOA (wallet; no contrato)</td>
+    </tr>
+    <tr>
+      <td><strong>Valor total estimado</strong></td>
+      <td>~$0.31</td>
+    </tr>
+    <tr>
+      <td><strong>Redes con actividad</strong></td>
+      <td>Ethereum, BNB Chain</td>
+    </tr>
+    <tr>
+      <td><strong>Polygon</strong></td>
+      <td>Sin transacciones; 0 POL</td>
+    </tr>
+  </table>
+
+  <h2>2.2 Ethereum Mainnet</h2>
+  <table>
+    <tr>
+      <th>Campo</th>
+      <th>Valor</th>
+    </tr>
+    <tr>
+      <td>Balance ETH</td>
+      <td>0.000131787157493755 ETH (~$0.31)</td>
+    </tr>
+    <tr>
+      <td>Tokens ERC-20</td>
+      <td>1: RAWToken (RAW) — 150 unidades, $0.00</td>
+    </tr>
+    <tr>
+      <td>Transacciones totales</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>Primera tx</td>
+      <td>106 días atrás (30 nov 2025)</td>
+    </tr>
+    <tr>
+      <td>Última tx</td>
+      <td>81 días atrás (25 dic 2025)</td>
+    </tr>
+    <tr>
+      <td>Fondeada por</td>
+      <td>0x87Ba140D... (origen Binance)</td>
+    </tr>
+  </table>
+  <p><strong>Patrón:</strong> Transfers desde 0x00e4ec0F... (posible bridge/servicio); salientes a 0xFBD18B06... y
+    0x92b7Fde3...</p>
+
+  <h2>2.3 BNB Chain</h2>
+  <table>
+    <tr>
+      <th>Campo</th>
+      <th>Valor</th>
+    </tr>
+    <tr>
+      <td>Balance BNB</td>
+      <td>0 BNB</td>
+    </tr>
+    <tr>
+      <td>Token holdings</td>
+      <td>1 NFT</td>
+    </tr>
+    <tr>
+      <td>Transacciones totales</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>Período actividad</td>
+      <td>88 días atrás (18 dic 2025)</td>
+    </tr>
+    <tr>
+      <td>Fondeada por</td>
+      <td>0xB5b56d55...</td>
+    </tr>
+    <tr>
+      <td>Flujo notable</td>
+      <td>Recibió ~0.051 BNB ($34.93), luego transfirió</td>
+    </tr>
+  </table>
+
+  <h2>2.4 Direcciones relacionadas</h2>
+  <table>
+    <tr>
+      <th>Dirección</th>
+      <th>Rol</th>
+      <th>Red</th>
+    </tr>
+    <tr>
+      <td>0x87Ba140D...</td>
+      <td>Fondeador inicial Ethereum</td>
+      <td>Ethereum</td>
+    </tr>
+    <tr>
+      <td>0xB5b56d55...</td>
+      <td>Fondeador BSC</td>
+      <td>BNB Chain</td>
+    </tr>
+    <tr>
+      <td>0x00e4ec0F...</td>
+      <td>Contraparte recurrente (emisor tx 0 ETH)</td>
+      <td>Ethereum, BSC</td>
+    </tr>
+  </table>
+
+  <h2>2.5 Riesgos y observaciones</h2>
+  <ul>
+    <li>Wallet EOA con actividad reciente (nov–dic 2025); inactiva ~80+ días.</li>
+    <li>Valor bajo (~$0.31) concentrado en ETH.</li>
+    <li>Interacción con 0x00e4ec0F en ambas redes.</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- ========== DIAGRAMAS ========== -->
+  <h1 id="diagramas">Diagramas</h1>
+
+  <div class="diagram">
+    <div class="diagram-title">Diagrama 1 — Flujo de la transacción blockchain (Value = 0 ETH)</div>
+    <svg viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" width="100%">
+      <defs>
+        <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#2563eb" />
+        </marker>
+      </defs>
+      <rect x="20" y="20" width="140" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1" />
+      <text x="90" y="45" text-anchor="middle" font-size="10" fill="#1e40af">0x00e4ec0F...</text>
+      <text x="90" y="58" text-anchor="middle" font-size="9" fill="#64748b">Emisor</text>
+      <path d="M160 45 L260 45" stroke="#2563eb" stroke-width="2" marker-end="url(#arr)" />
+      <text x="210" y="35" text-anchor="middle" font-size="9" fill="#dc2626">0 ETH</text>
+      <rect x="260" y="20" width="140" height="50" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1" />
+      <text x="330" y="45" text-anchor="middle" font-size="10" fill="#991b1b">0x38d4bcda...</text>
+      <text x="330" y="58" text-anchor="middle" font-size="9" fill="#64748b">Destino (wallet)</text>
+      <rect x="420" y="20" width="90" height="50" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1" />
+      <text x="465" y="40" text-anchor="middle" font-size="9">Input Data</text>
+      <text x="465" y="52" text-anchor="middle" font-size="8" fill="#64748b">JSON claim $300M</text>
+    </svg>
+  </div>
+
+  <div class="diagram">
+    <div class="diagram-title">Diagrama 2 — Patrón de posible fraude (advance-fee scam)</div>
+    <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" width="100%">
+      <defs>
+        <marker id="arr2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+        </marker>
+      </defs>
+      <rect x="20" y="10" width="460" height="200" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1" />
+      <text x="250" y="35" text-anchor="middle" font-size="12" font-weight="bold" fill="#991b1b">Flujo del
+        esquema</text>
+      <ellipse cx="80" cy="75" rx="60" ry="25" fill="#fff" stroke="#2563eb" />
+      <text x="80" y="80" text-anchor="middle" font-size="9">1. Documentación</text>
+      <text x="80" y="92" text-anchor="middle" font-size="8">ZIP, PDF SWIFT</text>
+      <path d="M140 75 L180 75" stroke="#64748b" stroke-width="1" marker-end="url(#arr2)" />
+      <ellipse cx="230" cy="75" rx="60" ry="25" fill="#fff" stroke="#2563eb" />
+      <text x="230" y="80" text-anchor="middle" font-size="9">2. Tx blockchain</text>
+      <text x="230" y="92" text-anchor="middle" font-size="8">0 ETH + metadata</text>
+      <path d="M290 75 L330 75" stroke="#64748b" stroke-width="1" marker-end="url(#arr2)" />
+      <ellipse cx="380" cy="75" rx="60" ry="25" fill="#fff" stroke="#2563eb" />
+      <text x="380" y="80" text-anchor="middle" font-size="9">3. Claim</text>
+      <text x="380" y="92" text-anchor="middle" font-size="8">$300M confirmado</text>
+      <path d="M380 100 L380 130" stroke="#64748b" stroke-width="1" marker-end="url(#arr2)" />
+      <rect x="280" y="130" width="200" height="50" rx="4" fill="#fff" stroke="#dc2626" />
+      <text x="380" y="152" text-anchor="middle" font-size="10" fill="#991b1b">4. Solicitud de comisiones</text>
+      <text x="380" y="165" text-anchor="middle" font-size="9" fill="#64748b">impuestos / liberación</text>
+    </svg>
+  </div>
+
+  <div class="diagram">
+    <div class="diagram-title">Diagrama 3 — Relación entre entidades</div>
+    <svg viewBox="0 0 480 180" xmlns="http://www.w3.org/2000/svg" width="100%">
+      <rect x="40" y="20" width="120" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" />
+      <text x="100" y="40" text-anchor="middle" font-size="10">craftedsolution.online</text>
+      <text x="100" y="55" text-anchor="middle" font-size="8" fill="#64748b">Dominio</text>
+      <rect x="40" y="90" width="120" height="50" rx="4" fill="#f0fdf4" stroke="#22c55e" />
+      <text x="100" y="110" text-anchor="middle" font-size="10">0x38d4bcda...</text>
+      <text x="100" y="125" text-anchor="middle" font-size="8" fill="#64748b">Wallet destino</text>
+      <rect x="40" y="160" width="120" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" />
+      <text x="100" y="178" text-anchor="middle" font-size="9">Balance: ~$0.31</text>
+      <rect x="220" y="70" width="120" height="50" rx="4" fill="#f8fafc" stroke="#94a3b8" />
+      <text x="280" y="90" text-anchor="middle" font-size="10">0x00e4ec0F...</text>
+      <text x="280" y="105" text-anchor="middle" font-size="8" fill="#64748b">Emisor tx 0 ETH</text>
+      <rect x="360" y="20" width="100" height="40" rx="4" fill="#fef3c7" stroke="#d97706" />
+      <text x="410" y="40" text-anchor="middle" font-size="9">Alchemy API</text>
+      <rect x="360" y="70" width="100" height="40" rx="4" fill="#fef3c7" stroke="#d97706" />
+      <text x="410" y="90" text-anchor="middle" font-size="9">72.60.226.65</text>
+      <line x1="160" y1="45" x2="220" y2="85" stroke="#94a3b8" stroke-width="1" />
+      <line x1="280" y1="95" x2="160" y2="115" stroke="#94a3b8" stroke-width="1" />
+      <line x1="160" y1="20" x2="360" y2="40" stroke="#94a3b8" stroke-dasharray="4" stroke-width="1" />
+    </svg>
+  </div>
+
+  <h2>Enlaces de verificación</h2>
+  <ul>
+    <li><a href="https://etherscan.io/tx/0xdc1741580fb3aff1378b934cc7fa4946e0982806de0d4b8bc64142fc07a1cc9a">Etherscan
+        tx dc1741580fb...</a></li>
+    <li><a href="https://etherscan.io/address/0x38d4bcdad624540051e9934dcd971c77b9547dc1">Etherscan address
+        0x38d4...</a></li>
+    <li><a href="https://bscscan.com/address/0x38d4bcdad624540051e9934dcd971c77b9547dc1">BscScan address 0x38d4...</a>
+    </li>
+  </ul>
+
+  <hr class="doc-separator">
+  <p class="doc-footer">
+    <strong>Documento generado desde:</strong> docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md<br>
+    <strong>Fecha:</strong> 18 de marzo de 2026<br>
+    <strong>Reglas aplicadas:</strong> Sin omisiones, exclusiones ni suposiciones. Verificación on-chain en Etherscan.
+  </p>
+
+</body>
+
+</html>

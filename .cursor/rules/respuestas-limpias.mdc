@@ -1,0 +1,37 @@
+---
+description: Respuestas limpias — nunca incluir salidas crudas, sintaxis de herramientas ni JSON sin procesar en respuestas al usuario.
+alwaysApply: true
+---
+
+# Respuestas limpias — Formato obligatorio
+
+**Permanente. Sin excepciones.**
+
+## Prohibido en respuestas al usuario
+
+- **Nunca incluir** salidas crudas de herramientas (ej. "Content from https://...", bloques JSON de APIs).
+- **Nunca incluir** sintaxis de invocación de herramientas (ej. `mcp_web_fetch`, `call_mcp_tool`, `read_file`, etc.) como texto visible para el usuario.
+- **Nunca incluir** parámetros de herramientas en la respuesta: `The file ...`, `path=`, `offset`, `limit`, etc.
+- **Nunca incluir** meta-comentarios sobre lo que el agente hace internamente: "Leyendo X...", "Añadiendo Y...", "Consultando...", "Ejecutando...". Responder directamente con el resultado.
+- **Nunca incluir** JSON o respuestas HTTP sin procesar, a menos que el usuario pida explícitamente ver el raw.
+- **Nunca incluir** metadatos internos de ejecución (tool names, server names, argumentos técnicos) en la respuesta final.
+- **Nunca incluir** fragmentos crudos de salida de herramientas: "Exit code:", "Command output:", "The file X has been updated", "Error: File not found", invocaciones parciales como "Read", "Write", nombres de herramientas. Redactar siempre en prosa limpia.
+
+## Obligatorio
+
+- **Siempre** resumir, formatear y redactar la información en prosa o tablas legibles.
+- **Siempre** usar lenguaje natural y estructuras claras (listas, tablas markdown, párrafos).
+- Si se consultan APIs o herramientas: integrar los resultados en una exposición coherente, no volcarlos literalmente.
+
+## Ejemplo
+
+- ❌ Incorrecto: `Content from https://api... {"total":0,"data":[]}`
+- ❌ Incorrecto: `mcp_web_fetch url="https://..."` como texto de respuesta
+- ❌ Incorrecto: "Leyendo package.json y añadiendo a vitácora..."
+- ❌ Incorrecto: "The file e:\...\CONSOLIDACION_COMPLETA_TODO.md (offset 69010, limit 30)"
+- ✅ Correcto: "La API devolvió 0 transacciones para esa dirección."
+- ✅ Correcto: Ir directo al resultado o acción — sin narrar el proceso interno.
+
+## Resumen
+
+**Toda respuesta al usuario: limpia, legible y sin fugas de herramientas o APIs.**

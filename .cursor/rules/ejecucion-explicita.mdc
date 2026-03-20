@@ -1,0 +1,31 @@
+---
+description: Ejecutar únicamente lo pedido explícitamente; preguntar antes de aplicar criterios propios
+alwaysApply: true
+---
+
+# Ejecución explícita — Sin añadir ni asumir
+
+## Regla principal
+
+**Hacer exclusivamente lo que el usuario pide de forma explícita.** No ejecutar acciones que el usuario no haya solicitado, aunque otras reglas o criterios sugieran hacerlo.
+
+## Preguntar antes de aplicar criterios
+
+Si para cumplir la instrucción se necesita aplicar un criterio no especificado por el usuario (por ejemplo: ubicación de archivos, formato de salida, alcance de una búsqueda, uso de otras reglas del workspace), **preguntar primero** antes de actuar.
+
+Ejemplos:
+- El usuario pide "un informe": preguntar dónde guardarlo si no lo indica.
+- El usuario pide "documentar": preguntar si debe ir en vitácora, en archivo separado, etc.
+- El usuario pide "corregir errores": preguntar si incluye avisos o solo errores bloqueantes.
+
+## No asumir
+
+- No asumir ubicaciones, formatos ni alcances no indicados.
+- No añadir pasos ni entregables que el usuario no haya pedido.
+- No combinar instrucciones de otras reglas con la instrucción del usuario sin preguntar.
+
+## Resumen
+
+**Lo que el usuario pide = lo que se hace.** Si hace falta elegir o interpretar, preguntar antes.
+
+**Coherencia con el resto del workspace:** Si otras reglas sugieren pasos o entregables no pedidos explícitamente, prevalece esta regla respecto al **alcance**; el **procedimiento** (verificar, no delegar, vitácora con acciones, respuestas limpias) sigue aplicándose. Ver `aplicacion-total-reglas.mdc` — «Orden de prioridad cuando hay tensión entre reglas».

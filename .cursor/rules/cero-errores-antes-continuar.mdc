@@ -1,0 +1,38 @@
+---
+description: Cero errores antes de continuar — No avanzar si hay errores de ningún tipo. Primero corregir todo, después continuar.
+alwaysApply: true
+---
+
+# Cero errores antes de continuar
+
+## Regla principal — Permanente e inviolable
+
+**No deben existir errores de ningún tipo antes de continuar en ningún lugar ni en ningún paso.** Cualquier problema detectado debe corregirse primero; solo después se continúa.
+
+**Garantía:** Se debe asegurar y garantizar que esta regla se cumple en cada punto del flujo: antes de actuar, durante cada paso, antes de ejecutar y antes de reportar.
+
+## Obligaciones
+
+1. **Cero errores como requisito para continuar:** Antes de pasar al siguiente paso, comando, archivo o tarea: verificar que no existen errores (linter, compilación, tests, IDE, configuración, dependencias, salida de comandos, etc.). Si hay alguno: corregirlo hasta que desaparezca; solo entonces continuar.
+
+2. **Cualquier problema, primero corregir:** Errores, advertencias bloqueantes, fallos de tests, errores de compilación, lints, configuraciones inválidas, dependencias faltantes o incorrectas, salidas de error en scripts — **todo** debe resolverse antes de avanzar.
+
+3. **Aplicación en todos los contextos:**
+   - Código (Solidity, JS, etc.)
+   - Configuraciones y scripts
+   - Linters y formateadores
+   - Tests
+   - Compilaciones y migraciones
+   - Cualquier procedimiento que tenga un resultado verificable
+
+4. **No excepciones:** No se admite "seguir aunque haya errores menores", "lo arreglamos después" ni "esto no afecta". Todo lo que se pueda detectar como error o problema se corrige antes de continuar.
+
+## Conexión con otras reglas
+
+- **seguimiento-tiempo-real.mdc:** Refuerza: identificar errores en el momento y corregir antes de seguir.
+- **workspace-unificado #5:** Las comprobaciones previas incluyen comprobar que no hay errores conocidos.
+- **aplicacion-total-reglas.mdc:** Esta regla forma parte del conjunto que se aplica siempre.
+
+## Resumen
+
+**Cero errores. Primero corregir todo. Después continuar. En todos los pasos y en todos los contextos.**

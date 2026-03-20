@@ -1,0 +1,84 @@
+---
+description: Meta-regla — Aplicar TODAS las reglas del workspace en cada interacción. Sin excepciones.
+alwaysApply: true
+---
+
+# Aplicación total de reglas
+
+## Regla principal
+
+**En cada respuesta, tarea e interacción, el agente debe aplicar TODAS las reglas del workspace.** Sin excepciones. No omitir ninguna.
+
+## Garantía de ejecución correcta
+
+**Se debe asegurar y garantizar el correcto funcionamiento y ejecución de las reglas.** Esto implica:
+
+- **Aplicar todas** — Ninguna regla se omite ni se considera opcional.
+- **Verificar el cumplimiento** — Antes de reportar o parar, comprobar que cada regla aplicable ha sido ejecutada correctamente.
+- **Resultado verificable** — Toda respuesta debe ser ejecutable, comprobable y libre de errores conocidos pendientes.
+
+## Orden de prioridad cuando hay tensión entre reglas
+
+**Objetivo:** cumplir **aplicación total** y **ejecución explícita** sin contradecirlas.
+
+1. **Primero** — Lo pedido **explícitamente** por el usuario (`ejecucion-explicita.mdc`). No añadir alcance, entregables ni documentación nueva no solicitada.
+2. **Si falta criterio** para cumplirlo (formato, ruta, alcance) — **Preguntar** antes de asumir.
+3. **Resto de reglas** — Rigen **cómo** ejecutar: no delegar, cero hipótesis comprobables, seguimiento hasta cerrar, corrección de errores antes de seguir, respuestas limpias, foco en tarea principal, etc.
+4. **Vitácora** — Append en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` cuando haya **acciones relevantes** (comandos, ediciones, cambios de configuración). No usar el registro para crear documentación fuera de `docs/vitacora/`.
+
+## Reglas que se aplican siempre
+
+0. **00-INSTRUCCION-PRIMERA-OBLIGATORIA.mdc** — Primera regla: consultar todas las demás, vitácora, y aplicar todo antes de actuar.
+1. **workspace-unificado.mdc** — No delegar; no omitir, excluir ni suponer; cero hipótesis (todo comprobado y verificado); seguimiento en tiempo real hasta finalizar; aseguramiento de actualizaciones e IDE (aplicar cambios a todos los archivos involucrados); comprobaciones previas antes de cualquier ejecución (corregir errores, asegurar ejecuciones correctas y eficientes); automatizar procesos posibles y monitorear para garantizar flujo y funcionamiento operativo 100%; antes de reportar o parar, asegurarse de haber completado las tareas designadas y el avance correspondiente; consultar vitácora; calidad de respuestas; convenciones.
+2. **vitacora-registro.mdc** — Ubicación única docs/vitacora; registrar antes de finalizar; append al registro.
+3. **vitacora-obligatoria-todos-proyectos.mdc** — Alcance a todos los proyectos (existentes y nuevos).
+4. **vitacora-al-crear-docs.mdc** — Al crear .md, .txt, .log: solo en docs/vitacora; añadir a CONSOLIDACION_COMPLETA_TODO.md.
+5. **ejecucion-explicita.mdc** — Hacer solo lo pedido explícitamente; preguntar antes de aplicar criterios propios.
+6. **seguimiento-tiempo-real.mdc** — Seguimiento en tiempo real hasta finalizar; identificar errores en el momento; corregir antes de seguir; no continuar con procedimientos siguientes hasta resolver errores actuales; solución completa efectiva y exitosa.
+7. **respuestas-limpias.mdc** — Respuestas solo en lenguaje natural; NUNCA incluir sintaxis de herramientas, JSON crudo ni "Content from" en lo que ve el usuario.
+8. **interacciones-agentes.mdc** — Cuando se usan subagentes: orden secuencial o recursos disjuntos; solo el principal registra en vitácora; verificar resultados antes de aplicar.
+9. **transparencia-veracidad.mdc** — No mentir; 100% transparencia; no disfrazar; usar todas las herramientas disponibles; no delegar por comodidad.
+10. **agotar-alternativas-siempre-solucion.mdc** — Agotar todas las alternativas; revisar procedimientos sin errores; nunca decir "no puedo"; siempre hay solución.
+11. **cero-errores-antes-continuar.mdc** — No continuar si hay errores de ningún tipo; primero corregir todo, después continuar; en todos los pasos y contextos.
+12. **enfoque-tarea-principal-retorno-automatico.mdc** — Mantener foco en la tarea principal; tras tareas secundarias, retornar automáticamente a la principal sin perder el propósito.
+
+## Flujo obligatorio en cada sesión
+
+1. **Antes de actuar:** Consultar reglas y vitácora. Identificar la tarea principal.
+2. **Durante la tarea:** Aplicar todas las reglas (no delegar, no omitir, verificar, no suponer, cero hipótesis — todo comprobado; seguimiento en tiempo real; identificar errores en el momento; corregir antes de continuar; no ejecutar procedimientos siguientes con errores sin resolver).
+3. **Tras cada tarea secundaria:** Retornar automáticamente a la tarea principal; no perder el foco; continuar con el siguiente paso lógico sin pedir confirmación innecesaria.
+4. **Antes de finalizar:** Registrar acciones relevantes en la sección "Registro de interacciones" de `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`.
+5. **Continuar con lo dispuesto:** Si existe una tarea o objetivo pendiente documentado (vitácora, registro, sesión anterior), retomarlo y completarlo hasta lograr el resultado correcto.
+
+## Ejecución obligatoria — Todas, siempre
+
+**La ejecución de absolutamente todas las reglas se aplica en cada interacción.** Sin excepciones.
+
+- Cada regla 0–12 debe estar efectivamente aplicada (no solo citada).
+- Verificar tras cada paso que no hay errores antes de continuar.
+- Si la tarea principal está pendiente: continuar hasta completarla; no dar por cerrada la sesión con pendientes abordables.
+- Tras cualquier tarea secundaria (corrección, subtarea, verificación): retornar automáticamente a la tarea principal.
+
+## Checklist de verificación pre-reporte
+
+Antes de reportar al usuario o dar por finalizada la respuesta:
+
+- [ ] 00-INSTRUCCION-PRIMERA: reglas y vitácora consultadas.
+- [ ] workspace-unificado: no delegado; no omitido; cero hipótesis; seguimiento hasta finalizar.
+- [ ] vitacora-registro: documentación en docs/vitacora; registro append.
+- [ ] vitacora-obligatoria: ningún doc nuevo fuera de docs/vitacora.
+- [ ] vitacora-al-crear-docs: .md/.txt/.log solo en docs/vitacora.
+- [ ] ejecucion-explicita: solo lo pedido; preguntado si hay duda.
+- [ ] orden de prioridad (`aplicacion-total-reglas`): si hubo tensión entre reglas, el alcance no se amplía más allá de lo pedido explícitamente; procedimiento y vitácora coherentes con la sección «Orden de prioridad cuando hay tensión entre reglas».
+- [ ] seguimiento-tiempo-real: verificado cada paso; errores corregidos; solución completa.
+- [ ] respuestas-limpias: sin salidas crudas, JSON, sintaxis de herramientas.
+- [ ] interacciones-agentes: si hubo subagentes, orden correcto; solo principal registra.
+- [ ] transparencia-veracidad: sin mentiras; no disfrazado; no "no puedo" sin evidencia.
+- [ ] agotar-alternativas-siempre-solucion: alternativas agotadas; sin errores pendientes; siempre hay solución.
+- [ ] cero-errores-antes-continuar: cero errores antes de continuar; todo corregido antes de avanzar.
+- [ ] enfoque-tarea-principal: tarea principal identificada; retorno automático tras secundarias; foco mantenido.
+- [ ] Tarea principal completada o continuada con evidencia de lo realizado.
+
+## Resumen
+
+**Usar las reglas para todo.** Código, documentación, búsquedas, diagnósticos, respuestas: en todos los casos se aplican las reglas completas, **en el orden de prioridad** de la sección anterior si varias reglas tensionan. **Asegurar y garantizar** en cada interacción que el correcto funcionamiento y ejecución de las reglas se cumple antes de finalizar. **Continuar con lo dispuesto** hasta completar el objetivo.

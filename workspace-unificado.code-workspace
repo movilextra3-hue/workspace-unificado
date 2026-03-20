@@ -1,0 +1,38 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "workspace-unificado"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/venv": true,
+      "**/__pycache__": true,
+      "**/verification": true,
+      "**/trc20-token-backup-completo-*": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/build": true,
+      "**/venv": true,
+      "**/.env": true,
+      "**/.env.*": true,
+      "**/deploy-info.json": true,
+      "**/secrets": true,
+      "**/*.pem": true,
+      "**/*.key": true,
+      "**/verification": true,
+      "**/trc20-token-backup-completo-*": true
+    },
+    "files.watcherExclude": {
+      "**/node_modules/**": true,
+      "**/build/**": true,
+      "**/venv/**": true
+    },
+    "files.associations": {
+      "*.sol": "solidity"
+    }
+  }
+}

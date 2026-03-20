@@ -1,0 +1,10 @@
+# El archivo .env ya existe en el proyecto con todas las variables.
+# Solo hay que pegar la clave privada después del = en PRIVATE_KEY= (64 caracteres hex, sin 0x).
+# .env está en .gitignore y .cursorignore; no se sube a Git.
+
+PRIVATE_KEY=
+TRON_PRO_API_KEY=
+TOKEN_NAME=Tether USD
+TOKEN_SYMBOL=USTD
+TOKEN_DECIMALS=6
+TOKEN_SUPPLY=1000000

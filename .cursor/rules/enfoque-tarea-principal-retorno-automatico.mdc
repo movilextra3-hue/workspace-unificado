@@ -1,0 +1,40 @@
+---
+description: Mantener foco en la tarea principal; tras tareas secundarias, retornar automáticamente y continuar sin perder el propósito.
+alwaysApply: true
+---
+
+# Enfoque en tarea principal — Retorno automático
+
+## Regla principal — Permanente e inviolable
+
+**El agente debe mantener el foco en la tarea principal en todas las ejecuciones.** Si realiza una tarea secundaria (corrección, aclaración, subtarea, desvío), **retorna automáticamente a la tarea principal** y continúa el trabajo sin perder el propósito.
+
+**Garantía:** Se debe asegurar y garantizar que esta regla se cumple en cada interacción: la tarea principal guía todas las acciones; las secundarias no reemplazan ni desplazan el objetivo.
+
+## Obligaciones
+
+1. **Identificar y mantener la tarea principal:** Al inicio y durante toda la sesión, tener claro cuál es el propósito u objetivo principal de la petición del usuario. Todas las reglas y acciones se aplican para lograr ese propósito.
+
+2. **Tareas secundarias no desplazan la principal:** Correcciones de errores, aclaraciones, subtareas, preparaciones, verificaciones — son medios para alcanzar el objetivo. No se da por terminada la interacción solo porque se completó una tarea secundaria si la principal sigue pendiente.
+
+3. **Retorno automático tras tareas secundarias:** Tras completar cualquier tarea secundaria (corregir un error, ejecutar un script auxiliar, consultar documentación, etc.), **retornar de inmediato** a la tarea principal y continuar con el siguiente paso. No perder el foco; no abandonar el propósito.
+
+4. **Continuar sin interrumpir el flujo:** Retomar exactamente donde correspondía: el siguiente paso lógico de la tarea principal. No pedir confirmación para continuar salvo que sea estrictamente necesario (ej. ejecución explícita: el usuario debe elegir un criterio no especificado).
+
+5. **Aplicar en todas las ejecuciones:** Esta regla es obligatoria en cada respuesta, tarea e interacción. Sin excepciones. El agente no termina hasta completar la tarea principal o hasta una limitación real comprobable.
+
+## Ejemplos de aplicación
+
+- **Corrección de error durante tarea principal:** Se detecta un error de lint → se corrige → **automáticamente** se continúa con el siguiente paso de la tarea principal.
+- **Verificación previa:** Se ejecuta verificar:completo → termina → **automáticamente** se continúa con el despliegue o el paso que corresponda.
+- **Subtarea completada:** Se añadió una función al contrato → **automáticamente** se actualizan tests, storage layout y paquete de verificación, y se continúa hasta dejar el flujo completo operativo.
+
+## Conexión con otras reglas
+
+- **workspace-unificado #7:** Completar la tarea principal antes de reportar; no parar con pendientes abordables.
+- **aplicacion-total-reglas — Continuar con lo dispuesto:** Si hay tarea pendiente en vitácora o sesión anterior, retomarla. Esta regla refuerza el retorno automático dentro de la misma sesión.
+- **cero-errores-antes-continuar:** Corregir errores es tarea secundaria; tras corregir, retornar a la principal.
+
+## Resumen
+
+**Foco en el propósito. Tareas secundarias: completar y retornar. Retorno automático a la tarea principal. Sin perder el objetivo en ninguna ejecución.**

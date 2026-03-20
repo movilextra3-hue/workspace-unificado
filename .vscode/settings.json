@@ -1,0 +1,64 @@
+{
+  "explorer.autoReveal": false,
+  "workbench.editor.revealIfOpen": false,
+  "task.autoReveal": "off",
+  "git.autorefresh": false,
+  "git.autofetch": false,
+  "git.decorations.enabled": true,
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/build/**": true,
+    "**/venv/**": true,
+    "**/.git/**": true,
+    "**/trc20-token-backup*/**": true,
+    "**/__pycache__/**": true,
+    "**/abi/**": true,
+    "**/.cursor/**": true
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/venv": true,
+    "**/__pycache__": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+    "**/venv": true,
+    "**/trc20-token-backup*": true,
+    "**/abi": true,
+    "**/verification": true
+  },
+  "eslint.workingDirectories": [
+    { "directory": "blockchain/trc20-token", "changeProcessCWD": true },
+    { "directory": "blockchain/bank-tokenization", "changeProcessCWD": true },
+    { "directory": ".", "changeProcessCWD": true }
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact"
+  ],
+  "eslint.run": "onType",
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "editor.formatOnSave": true,
+  "files.associations": {
+    "*.env*": "dotenv"
+  },
+  "solidity.defaultCompiler": "remote",
+  "solidity.compileUsingRemoteVersion": "v0.8.25+commit.b61c2a91",
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "python.analysis.indexing": false,
+  "java.import.gradle.enabled": false,
+  "java.import.maven.enabled": false,
+  "extensions.autoCheckUpdates": false,
+  "workbench.startupEditor": "none",
+  "[solidity]": {
+    "editor.defaultFormatter": "JuanBlanco.solidity",
+    "editor.formatOnSave": true
+  }
+}

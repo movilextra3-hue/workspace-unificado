@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vitácora — Operación y edición</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --border: #2d3a4d;
+      --text: #e6edf3;
+      --muted: #8b9cb3;
+      --accent: #58a6ff;
+      --accent-hover: #79b8ff;
+      --success: #3fb950;
+      --warning: #d29922;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .app {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 2rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+    }
+
+    .tabs button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .tabs button:hover {
+      background: #243044;
+      border-color: var(--accent);
+    }
+
+    .tabs button.active {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    main {
+      padding-top: 1.5rem;
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .panel h2 {
+      font-size: 1.15rem;
+      margin: 0 0 1rem;
+      color: var(--muted);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin: 0 0 0.75rem;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 0.75rem 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 0.5rem 0.6rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+    }
+
+    .actions {
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      padding: 0.75rem 1.25rem;
+      background: var(--success);
+      color: var(--bg);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 100;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .checklist li:last-child {
+      border-bottom: none;
+    }
+
+    .checklist input[type="checkbox"] {
+      width: auto;
+      margin-top: 0.25rem;
+      cursor: pointer;
+    }
+
+    .checklist span {
+      flex: 1;
+      font-size: 0.9rem;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+    }
+
+    .new-entry textarea {
+      min-height: 120px;
+    }
+
+    .search-box {
+      margin-bottom: 1rem;
+    }
+
+    .registro-list {
+      max-height: 320px;
+      overflow-y: auto;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .registro-list .item {
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dashboard-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .dashboard-links a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .dashboard-links a:hover {
+      text-decoration: underline;
+    }
+
+    .text-muted-small {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .text-muted-small.mb {
+      margin-bottom: 0.75rem;
+    }
+
+    .input-date-reg {
+      max-width: 180px;
+      margin-bottom: 0.5rem;
+    }
+
+    .input-search-reg {
+      max-width: 320px;
+    }
+
+    .registro-list .item-empty {
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header>
+      <h1>Vitácora — Interfaz de operación</h1>
+      <nav class="tabs">
+        <button type="button" data-tab="inicio" class="active">Inicio</button>
+        <button type="button" data-tab="cis">CIS-TCOIN 2026</button>
+        <button type="button" data-tab="bank">Bank tokenization</button>
+        <button type="button" data-tab="registro">Registro</button>
+      </nav>
+    </header>
+    <main>
+      <section id="panel-inicio" class="panel active">
+        <h2>Inicio</h2>
+        <div class="card">
+          <h3>Resumen</h3>
+          <p>Desde aquí puedes ver y editar la información consolidada (CIS-TCOIN, Bank tokenization) y generar entradas
+            para el registro. Los cambios se guardan en este navegador (localStorage).</p>
+          <ul>
+            <li><strong>CIS-TCOIN 2026</strong> — Datos del Client Information Summary; edición y exportación JSON /
+              texto para vitácora.</li>
+            <li><strong>Bank tokenization</strong> — Variables de entorno y checklist operativo para bUSDT/Vault.</li>
+            <li><strong>Registro</strong> — Crear nueva entrada con formato estándar y copiarla al portapapeles para
+              añadir a <code class="mono">CONSOLIDACION_COMPLETA_TODO.md</code>.</li>
+          </ul>
+          <p class="text-muted-small">El registro completo está en <code
+              class="mono">CONSOLIDACION_COMPLETA_TODO.md</code> (sección «Registro de interacciones»). Aquí solo se
+            muestran entradas de ejemplo para búsqueda rápida.</p>
+          <div class="dashboard-links">
+            <a href="CONSOLIDACION_COMPLETA_TODO.md" target="_blank" rel="noopener">Abrir
+              CONSOLIDACION_COMPLETA_TODO.md</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="panel-cis" class="panel">
+        <h2>CIS-TCOIN 2026</h2>
+        <div class="card">
+          <h3>Datos editables</h3>
+          <div class="form-grid" id="cis-form"></div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="cis-save">Guardar en navegador</button>
+            <button type="button" class="btn btn-secondary" id="cis-copy-json">Copiar JSON</button>
+            <button type="button" class="btn btn-secondary" id="cis-export-vitacora">Exportar para vitácora</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="panel-bank" class="panel">
+        <h2>Bank tokenization</h2>
+        <div class="card">
+          <h3>Variables de entorno / direcciones</h3>
+          <div class="form-grid" id="bank-env-form"></div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="bank-save">Guardar en navegador</button>
+            <button type="button" class="btn btn-secondary" id="bank-copy-env">Copiar como .env</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Checklist operativo</h3>
+          <ul class="checklist" id="bank-checklist"></ul>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="bank-save-checklist">Guardar checklist</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="panel-registro" class="panel">
+        <h2>Registro</h2>
+        <div class="card new-entry">
+          <h3>Nueva entrada</h3>
+          <p class="text-muted-small mb">Formato: <code class="mono">- **YYYY-MM-DD** — Descripción.</code></p>
+          <label for="reg-date">Fecha</label>
+          <input type="date" id="reg-date" class="input-date-reg">
+          <label for="reg-desc">Descripción</label>
+          <textarea id="reg-desc" placeholder="Descripción breve de la acción o hecho..."></textarea>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="reg-copy">Generar y copiar línea</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Búsqueda en registro (últimas entradas embebidas)</h3>
+          <div class="search-box">
+            <input type="text" id="reg-search" class="input-search-reg" placeholder="Buscar en el listado...">
+          </div>
+          <div class="registro-list" id="reg-list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast">Copiado al portapapeles</div>
+
+  <script>
+    (function () {
+      const STORAGE_CIS = 'vitacora-app-cis';
+      const STORAGE_BANK = 'vitacora-app-bank';
+      const STORAGE_CHECKLIST = 'vitacora-app-bank-checklist';
+
+      const cisFields = [
+        { key: 'documento', label: 'Documento', value: 'CLIENT INFORMATION SUMMARY (CIS) — TCOIN 2026' },
+        { key: 'principal', label: 'Principal / Representado por', value: 'Luis Miguel Flores' },
+        { key: 'nacionalidad', label: 'Nacionalidad', value: 'Dominicana' },
+        { key: 'pasaporte', label: 'Pasaporte', value: 'MM0148418' },
+        { key: 'emision_pasaporte', label: 'Emisión pasaporte', value: '27/06/2024' },
+        { key: 'vencimiento_pasaporte', label: 'Vencimiento pasaporte', value: '27/06/2034' },
+        { key: 'fecha_nacimiento', label: 'Fecha de nacimiento', value: '14/02/1978' },
+        { key: 'lugar_nacimiento', label: 'Lugar de nacimiento', value: 'República Dominicana' },
+        { key: 'ocupacion', label: 'Ocupación', value: 'CEO' },
+        { key: 'empresa', label: 'Empresa', value: 'Trading Core Investment LLC' },
+        { key: 'domicilio', label: 'Domicilio / Dirección empresa', value: '7000 Central Parkway Suite 260, Atlanta GA 30328' },
+        { key: 'banco', label: 'Banco', value: 'Trust Bank' },
+        { key: 'direccion_banco', label: 'Dirección banco', value: '2840 E Point St, Atlanta, GA 30344' },
+        { key: 'nombre_cuenta', label: 'Nombre cuenta', value: 'Trading Core Investment LLC' },
+        { key: 'numero_cuenta', label: 'Número de cuenta', value: '1110027029187' },
+        { key: 'beneficiario_cuenta', label: 'Beneficiario cuenta', value: 'Trading Core Investment LLC' },
+        { key: 'swift', label: 'SWIFT', value: 'BRBTUS33' },
+        { key: 'aba', label: 'ABA', value: '061113415' },
+        { key: 'afirmacion', label: 'Afirmación', value: 'Bajo pena de perjurio: información verdadera; control de activos y autoridad de firma sobre la cuenta; fondos en cumplimiento políticas AML FATF (6/01).' },
+        { key: 'firma', label: 'Firma', value: '10 de marzo de 2026 — Luis Miguel Flores (Pasaporte MM0148418, República Dominicana).' }
+      ];
+
+      const bankEnvFields = [
+        { key: 'RPC_MAINNET', label: 'RPC_MAINNET', value: 'https://eth.llamarpc.com' },
+        { key: 'RPC_SEPOLIA', label: 'RPC_SEPOLIA', value: 'https://rpc.sepolia.org' },
+        { key: 'USDT_MAINNET', label: 'USDT_MAINNET', value: '0xdAC17F958D2ee523a2206206994597C13D831ec7' },
+        { key: 'BUSDT_ADDR', label: 'BUSDT_ADDR', value: '' },
+        { key: 'VAULT_ADDR', label: 'VAULT_ADDR', value: '' },
+        { key: 'OPS_SAFE', label: 'OPS_SAFE', value: '' },
+        { key: 'TECH_SAFE', label: 'TECH_SAFE', value: '' },
+        { key: 'ORACLE', label: 'ORACLE', value: '' },
+        { key: 'TREASURY', label: 'TREASURY', value: '' }
+      ];
+
+      const bankChecklistItems = [
+        'Pre-live: Desplegar y auditar contratos (bUSDT, Vault, Oracle)',
+        'Pre-live: Whitelist Oracle en Vault',
+        'Pre-live: Cargar Vault con ≥ volumen diario esperado de USDT',
+        'Pre-live: Configurar adaptador SWIFT con esquema JSON',
+        'Intraday Mint: Confirmar gpi ACCC → adaptador publica JSON → Oracle firma → Vault execute()',
+        'Intraday Redeem: Cliente devuelve bUSDT → Ops crea REDEEM → Oracle firma → Vault quema y transfiere USDT',
+        'End-of-day: Reconciliación bUSDT.totalSupply() == USDT.balanceOf(Vault); delta → pausar y alertar'
+      ];
+
+      const registroSample = [
+        '- **2026-03-17** — CIS-TCOIN 2026 integrado en vitácora.',
+        '- **2026-03-17** — Bank tokenization — bUSDT Ethereum mainnet.',
+        '- **2026-03-17** — Interfaz gráfica vitácora creada (interfaz-vitacora.html).',
+        '- **2026-03-17** — Verificación OKLink ejecutada (TFeLLtutbo, proxy).',
+        '- **2026-03-14** — Aplicación total reglas — alineación metadata TFeLLtutbo.',
+        '- **2026-03-14** — Integración completa — wallet display, Trust Wallet, Layer Zero plan.',
+        '- **2026-03-13** — Actualización información TRON — acceso correcto.',
+        '- **2026-03-12** — Regreso desde inicio vitácora para verificación TXaXTSUK.',
+        '- **2026-03-09** — Revisión mainnet en tiempo real (TV4P3sVf, TXaXTSUK).',
+        '- **2026-03-07** — Consolidación total en un solo documento (CONSOLIDACION_COMPLETA_TODO.md).',
+        '- **2026-03-06** — Verificación OKLink completada (Implementation TRC20).',
+        '- **2026-03-05** — Configuración vitácora como único destino de registros.'
+      ];
+
+      function loadJSON(key, fallback) {
+        try {
+          const s = localStorage.getItem(key);
+          return s ? JSON.parse(s) : fallback;
+        } catch (err) {
+          console.warn('loadJSON:', key, err.message);
+          return fallback;
+        }
+      }
+      function saveJSON(key, obj) { localStorage.setItem(key, JSON.stringify(obj)); }
+      function showToast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg || 'Listo';
+        el.classList.add('show');
+        setTimeout(function () { el.classList.remove('show'); }, 2200);
+      }
+
+      function renderCISForm() {
+        const data = loadJSON(STORAGE_CIS, Object.fromEntries(cisFields.map(f => [f.key, f.value])));
+        const container = document.getElementById('cis-form');
+        container.innerHTML = '';
+        cisFields.forEach(function (f) {
+          const id = 'cis-' + f.key;
+          const div = document.createElement('div');
+          div.innerHTML = '<label for="' + id + '">' + f.label + '</label><input type="text" id="' + id + '" data-key="' + f.key + '" value="' + (data[f.key] == null ? '' : String(data[f.key]).replaceAll('"', '&quot;')) + '">';
+          container.appendChild(div);
+        });
+      }
+      function getCISData() {
+        const o = {};
+        cisFields.forEach(function (f) {
+          const el = document.getElementById('cis-' + f.key);
+          if (el) o[f.key] = el.value.trim();
+        });
+        return o;
+      }
+
+      function renderBankEnvForm() {
+        const data = loadJSON(STORAGE_BANK, Object.fromEntries(bankEnvFields.map(f => [f.key, f.value])));
+        const container = document.getElementById('bank-env-form');
+        container.innerHTML = '';
+        bankEnvFields.forEach(function (f) {
+          const id = 'bank-' + f.key;
+          const div = document.createElement('div');
+          div.innerHTML = '<label for="' + id + '">' + f.label + '</label><input type="text" id="' + id + '" data-key="' + f.key + '" value="' + (data[f.key] == null ? '' : String(data[f.key]).replaceAll('"', '&quot;')) + '" class="mono">';
+          container.appendChild(div);
+        });
+      }
+      function getBankEnvData() {
+        const o = {};
+        bankEnvFields.forEach(function (f) {
+          const el = document.getElementById('bank-' + f.key);
+          if (el) o[f.key] = el.value.trim();
+        });
+        return o;
+      }
+
+      function renderBankChecklist() {
+        const saved = loadJSON(STORAGE_CHECKLIST, bankChecklistItems.map(t => ({ text: t, done: false })));
+        const list = document.getElementById('bank-checklist');
+        list.innerHTML = '';
+        saved.forEach(function (item, i) {
+          const li = document.createElement('li');
+          const text = typeof item === 'string' ? item : item.text;
+          const done = typeof item === 'string' ? false : !!item.done;
+          li.innerHTML = '<input type="checkbox" data-i="' + i + '" ' + (done ? 'checked' : '') + '><span>' + text + '</span>';
+          list.appendChild(li);
+        });
+      }
+      function getBankChecklistData() {
+        const list = document.getElementById('bank-checklist');
+        const items = [];
+        list.querySelectorAll('li').forEach(function (li, i) {
+          const cb = li.querySelector('input[type="checkbox"]');
+          const span = li.querySelector('span');
+          items.push({ text: span ? span.textContent : '', done: cb ? cb.checked : false });
+        });
+        return items;
+      }
+
+      function buildCisVitacoraTable(data) {
+        let md = '| Campo | Valor |\n|-------|--------|\n';
+        cisFields.forEach(function (f) {
+          const raw = (data[f.key] == null ? '' : data[f.key]).toString();
+          const v = raw.replaceAll('|', String.raw`\|`).replaceAll('\n', ' ');
+          md += '| **' + f.label + '** | ' + v + ' |\n';
+        });
+        return md;
+      }
+
+      function removeActiveFromTabsAndPanels() {
+        document.querySelectorAll('.tabs button').forEach(function (b) { b.classList.remove('active'); });
+        document.querySelectorAll('.panel').forEach(function (p) { p.classList.remove('active'); });
+      }
+      function switchToTab(tabId) {
+        const panel = document.getElementById('panel-' + tabId);
+        if (panel) panel.classList.add('active');
+      }
+      function onTabButtonClick(btn) {
+        const tab = btn.dataset.tab;
+        removeActiveFromTabsAndPanels();
+        btn.classList.add('active');
+        switchToTab(tab);
+      }
+      function initTabs() {
+        document.querySelectorAll('.tabs button').forEach(function (btn) {
+          btn.addEventListener('click', function () { onTabButtonClick(btn); });
+        });
+      }
+
+      document.getElementById('cis-save').addEventListener('click', function () {
+        saveJSON(STORAGE_CIS, getCISData());
+        showToast('CIS guardado en navegador');
+      });
+      document.getElementById('cis-copy-json').addEventListener('click', function () {
+        const data = getCISData();
+        navigator.clipboard.writeText(JSON.stringify(data, null, 2)).then(function () { showToast('JSON copiado'); }).catch(function () { showToast('No se pudo copiar'); });
+      });
+      document.getElementById('cis-export-vitacora').addEventListener('click', function () {
+        const data = getCISData();
+        const table = buildCisVitacoraTable(data);
+        const block = '## CIS_TCOIN_2026 (exportado)\n\n' + table + '\n';
+        navigator.clipboard.writeText(block).then(function () { showToast('Texto para vitácora copiado'); }).catch(function () { showToast('No se pudo copiar'); });
+      });
+
+      document.getElementById('bank-save').addEventListener('click', function () {
+        saveJSON(STORAGE_BANK, getBankEnvData());
+        showToast('Variables guardadas en navegador');
+      });
+      document.getElementById('bank-copy-env').addEventListener('click', function () {
+        const data = getBankEnvData();
+        const lines = Object.entries(data).map(function (e) { return e[0] + '=' + (e[1] || ''); });
+        navigator.clipboard.writeText(lines.join('\n')).then(function () { showToast('.env copiado'); }).catch(function () { showToast('No se pudo copiar'); });
+      });
+      document.getElementById('bank-save-checklist').addEventListener('click', function () {
+        saveJSON(STORAGE_CHECKLIST, getBankChecklistData());
+        showToast('Checklist guardado');
+      });
+
+      document.getElementById('reg-copy').addEventListener('click', function () {
+        const dateEl = document.getElementById('reg-date');
+        const descEl = document.getElementById('reg-desc');
+        const date = dateEl && dateEl.value ? dateEl.value.replaceAll('-', '-') : new Date().toISOString().slice(0, 10);
+        const desc = (descEl && descEl.value ? descEl.value : '').trim();
+        const line = '- **' + date + '** — ' + (desc || 'Descripción.');
+        navigator.clipboard.writeText(line).then(function () { showToast('Línea de registro copiada'); }).catch(function () { showToast('No se pudo copiar'); });
+      });
+
+      document.getElementById('reg-search').addEventListener('input', function () {
+        const q = (this.value || '').toLowerCase().trim();
+        const list = document.getElementById('reg-list');
+        const items = registroSample.slice();
+        list.innerHTML = items.map(function (item) {
+          if (q && !item.toLowerCase().includes(q)) return '';
+          return '<div class="item">' + item.replaceAll('<', '&lt;') + '</div>';
+        }).filter(Boolean).join('') || '<div class="item item-empty">Sin coincidencias.</div>';
+      });
+
+      document.getElementById('reg-list').innerHTML = registroSample.map(function (item) {
+        return '<div class="item">' + item.replaceAll('<', '&lt;') + '</div>';
+      }).join('');
+
+      initTabs();
+      renderCISForm();
+      renderBankEnvForm();
+      renderBankChecklist();
+    })();
+  </script>
+</body>
+
+</html>

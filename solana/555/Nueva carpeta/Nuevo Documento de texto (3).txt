@@ -1,0 +1,521 @@
+const { ethers } = require("ethers");
+
+// 1. CONFIGURACIÓN REAL (INFURA)
+const RPC_URL = "392f26491a28a9fc2f033cb55874ded787f31278c7f2d7fce4ebbc70ac4d0f96";
+
+// 2. TUS DIRECCIONES (Confirmadas al 100%)
+const WALLET_ORIGEN = "0x0df5a363166243a30fc9efc06ab50f81295d75a7"; 
+const PROXY_DESTINO = "0xea992485eF28d4DDeC64a2B5aA9c86ADc8b158E2"; // Tu Proxy Synthetix
+const TOKEN_ADDRESS = "0x0df5a363166243a30fc9efc06ab50f81295d75a7"; // Tu Token
+
+// ABI Mínimo para mover dinero
+const ERC20_ABI = [
+    "function transfer(address to, uint256 amount) external returns (bool)",
+    "function balanceOf(address account) external view returns (uint256)",
+    "function decimals() external view returns (uint8)",
+    "function symbol() external view returns (string)"
+];
+
+exports.handler = async (ev, context) => {
+    // Conexión Directa
+    const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+    const wallet = new ethers.Wallet(context.secrets.PRIVATE_KEY, provider);
+
+    console.log(`🤖 INICIANDO OPERACIÓN EN MAINNET`);
+    console.log(`👤 Wallet Origen: ${wallet.address}`);
+    console.log(`🏦 Contrato Destino (Proxy): ${PROXY_DESTINO}`);
+
+    // Instancia del Token
+    const token = new ethers.Contract(TOKEN_ADDRESS, ERC20_ABI, wallet);
+
+    try {
+        // 1. Obtener Datos
+        const [symbol, decimals, saldo] = await Promise.all([
+            token.symbol().catch(() => "TOKEN"),
+            token.decimals().catch(() => 18),
+            token.balanceOf(WALLET_ORIGEN)
+        ]);
+
+        console.log(`💰 Saldo Actual: ${ethers.utils.formatUnits(saldo, decimals)} ${symbol}`);
+
+        if (saldo.isZero()) {
+            console.error("❌ ERROR: El saldo es 0. Carga tokens en la wallet antes de la clase.");
+            return;
+        }
+
+        // 2. Definir cuánto enviar (Ejemplo: 10 Tokens o Todo el saldo)
+        // Si quieres enviar TODO, usa: const cantidad = saldo;
+        // Si quieres enviar 10 unidades:
+        const cantidad = ethers.utils.parseUnits("10", decimals); 
+        
+        // Verificación rápida
+        if (saldo.lt(cantidad)) {
+            console.error("❌ No tienes suficientes tokens para enviar 10. Enviando el máximo disponible...");
+        }
+        const cantidadFinal = saldo.lt(cantidad) ? saldo : cantidad;
+
+        console.log(`🚀 Enviando ${ethers.utils.formatUnits(cantidadFinal, decimals)} ${symbol} al Proxy...`);
+
+        // 3. EJECUTAR TRANSACCIÓN (Con gas manual para asegurar que entre)
+        // El Proxy puede gastar un poco más de gas que una wallet normal, por eso ponemos 150,000
+        const tx = await token.transfer(PROXY_DESTINO, cantidadFinal, { gasLimit: 150000 });
+
+        console.log("---------------------------------------------------------");
+        console.log("✅ ¡TRANSACCIÓN ENVIADA A LA MEMPOOL!");
+        console.log("👇 PROYECTA ESTE ENLACE EN TU CLASE 👇");
+        console.log(`🔗 https://etherscan.io/tx/${tx.hash}`);
+        console.log("---------------------------------------------------------");
+
+        return { status: "Éxito", hash: tx.hash };
+
+    } catch (error) {
+        console.error("❌ ERROR FATAL:", error.message);
+        if (error.message.includes("insufficient funds")) {
+            console.error("💡 PISTA: Te falta ETH para pagar el gas.");
+        }
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+392f26491a28a9fc2f033cb55874ded787f31278c7f2d7fce4ebbc70ac4d0f96
+v3rSB5N1trUONcNZ1K8Blss4gZDHzx7i
+
+
+const { ethers } = require("ethers");
+
+// 
+const WALLET_ORIGEN = "0x0df5a363166243a30fc9efc06ab50f81295d75a7";
+const PROXY_DESTINO = "0xea992485eF28d4DDeC64a2B5aA9c86ADc8b158E2";
+
+// CORRECCIÓN: Agregamos 'symbol' al ABI para que no falle la lectura
+const ERC20_ABI = [
+    "function transfer(address to, uint256 amount) external returns (bool)",
+    "function transferFrom(address from, address to, uint256 amount) external returns (bool)",
+    "function balanceOf(address account) external view returns (uint256)",
+    "function decimals() external view returns (uint8)",
+    "function allowance(address owner, address spender) external view returns (uint256)",
+    "function symbol() external view returns (string)" 
+];
+
+const CONFIG = {
+    RETRY_INTENTOS: 3,
+    MARGEN_GAS: 10000, 
+    ESPERA_ENTRE_REINTENTOS: 2000,
+    LIMITE_GAS_BASE: 150000 // Subido un poco por seguridad
+};
+
+// --- 2. FUNCIÓN DE REINTENTO ---
+const reintentarOperacion = async (operacion, intentosRestantes = CONFIG.RETRY_INTENTOS) => {
+    try {
+        return await operacion();
+    } catch (error) {
+        if (intentosRestantes <= 0) throw error;
+        console.warn(`⚠️ Red inestable. Reintentando en ${CONFIG.ESPERA_ENTRE_REINTENTOS / 1000}s...`);
+        await new Promise(r => setTimeout(r, CONFIG.ESPERA_ENTRE_REINTENTOS));
+        return reintentarOperacion(operacion, intentosRestantes - 1);
+    }
+};
+
+// --- 3. GESTOR DE TESORERÍA ---
+exports.handler = async (ev, context) => {
+    // Inicialización segura
+    const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+    const wallet = new ethers.Wallet(context.secrets.PRIVATE_KEY, provider);
+
+    console.log(`🤖 SISTEMA DE CONSOLIDACIÓN | Operador: ${wallet.address}`);
+    console.log(`📂 Origen: ${WALLET_ORIGEN} | 🏦 Bóveda: ${PROXY_DESTINO}`);
+
+    const esPropietario = (wallet.address.toLowerCase() === WALLET_ORIGEN.toLowerCase());
+    const resultados = [];
+
+    for (const activoAddr of ACTIVOS) {
+        try {
+            const esNativo = (activoAddr.toLowerCase() === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            let saldo, symbol, tx;
+
+            // ===========================
+            //       CASO A: ETH NATIVO
+            // ===========================
+            if (esNativo) {
+                symbol = "ETH";
+                saldo = await provider.getBalance(WALLET_ORIGEN);
+
+                if (saldo.isZero()) {
+                    console.log(`🔍 [ETH] Sin saldo operativo.`);
+                    resultados.push({ activo: "ETH", estado: "Skipped (Zero Balance)" });
+                    continue;
+                }
+
+                // Cálculo preciso de Gas
+                const gasPrice = await provider.getGasPrice();
+                const gasLimit = ethers.BigNumber.from("21000"); 
+                const gasCost = gasPrice.mul(gasLimit);
+                const valorAEnviar = saldo.sub(gasCost); // Restamos el costo del envío
+
+                if (valorAEnviar.lte(0)) {
+                    console.log(`⛔ [ETH] Saldo insuficiente para pagar el gas.`);
+                    resultados.push({ activo: "ETH", estado: "Failed (Gas Insufficient)" });
+                    continue;
+                }
+
+                console.log(`💰 [ETH] Detectado: ${ethers.utils.formatEther(saldo)}. Iniciando barrido...`);
+                
+                tx = await wallet.sendTransaction({ to: PROXY_DESTINO, value: valorAEnviar });
+                await tx.wait();
+                
+                console.log(`✅ [ETH] Consolidado. Hash: ${tx.hash}`);
+                resultados.push({ activo: "ETH", estado: "Success", hash: tx.hash });
+            } 
+
+            // ===========================
+            //       CASO B: TOKENS ERC20
+            // ===========================
+            else {
+                const tokenContract = new ethers.Contract(activoAddr, ERC20_ABI, wallet);
+                let decimals = 18;
+
+                // Lectura segura de metadata
+                try {
+                    [decimals, symbol] = await Promise.all([
+                        tokenContract.decimals().catch(() => 18),
+                        tokenContract.symbol().catch(() => "ERC20")
+                    ]);
+                } catch (e) { symbol = "UNKNOWN"; }
+
+                saldo = await tokenContract.balanceOf(WALLET_ORIGEN);
+
+                if (saldo.isZero()) {
+                    console.log(`🔍 [${symbol}] Sin saldo.`);
+                    resultados.push({ activo: symbol, estado: "Skipped (Zero Balance)" });
+                    continue;
+                }
+
+                const saldoFmt = ethers.utils.formatUnits(saldo, decimals);
+                console.log(`💰 [${symbol}] Detectado: ${saldoFmt}. Preparando envío...`);
+
+                const saldoDestinoInicial = await tokenContract.balanceOf(PROXY_DESTINO);
+
+                // Ejecución con Reintento
+                await reintentarOperacion(async () => {
+                    let gasLimitUsar;
+                    
+                    // Estimación de Gas o Fallback
+                    try {
+                        let gasEstimado;
+                        if (esPropietario) {
+                            gasEstimado = await tokenContract.estimateGas.transfer(PROXY_DESTINO, saldo);
+                        } else {
+                            gasEstimado = await tokenContract.estimateGas.transferFrom(WALLET_ORIGEN, PROXY_DESTINO, saldo);
+                        }
+                        // Añadimos margen seguro usando BigNumber
+                        gasLimitUsar = gasEstimado.add(CONFIG.MARGEN_GAS);
+                    } catch (err) {
+                        console.warn(`⚠️ Fallo estimación gas para ${symbol}. Usando límite fijo.`);
+                        gasLimitUsar = ethers.BigNumber.from(CONFIG.LIMITE_GAS_BASE);
+                    }
+
+                    if (esPropietario) {
+                        tx = await tokenContract.transfer(PROXY_DESTINO, saldo, { gasLimit: gasLimitUsar });
+                    } else {
+                        tx = await tokenContract.transferFrom(WALLET_ORIGEN, PROXY_DESTINO, saldo, { gasLimit: gasLimitUsar });
+                    }
+                    
+                    console.log(`⏳ [${symbol}] Transacción enviada: ${tx.hash}`);
+                    await tx.wait();
+                });
+
+                // Verificación Contable
+                const saldoDestinoFinal = await tokenContract.balanceOf(PROXY_DESTINO);
+                const movido = saldoDestinoFinal.sub(saldoDestinoInicial);
+                
+                if (movido.isZero()) throw new Error("Saldo destino no incrementó.");
+
+                console.log(`✅ [${symbol}] Consolidación exitosa.`);
+                resultados.push({ activo: symbol, estado: "Success", hash: tx.hash, amount: saldoFmt });
+            }
+
+        } catch (err) {
+            console.error(`❌ Error procesando ${activoAddr}: ${err.message}`);
+            resultados.push({ activo: activoAddr, estado: "Error", error: err.message });
+        }
+    }
+
+    return { status: "Ciclo Finalizado", resumen: resultados };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+const { ethers } = require("ethers");
+const https = require("https"); // Usamos esto para preguntar a la API externa
+
+// ==============================================================================
+// 1. CONFIGURACIÓN
+// ==============================================================================
+const RPC_URL = "https://virtual.rpc.tenderly.co/movil/new/public/Mainnet";
+const WALLET_ORIGEN = "0x0df5a363166243a30fc9efc06ab50f81295d75a7";
+const PROXY_DESTINO = "0xea992485eF28d4DDeC64a2B5aA9c86ADc8b158E2";
+
+const ERC20_ABI = [
+    "function transfer(address to, uint256 amount) external returns (bool)",
+    "function balanceOf(address account) external view returns (uint256)",
+    "function symbol() external view returns (string)",
+    "function decimals() external view returns (uint8)"
+];
+
+// ==============================================================================
+// 2. FUNCIÓN DE INTELIGENCIA (DETECTIVE DE TOKENS)
+// ==============================================================================
+function obtenerTokensAutomaticamente(address) {
+    return new Promise((resolve, reject) => {
+        // Usamos la API pública de Ethplorer para ver qué tienes
+        const url = `/getAddressInfo/${address}?apiKey=freekey`;
+        
+        https.get(url, (res) => {
+            let data = '';
+            res.on('data', (chunk) => { data += chunk; });
+            res.on('end', () => {
+                try {
+                    const json = JSON.parse(data);
+                    // Si la API devuelve tokens, los extraemos
+                    if (json.tokens) {
+                        resolve(json.tokens);
+                    } else {
+                        resolve([]);
+                    }
+                } catch (e) {
+                    console.error("Error analizando datos de Ethplorer");
+                    resolve([]);
+                }
+            });
+        }).on('error', (err) => {
+            console.error("Error conectando a API de descubrimiento:", err.message);
+            resolve([]);
+        });
+    });
+}
+
+// ==============================================================================
+// 3. EJECUCIÓN PRINCIPAL
+// ==============================================================================
+exports.handler = async (ev, context) => {
+    const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+    const wallet = new ethers.Wallet(context.secrets.PRIVATE_KEY, provider);
+
+    console.log(`🕵️‍♂️ AUTO-ESCANEO INICIADO PARA: ${WALLET_ORIGEN}`);
+    console.log("Consultando base de datos de tokens...");
+
+    // 1. DESCUBRIMIENTO AUTOMÁTICO
+    const tokensEncontrados = await obtenerTokensAutomaticamente(WALLET_ORIGEN);
+    
+    console.log(`🔎 Se detectaron ${tokensEncontrados.length} tipos de tokens en la cuenta.`);
+    console.log("---------------------------------------------------------");
+
+    // 2. BUCLE DE BARRIDO DE TOKENS
+    for (const tokenInfo of tokensEncontrados) {
+        // La API nos da la info, pero verificamos saldo real en blockchain por seguridad
+        const tokenAddr = tokenInfo.tokenInfo.address;
+        const symbol = tokenInfo.tokenInfo.symbol;
+        
+        try {
+            const tokenContract = new ethers.Contract(tokenAddr, ERC20_ABI, wallet);
+            const saldo = await tokenContract.balanceOf(WALLET_ORIGEN);
+
+            if (saldo.gt(0)) {
+                // Usamos los decimales que dice la API o el contrato
+                const decimals = tokenInfo.tokenInfo.decimals || 18;
+                console.log(`⚡ ENCONTRADO: ${ethers.utils.formatUnits(saldo, decimals)} ${symbol}`);
+                console.log(`   ➤ Dirección: ${tokenAddr}`);
+                console.log(`   ➤ Enviando al Proxy...`);
+
+                // Gas Limit alto por seguridad
+                const tx = await tokenContract.transfer(PROXY_DESTINO, saldo, { gasLimit: 120000 });
+                console.log(`   ✅ ENVIADO: https://etherscan.io/tx/${tx.hash}`);
+                
+                // Esperar confirmación
+                await tx.wait();
+            }
+        } catch (e) {
+            console.error(`   ❌ Error moviendo ${symbol}: ${e.message}`);
+        }
+    }
+
+    // 3. BARRIDO FINAL DE ETH (Nativo)
+    console.log("---------------------------------------------------------");
+    console.log("🧹 LIMPIEZA FINAL DE ETHEREUM...");
+    
+    try {
+        const saldoEth = await wallet.getBalance();
+        const gasPrice = await provider.getGasPrice();
+        const costoGas = gasPrice.mul(21000);
+        const aEnviar = saldoEth.sub(costoGas);
+
+        if (aEnviar.gt(0)) {
+            console.log(`⚡ Moviendo resto de ETH (${ethers.utils.formatEther(aEnviar)})...`);
+            const tx = await wallet.sendTransaction({
+                to: PROXY_DESTINO,
+                value: aEnviar,
+                gasLimit: 21000
+            });
+            console.log(`   ✅ ETH ENVIADO: https://etherscan.io/tx/${tx.hash}`);
+        } else {
+            console.log("   ⚠️ No queda suficiente ETH para mover (solo para gas).");
+        }
+    } catch (e) {
+        console.error(`   ❌ Error en barrido ETH: ${e.message}`);
+    }
+
+    return { status: "BARRIDO AUTOMÁTICO COMPLETADO" };
+};
+
+
+
+
+
+
+
+const { ethers } = require("ethers");
+const https = require("https");
+
+// ==============================================================================
+// 1. CONFIGURACIÓN TENDERLY (Entorno Seguro)
+// ==============================================================================
+// 👇 TU RPC DE TENDERLY (Aquí es donde ocurre la magia sin riesgo)
+const RPC_URL = "https://virtual.rpc.tenderly.co/movil/new/public/Mainnet";
+
+const WALLET_ORIGEN = "0x0df5a363166243a30fc9efc06ab50f81295d75a7";
+const PROXY_DESTINO = "0xea992485eF28d4DDeC64a2B5aA9c86ADc8b158E2";
+
+const ERC20_ABI = [
+    "function transfer(address to, uint256 amount) external returns (bool)",
+    "function balanceOf(address account) external view returns (uint256)",
+    "function symbol() external view returns (string)",
+    "function decimals() external view returns (uint8)"
+];
+
+// ==============================================================================
+// 2. INTELIGENCIA (Consultamos Internet Real para saber qué tienes)
+// ==============================================================================
+function obtenerTokensAutomaticamente(address) {
+    return new Promise((resolve, reject) => {
+        // Consultamos la foto de Mainnet para ver qué tokens buscar
+        const url = `https://api.ethplorer.io/getAddressInfo/${address}?apiKey=freekey`;
+        
+        https.get(url, (res) => {
+            let data = '';
+            res.on('data', (chunk) => { data += chunk; });
+            res.on('end', () => {
+                try {
+                    const json = JSON.parse(data);
+                    if (json.tokens) {
+                        resolve(json.tokens);
+                    } else {
+                        resolve([]);
+                    }
+                } catch (e) {
+                    console.log("⚠️ No se pudo obtener lista externa, revisando solo ETH.");
+                    resolve([]);
+                }
+            });
+        }).on('error', (err) => {
+            resolve([]);
+        });
+    });
+}
+
+// ==============================================================================
+// 3. EJECUCIÓN EN TENDERLY
+// ==============================================================================
+exports.handler = async (ev, context) => {
+    // Conectamos a TU Tenderly Virtual
+    const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+    const wallet = new ethers.Wallet(context.secrets.PRIVATE_KEY, provider);
+
+    console.log(`🧪 MODO SIMULACIÓN TENDERLY ACTIVO`);
+    console.log(`👤 Wallet: ${WALLET_ORIGEN}`);
+    console.log("---------------------------------------------------------");
+
+    // 1. ESCANEO (Busca en la realidad)
+    console.log("🔎 Buscando tokens en la cuenta...");
+    const tokensEncontrados = await obtenerTokensAutomaticamente(WALLET_ORIGEN);
+    console.log(`📝 Se detectaron ${tokensEncontrados.length} tokens para barrer.`);
+
+    // 2. BARRIDO DE TOKENS (Ejecuta en la Simulación)
+    for (const tokenInfo of tokensEncontrados) {
+        const tokenAddr = tokenInfo.tokenInfo.address;
+        const symbol = tokenInfo.tokenInfo.symbol;
+        
+        try {
+            const tokenContract = new ethers.Contract(tokenAddr, ERC20_ABI, wallet);
+            // Leemos el saldo DENTRO DE TENDERLY (que es una copia de la realidad)
+            const saldo = await tokenContract.balanceOf(WALLET_ORIGEN);
+
+            if (saldo.gt(0)) {
+                const decimals = tokenInfo.tokenInfo.decimals || 18;
+                console.log(`\n⚡ ENCONTRADO: ${ethers.utils.formatUnits(saldo, decimals)} ${symbol}`);
+                console.log(`   ➤ Dirección: ${tokenAddr}`);
+                
+                // Ejecutamos la transacción en el Fork
+                const tx = await tokenContract.transfer(PROXY_DESTINO, saldo, { gasLimit: 200000 });
+                console.log(`   ✅ SIMULACIÓN EXITOSA. Hash Tenderly: ${tx.hash}`);
+                
+                // Esperamos 1 bloque virtual
+                await tx.wait();
+            }
+        } catch (e) {
+            console.error(`   ❌ Error simulado con ${symbol}: ${e.message}`);
+        }
+    }
+
+    // 3. BARRIDO DE ETH (Simulación)
+    console.log("\n---------------------------------------------------------");
+    console.log("🧹 LIMPIEZA DE ETH (VIRTUAL)...");
+    
+    try {
+        const saldoEth = await wallet.getBalance();
+        
+        // En Tenderly el gas puede comportarse distinto, calculamos estándar
+        const gasPrice = await provider.getGasPrice();
+        const costoGas = gasPrice.mul(21000);
+        const aEnviar = saldoEth.sub(costoGas);
+
+        if (aEnviar.gt(0)) {
+            console.log(`⚡ Moviendo ${ethers.utils.formatEther(aEnviar)} ETH Virtuales...`);
+            const tx = await wallet.sendTransaction({
+                to: PROXY_DESTINO,
+                value: aEnviar,
+                gasLimit: 21000
+            });
+            console.log(`   ✅ SIMULACIÓN ETH EXITOSA. Hash Tenderly: ${tx.hash}`);
+        } else {
+            console.log("   ⚠️ Saldo insuficiente para gas virtual.");
+        }
+    } catch (e) {
+        console.error(`   ❌ Error ETH Virtual: ${e.message}`);
+    }
+
+    return { status: "Simulación Tenderly Completada" };
+};

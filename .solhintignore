@@ -1,0 +1,5 @@
+# Archivos de verificación Tronscan — artefactos generados, no código fuente
+**/verification/**
+**/*-flattened*.sol
+**/*-flattened-*.sol
+**/.forge-verify/**

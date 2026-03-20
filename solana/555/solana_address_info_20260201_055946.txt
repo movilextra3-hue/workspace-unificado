@@ -1,0 +1,124 @@
+﻿=== INFORMACIÓN COMPLETA DE DIRECCIÓN SOLANA ===
+Fecha: 2026-02-01 05:59:47
+Dirección: DLyGgVVjcrsXvewd7PMr7H7FKpWiL96hymNvjZUCzeYf
+
+--- BALANCE ---
+{
+    "sol":  0.001472601,
+    "lamports":  1472601
+}
+
+--- INFORMACIÓN DE CUENTA ---
+{
+    "rentEpoch":  18446744073709551615,
+    "lamports":  1472601,
+    "owner":  "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+    "data":  {
+                 "parsed":  {
+                                "info":  {
+                                             "decimals":  6,
+                                             "freezeAuthority":  null,
+                                             "isInitialized":  true,
+                                             "mintAuthority":  null,
+                                             "supply":  "500000000000000000"
+                                         },
+                                "type":  "mint"
+                            },
+                 "program":  "spl-token",
+                 "space":  82
+             },
+    "executable":  false
+}
+
+--- TOKENS ASOCIADOS ---
+{
+    "amount":  302000111.433585,
+    "account":  "894V8zB36x4vLunmerdEYnSa2xajfCNibDUMmfAYfEKW",
+    "mint":  "DLyGgVVjcrsXvewd7PMr7H7FKpWiL96hymNvjZUCzeYf",
+    "decimals":  6
+}
+
+--- TRANSACCIONES RECIENTES ---
+[
+    {
+        "blockTime":  "\/Date(1769827258000)\/",
+        "signature":  "5WqGbsVtxha5PzwVSnWWkZiHgxHBqix8p2xLBg3Q9QTKpprCbsFtZoAXDXzKYGT3zcqYejWyNgCQy19Ui3aPXb3Q",
+        "memo":  null,
+        "err":  null,
+        "slot":  396986759
+    },
+    {
+        "blockTime":  "\/Date(1769812954000)\/",
+        "signature":  "3tC99hKMnN8Bwf3u8YqHkLbkXLeTgypQJAwAyEGUxvYNivSsLdbmdBFph859gxzEKME5KjcivtBLtvMzcAvnxSFB",
+        "memo":  null,
+        "err":  null,
+        "slot":  396950807
+    },
+    {
+        "blockTime":  "\/Date(1769812190000)\/",
+        "signature":  "jA4X11r9WzFgAjhk8mye3WfkyNUsedeBx3cNjceSfbWa7ePNmikiGUqa8EtCuGvgkjJm1HTyZKFTtWxuxpxDSEY",
+        "memo":  null,
+        "err":  null,
+        "slot":  396948900
+    },
+    {
+        "blockTime":  "\/Date(1769811584000)\/",
+        "signature":  "2qyqS9RUVKGUQBK1oiWYtSP1BDem7moBNozCiGEDSts4kxVrpK3oEo6H3L1RuruMn8y8EJb5TE5ZPhCojTKBcKtY",
+        "memo":  null,
+        "err":  null,
+        "slot":  396947385
+    },
+    {
+        "blockTime":  "\/Date(1769726440000)\/",
+        "signature":  "VMVvq6w2jkdGBLNPGiXSw6S9axbMZvCbJkbaB1WY6xMXPvwmwDsNkLTJeAjvMerS68v8UkKR1kRHACnotLSRT2w",
+        "memo":  null,
+        "err":  null,
+        "slot":  396734633
+    },
+    {
+        "blockTime":  "\/Date(1769717096000)\/",
+        "signature":  "5zmRvWYqr32f4YRU8UKMid83cGF6WgBDiDw37zeeBP8BvDQf577XUDkEjfju2QcqsViY9UTLenTuRBspcSy24Xiy",
+        "memo":  null,
+        "err":  null,
+        "slot":  396711293
+    },
+    {
+        "blockTime":  "\/Date(1769703817000)\/",
+        "signature":  "53EuQ972yiUHZ27gTzdh1ewzyDoFDsd4tysN3mJA6RScHkaQUuq2nPAEnr8LQTC5thCfJdv41cncxXLPZdDscLFT",
+        "memo":  null,
+        "err":  null,
+        "slot":  396678129
+    },
+    {
+        "blockTime":  "\/Date(1769564388000)\/",
+        "signature":  "3w9syQ3oF2FSQQjPa7UxuxRjE2GZNgnWNsUnZXVtkPMAJAf8tibHSP363DLUrRaxDcepHXGs9fNRt7C48aHHxdWN",
+        "memo":  null,
+        "err":  null,
+        "slot":  396329788
+    },
+    {
+        "blockTime":  "\/Date(1769553942000)\/",
+        "signature":  "4s2mD3ctqSm2x5oh9gdvafL4zStRsKcRCy7ts2n5R9w3WrgtZkYGcDjdrGj1hxAHvR3hAABkPu64JGV2RFDaSwGJ",
+        "memo":  null,
+        "err":  null,
+        "slot":  396303916
+    },
+    {
+        "blockTime":  "\/Date(1769229474000)\/",
+        "signature":  "4sTRH3AqEmQ2p7THX6R7UGRExx2bDnnznu3PzjoGYcZmF8QVWBUMMKcQLDGe34d4oKU2AshyoF17DiA6KbTw3S5j",
+        "memo":  null,
+        "err":  null,
+        "slot":  395494696
+    }
+]
+
+--- INFORMACIÓN DE PROGRAMA ---
+
+
+--- ENLACES ÚTILES ---
+Solana Explorer: https://explorer.solana.com/address/DLyGgVVjcrsXvewd7PMr7H7FKpWiL96hymNvjZUCzeYf
+Solscan: https://solscan.io/account/DLyGgVVjcrsXvewd7PMr7H7FKpWiL96hymNvjZUCzeYf
+Solana Beach: https://solanabeach.io/address/DLyGgVVjcrsXvewd7PMr7H7FKpWiL96hymNvjZUCzeYf
+
+--- DATOS COMPLETOS (JSON) ---
+Ver archivo: C:\Users\Administrador\Desktop\solana_address_info_20260201_055946.json

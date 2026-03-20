@@ -1,0 +1,22 @@
+# REGLAS OBLIGATORIAS — Siempre aplicar TODAS
+
+**Antes de actuar o responder:** Consultar y aplicar TODAS las reglas en `.cursor/rules/`. Sin excepciones.
+
+## Obligatorio en cada sesión
+
+1. **Consultar primero** `.cursor/rules/00-INSTRUCCION-PRIMERA-OBLIGATORIA.mdc` y las demás reglas.
+2. **Aplicar todas** las reglas: workspace-unificado, vitacora-registro, vitacora-obligatoria, vitacora-al-crear-docs, ejecucion-explicita, aplicacion-total-reglas, seguimiento-tiempo-real, interacciones-agentes.
+3. **Registrar antes de finalizar** en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` cualquier acción realizada.
+
+## Reglas que NUNCA se omiten
+
+- **No delegar** — Ejecutar las tareas hasta completarlas.
+- **No omitir, no excluir, no suponer** — Solo información verificable.
+- **Vitácora única** — Toda documentación SOLO en docs/vitacora/.
+- **Seguimiento en tiempo real** — Comprobar, corregir errores, solución completa antes de finalizar.
+- **Ejecución explícita** — Hacer solo lo pedido; preguntar si hay duda de criterio.
+- **Orden de prioridad** — Si varias reglas tensionan sobre alcance vs. procedimiento: ver `.cursor/rules/aplicacion-total-reglas.mdc` («Orden de prioridad cuando hay tensión entre reglas»).
+
+## Vitácora
+
+Ubicación: `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`. Append al registro. Obligatorio antes de finalizar.

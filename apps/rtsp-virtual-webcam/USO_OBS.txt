@@ -1,0 +1,16 @@
+Para videollamadas (Zoom, Teams, etc.) puedes usar UNA de estas dos formas:
+
+--- OPCIÓN A: Solo OBS (recomendada si quieres ver la escena en OBS) ---
+1. Cierra la app de la bandeja (icono RTSP, clic derecho -> Salir) si está abierta.
+2. Abre OBS con: iniciar_obs.bat
+3. En OBS pulsa "Iniciar Cámara Virtual" (NO "Iniciar Transmisión")
+4. En Zoom/Teams elige: OBS Virtual Camera
+
+--- OPCIÓN B: Solo la app en bandeja (sin abrir OBS) ---
+1. No abras OBS. Ejecuta instalar_y_ejecutar.bat y en la bandeja "Iniciar cámara".
+2. En Zoom/Teams elige: OBS Virtual Camera
+
+IMPORTANTE: Solo un programa puede usar la cámara virtual a la vez. Si "Iniciar Cámara Virtual" en OBS da error, cierra la app de la bandeja y vuelve a intentar en OBS.
+
+--- AUDIO en Zoom/Teams ---
+La cámara virtual de OBS solo lleva VIDEO. Para escuchar el audio de la cámara RTSP: lee AUDIO_VIDEOLLAMADAS.txt (instalar VB-Cable y configurar OBS).

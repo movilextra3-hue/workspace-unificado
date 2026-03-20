@@ -1,0 +1,5 @@
+venv/
+hls_output/
+audio_hls/
+*.pyc
+__pycache__/

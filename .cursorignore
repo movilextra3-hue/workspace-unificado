@@ -1,0 +1,10 @@
+# Cursor: no indexar (seguridad y rendimiento)
+**/node_modules/
+**/build/
+**/.env
+**/.env.*
+**/deploy-info.json
+**/verification/
+**/*.pem
+**/*.key
+**/secrets/

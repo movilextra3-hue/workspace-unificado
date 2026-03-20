@@ -1,0 +1,28 @@
+# Wake (Tools for Solidity): excluir rutas que no deben analizarse
+# Ver https://ackee.xyz/wake/docs/latest/configuration/
+
+[compiler.solc]
+# Remappings para bank-tokenization (Hardhat + node_modules por proyecto)
+remappings = [
+  "@openzeppelin/contracts-upgradeable/=blockchain/bank-tokenization/node_modules/@openzeppelin/contracts-upgradeable/",
+  "@openzeppelin/contracts/=blockchain/bank-tokenization/node_modules/@openzeppelin/contracts/"
+]
+exclude_paths = [
+  "node_modules",
+  "venv",
+  ".venv",
+  "lib",
+  "script",
+  "test",
+  "blockchain/trc20-token/verification",
+  "blockchain/trc20-token-backup-completo-20260308-210130"
+]
+
+[detectors]
+exclude_paths = [
+  "node_modules",
+  "lib",
+  "script",
+  "blockchain/trc20-token/verification",
+  "blockchain/trc20-token-backup-completo-20260308-210130"
+]

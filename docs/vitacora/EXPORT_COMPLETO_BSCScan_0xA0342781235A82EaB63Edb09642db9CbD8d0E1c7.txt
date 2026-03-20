@@ -1,0 +1,521 @@
+================================================================================
+EXPORT COMPLETO - BSCScan ADDRESS 0xA0342781235A82EaB63Edb09642db9CbD8d0E1c7
+================================================================================
+Fecha exportación: 2026-03-12
+Fuente: https://bscscan.com/address/0xa0342781235a82eab63edb09642db9cbd8d0e1c7
+Reglas aplicadas: sin omisiones, sin exclusiones, sin suposiciones. Todo incluido.
+================================================================================
+
+--------------------------------------------------------------------------------
+1. IDENTIFICACION
+--------------------------------------------------------------------------------
+Dirección completa: 0xA0342781235A82EaB63Edb09642db9CbD8d0E1c7
+Red: BNB Chain (BSC Mainnet)
+Tipo: EOA (wallet externa, no contrato)
+BscScan URL: https://bscscan.com/address/0xa0342781235a82eab63edb09642db9cbd8d0e1c7
+
+--------------------------------------------------------------------------------
+2. OVERVIEW - BALANCES (datos extraídos de BscScan)
+--------------------------------------------------------------------------------
+BNB Balance: 0.00001743423 BNB
+BNB Value: $0.01 (@ $650.78/BNB - precio consulta inicial; puede variar)
+Token Holdings valor total: $0.02 (20 Tokens BEP-20)
+Valor total portfolio (BNB + tokens): ~$0.03
+Net Worth USD: $0.01
+Net Worth BNB: 0.000017
+Token Allocations: BNB 100.00%
+
+--------------------------------------------------------------------------------
+3. TOKENS BEP-20 - LISTADO COMPLETO CON CONTRACT ADDRESS
+--------------------------------------------------------------------------------
+
+3.1 AUTOv2 (AUTO)
+   Contract: 0xa184088a740c695e156f91f5cc086a06bb78b827
+   Cantidad: 0.0001518 AUTO
+   Valor: $0.00
+   Precio unitario: @2.3279
+
+3.2 BelecX Token (BEX)
+   Contract: 0x3eE08275b513f3085231Ccc85de4C386FCc1f18b
+   Cantidad: 20 BEX
+   Valor: $0.00
+   Precio unitario: @0.0002
+
+3.3 BullDogToken (BUDG)
+   Contract: 0x446320c9ffa57030ca977a1f90f8049df4004647
+   Cantidad: 300 BUDG
+   Valor: $0.01
+   Precio unitario: @0.00
+
+3.4 Wall Street (WSG)
+   Contract: 0xA58950F05FeA2277d2608748412bf9F802eA4901
+   Cantidad: 1,000,000 WSG
+   Valor: $0.00
+   Precio unitario: @0.00
+
+3.5 Wrapped BNB (WBNB)
+   Contract: 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c
+   Cantidad: 0.00000757 WBNB
+   Valor: $0.00
+   Precio unitario: @650.573
+
+3.6 YFIONE (YFO)
+   Contract: 0xac0c8da4a4748d8d821a0973d00b157aa78c473d
+   Cantidad: 0.00001106 YFO
+   Valor: $0.00
+   Precio unitario: @0.3301
+
+3.7 ERC20 *** (token sin nombre completo)
+   Contract: 0x726698a06a1ba72a6949fca4c77f72160c72aba5
+   Cantidad: 10 (unidades)
+   Valor: no especificado
+
+3.8 American Coin (AC)
+   Contract: 0xc577b6599234b5b29e602aeb5bc6eeab333829a3
+   Cantidad: 66 AC
+   Valor: $0.00
+
+3.9 bDollar Share (sBDO)
+   Contract: 0x0d9319565be7f53cefe84ad201be3f40feae2740
+   Cantidad: 0.00001379 sBDO
+   Valor: $0.00
+   Precio unitario: @3.1109
+
+3.10 Corgi (variante 1)
+   Contract: 0xd3181209f2a6764977b5177cd997b016d4e2f85b
+   Cantidad: 20,000,000 Corgi
+   Valor: no especificado
+
+3.11 CORGI (variante 2)
+   Contract: 0x99b573f3113861cefc6190c45397059c2208fe9f
+   Cantidad: 990,000 CORGI
+   Valor: no especificado
+
+3.12 GreenField
+   Contract: 0xD412b365Cb7AFFc8b420C89120289081FEce6572
+   Cantidad: 0 GreenField
+   Valor: no aplicable
+
+3.13 Minereum BSC (MNEB)
+   Contract: 0xd22202d23fe7de9e3dbe11a2a88f42f4cb9507cf
+   Cantidad: 150,000 MNEB
+   Valor: $0.00
+
+3.14 Onebasis (OBS)
+   Contract: 0x2b25fac9f70c5fee321d180498f706e47c1692ab
+   Cantidad: 0.00124769 OBS
+   Valor: no especificado
+
+3.15 QiangSheng
+   Contract: 0x1dCAf684F078aBD0d7151b89749e6C3C3c9bf3Cc
+   Cantidad: 0.0000001 QiangSheng
+   Valor: no especificado
+
+3.16 Sharpei (SHAB)
+   Contract: 0x762a68697d7c8a0078bd1d79bd50d0f2ef8a8aaf
+   Cantidad: 10,000 SHAB
+   Valor: $0.00
+
+TOTAL TOKENS BEP-20: 20 (los 4 restantes no mostrados con detalle en la página;
+incluyen posiblemente más variantes o tokens sin nombre completo)
+
+--------------------------------------------------------------------------------
+4. MORE INFO - TRANSACCIONES Y ORIGEN
+--------------------------------------------------------------------------------
+Private Name Tags: Add (requiere login)
+Transactions Sent - Latest: 1 yr 9 days ago
+Transactions Sent - First: 4 yrs 359 days ago
+Total transacciones: 200
+
+FUNDED BY (fondeador):
+   Nombre: Gate 1 (Gate.io)
+   Dirección: 0x0d0707963952f2fba59dd06f2b425ace40b492fe
+   Fecha fondeo: 4 yrs 359 days ago
+   TX fondeo: 0x9f7da5101d153181c60513a6e3d4d4a51addc0d3b01dddf926a6d9e39a91070d
+   URL: https://bscscan.com/address/0x0d0707963952f2fba59dd06f2b425ace40b492fe
+
+Multichain Info: No addresses found
+
+--------------------------------------------------------------------------------
+5. TRANSACCIONES - LATEST 25 (de 200 totales)
+--------------------------------------------------------------------------------
+Nota: From = 0xA0342781...bD8d0E1c7 significa que la dirección es emisora.
+
+5.1   Hash: 0x1ce0f30dc6f6466215d8a9e73696b61947fcede8c73cc2bb6e55af211e20b10b
+      From: 0xA0342781...bD8d0E1c7
+      To: BUSD-T Stablecoin (0x55d398326f99059ff775485246999027b3197955)
+
+5.2   Hash: 0x6c067a74d6eb85fde70da2541a8007ba35ca60f67a04fefab2f1d3f5fa0d6504
+      From: 0x43e5B593...dFE077bBB
+      To: 0xA0342781...bD8d0E1c7
+
+5.3   Hash: 0x1271fbde12dd48e7040c1509fae34bb3aee6a5e326712069bcdcb31d893a9f69
+      From: 0xA0342781...bD8d0E1c7
+      To: 0x43e5B593...dFE077bBB
+
+5.4   Hash: 0x8ddfabf92f82caae70f6d76c6a74cb6398687070415342e14eea8a2780d1f3c5
+      From: 0xA0342781...bD8d0E1c7
+      To: Dogecoin Token (0xba2ae424d960c26247dd6c32edc70b295c744c43)
+
+5.5   Hash: 0xd666780fcacf3eeef099beca55eec530d407a54628b3aef643e8a5a32aac2b61
+      From: 0x43e5B593...dFE077bBB
+      To: 0xA0342781...bD8d0E1c7
+
+5.6   Hash: 0xf28320ecdf2603aef97c2118452d85511614b793c18b4b754ed75d7e008e853d
+      From: 0xA0342781...bD8d0E1c7
+      To: Ethereum ETH Token (0x2170ed0880ac9a755fd29b2688956bd959f933f8)
+
+5.7   Hash: 0xce94e5532dce80d163afa43fcf197322466799310b2594947e80856e37c90952
+      From: 0xB6bb19E3...4f8cf27F3
+      To: 0xA0342781...bD8d0E1c7
+
+5.8   Hash: 0xcbb04d88a2b36d33cfcba01e1a2661bc37c96c3f342f97aa8620e0d38ba082c9
+      From: 0xA0342781...bD8d0E1c7
+      To: 0x542EcC7d...2000a0979
+
+5.9   Hash: 0x511143256fe783bf63efb53656ec401f78997904960b9437af1ad5d1409ecbf4
+      From: 0xA0342781...bD8d0E1c7
+      To: 0x337ECE61...4272D22C2
+
+5.10  Hash: 0x453bde839506a0e4a3494b66cf7c1c6688b31b5a324c06b4f5737c42632358e2
+      From: 0xA0342781...bD8d0E1c7
+      To: Onebasis OBS Token (0x095956b142431eb9cf88b99f392540b91acbf4ad)
+
+5.11  Hash: 0x87e7f4beab7b974a9c10a820b23440ec08cb156738c276824add68db99f17b9a
+      From: 0xA0342781...bD8d0E1c7
+      To: BUSD-T Stablecoin (0x55d398326f99059ff775485246999027b3197955)
+
+5.12  Hash: 0xb3ec834e0dfe442010692a454f506049cf054058abf03e1921892ab864d46bd1
+      From: 0xA0342781...bD8d0E1c7
+      To: 0xC898c5F7...E3077c3BA
+
+5.13  Hash: 0xc8fd9a037696d6a9749a97edaa1949d4dc99a60098db8721a3a6fa8fd7637aab
+      From: 0xA0342781...bD8d0E1c7
+      To: PancakeSwap Router v2 (0x10ed43c718714eb63d5aa57b78b54704e256024e)
+
+5.14  Hash: 0x30583f85f21e41ad85c3e6581ee5fc25e7ee4b239e8eaebfdf7ce3d81fbcebcb
+      From: 0xA0342781...bD8d0E1c7
+      To: PancakeSwap Router v2 (0x10ed43c718714eb63d5aa57b78b54704e256024e)
+
+5.15  Hash: 0xfa365ae0040abfc0ff91b2c2e2a8390010ef18b4fdf8c3e3672c7912fa610992
+      From: 0xA0342781...bD8d0E1c7
+      To: PancakeSwap Router v2 (0x10ed43c718714eb63d5aa57b78b54704e256024e)
+
+5.16  Hash: 0xdc73b9d86835fb8860fddad31d5c1dde03b716fd79a833abb7ea7aeff86c169b
+      From: 0xA0342781...bD8d0E1c7
+      To: PancakeSwap Router v2 (0x10ed43c718714eb63d5aa57b78b54704e256024e)
+
+5.17  Hash: 0xccf804dc116044676677066d5bf4e93d67daae8deb2944db5233e39ee4cf5ad6
+      From: 0xA0342781...bD8d0E1c7
+      To: PancakeSwap Router v2 (0x10ed43c718714eb63d5aa57b78b54704e256024e)
+
+5.18  Hash: 0x3e95f64bd665fe58b62f22bc1c024dcf0e66529703fd28b0fa8c42ff02441e21
+      From: 0xA0342781...bD8d0E1c7
+      To: Onebasis OBS Token (0x095956b142431eb9cf88b99f392540b91acbf4ad)
+
+5.19  Hash: 0x6818a7c4a48fe67366d3fa333054e0b42ed84116303506b08f394a9b85004970
+      From: 0xA0342781...bD8d0E1c7
+      To: Mdex Router (0x7dae51bd3e3376b8c7c4900e9107f12be3af1ba8)
+
+5.20  Hash: 0x51669d6f8a929cc3e73a668234ac88f424e7e07c8fefba73303f6ed55bada555
+      From: 0xA0342781...bD8d0E1c7
+      To: 0x4dDF41DF...32Db3fD38
+
+5.21  Hash: 0x6c817cc70d79fe837647fc9445b439ef7c4a8cdadb635325e9331e64f87bbbc9
+      From: 0xA0342781...bD8d0E1c7
+      To: 0xeE9958b3...1ea251dE2
+
+5.22  Hash: 0xffa7b06292e529431b829c0b79821430cb8e8974e9899b324abc6e84b20a547d
+      From: 0xA0342781...bD8d0E1c7
+      To: 0xeE9958b3...1ea251dE2
+
+5.23  Hash: 0xa78ba0b9f337662ff59df451b62267a2d23031d273c42013305a1e549e59593c
+      From: 0xA0342781...bD8d0E1c7
+      To: 0xc03b48D7...2fD0B1E89
+
+5.24  Hash: 0xe13d583f74fa547925d3526788ade08b6d0eb68db3ad1389aa30963d8396c5a0
+      From: 0xA0342781...bD8d0E1c7
+      To: Mdex Router (0x7dae51bd3e3376b8c7c4900e9107f12be3af1ba8)
+
+5.25  Hash: 0x1a112724421643f9b522b8e05d5d6268425d5306bacfa1735e83f3c65e7d29cc
+      From: 0xA0342781...bD8d0E1c7
+      To: 0xd483618F...29E63cA9A
+
+--------------------------------------------------------------------------------
+6. TOKEN TRANSFERS - DETALLE (datos de la tabla)
+--------------------------------------------------------------------------------
+
+Block 47145985 | 2025-03-03 16:32:14 | 374 days ago | timestamp 1741019534
+   Tipo: Transfer | OUT | $0.000 BNB | 0.00003269 | 1.1
+
+Block 47145982 | 2025-03-03 16:32:05 | 374 days ago | timestamp 1741019525
+   Tipo: Transfer | IN | $0.03 | 0.00005013 BNB | 0.0000231 | 1.1
+
+Block 46894616 | 2025-02-22 23:02:57 | 382 days ago | timestamp 1740265377
+   Tipo: Transfer | OUT | $0.16 | 0.00024209 BNB | 0.00002394 | 1.14
+
+Block 46793455 | 2025-02-19 10:44:39 | 386 days ago | timestamp 1739961879
+   Tipo: Transfer | OUT | $0.000 BNB | 0.00004211 | 1.14
+
+Block 46793455 | 2025-02-19 10:44:39 | 386 days ago | timestamp 1739961879
+   Tipo: Transfer | IN | $0.11 | 0.000171 BNB | 0.00002394 | 1.14
+
+Block 46793453 | 2025-02-19 10:44:33 | 386 days ago | timestamp 1739961873
+   Tipo: Transfer | OUT | $0.000 BNB | 0.00003384 | 1.14
+
+Block 46793453 | 2025-02-19 10:44:33 | 386 days ago | timestamp 1739961873
+   Tipo: Transfer | IN | $0.11 | 0.000171 BNB | 0.00002394 | 1.14
+
+Block 7552443 | 2021-05-19 19:17:02 | 1758 days ago | timestamp 1621451822
+   Tipo: Transfer | OUT | $6.95 | 0.01067341 BNB | 0.000105 | 5
+
+Block 7537405 | 2021-05-19 6:33:29 | 1758 days ago | timestamp 1621406009
+   Tipo: Transfer | OUT | $6.51 | 0.01 BNB | 0.000105 | 5
+
+Block 7513136 | 2021-05-18 10:01:16 | 1759 days ago | timestamp 1621332076
+   Tipo: Transfer | OUT | $0.000 BNB | 0.00018088 | 5
+
+Block 7513105 | 2021-05-18 9:59:43 | 1759 days ago | timestamp 1621331983
+   Tipo: Transfer | OUT | $0.000 BNB | 0.00025557 | 5
+
+Block 7513093 | 2021-05-18 9:59:07 | 1759 days ago | timestamp 1621331947
+   Tipo: Transfer | OUT | $97.62 | 0.15 BNB | 0.000105 | 5
+
+Block 7513081 | 2021-05-18 9:58:31 | 1759 days ago | timestamp 1621331911
+   Tipo: Swap Exact Token... | Swap | OUT | $0.000 BNB | 0.00089486 | 5
+
+Block 7513033 | 2021-05-18 9:56:07 | 1759 days ago | timestamp 1621331767
+   Tipo: Swap Exact Token... | Swap | OUT | $0.000 BNB | 0.00089486 | 5
+
+Block 7512997 | 2021-05-18 9:54:19 | 1759 days ago | timestamp 1621331659
+   Tipo: Swap Exact Token... | Swap | OUT | $0.000 BNB | 0.00089486 | 5
+
+Block 7512984 | 2021-05-18 9:53:40 | 1759 days ago | timestamp 1621331620
+   Tipo: Swap Exact Token... | Swap | OUT | $0.000 BNB | 0.00089486 | 5
+
+Block 7512965 | 2021-05-18 9:52:43 | 1759 days ago | timestamp 1621331563
+   Tipo: Swap Exact Token... | Swap | OUT | $0.000 BNB | 0.00096986 | 5
+
+Block 7512951 | 2021-05-18 9:52:01 | 1759 days ago | timestamp 1621331521
+   Tipo: Approve | Approve | OUT | $0.000 BNB | 0.00022203 | 5
+
+Block 7512901 | 2021-05-18 9:49:31 | 1759 days ago | timestamp 1621331371
+   Tipo: Swap Exact Token... | Swap Exact Token... | OUT | $0.000 BNB | 0.0017625 | 5
+
+Block 7426896 | 2021-05-15 9:08:35 | 1762 days ago | timestamp 1621069715
+   Tipo: 0x939c6400 | OUT | $11.05 | 0.01697793 BNB | 0.00091948 | 5
+
+Block 7396643 | 2021-05-14 7:12:50 | 1763 days ago | timestamp 1620976370
+   Tipo: 0x939c6400 | OUT | $11.12 | 0.01709402 BNB | 0.00043838 | 5
+
+Block 7396637 | 2021-05-14 7:12:32 | 1763 days ago | timestamp 1620976352
+   Tipo: 0x939c6400 | OUT | $11.11 | 0.01706485 BNB | 0.00082629 | 5
+
+Block 7374852 | 2021-05-13 12:51:43 | 1764 days ago | timestamp 1620910303
+   Tipo: Transfer | OUT | $13.02 | 0.02 BNB | 0.000105 | 5
+
+Block 7364512 | 2021-05-13 4:02:05 | 1764 days ago | timestamp 1620878525
+   Tipo: Swap Exact Token... | Swap Exact Token... | OUT | $0.000 BNB | 0.00238315 | 5
+
+Block 6954428 | 2021-04-28 9:07:50 | 1779 days ago | timestamp 1619600870
+   Tipo: 0xee7c9b42 | OUT | $0.000 BNB | 0.00014212 | 5
+
+--------------------------------------------------------------------------------
+7. INTERNAL TRANSACTIONS - LATEST 14
+--------------------------------------------------------------------------------
+Todas con destino 0xA0342781...bD8d0E1c7 (BNB recibido)
+
+7.1   Parent TX: 0x6818a7c4a48fe67366d3fa333054e0b42ed84116303506b08f394a9b85004970
+      From: Mdex Router (0x7dae51bd3e3376b8c7c4900e9107f12be3af1ba8)
+
+7.2   Parent TX: 0x8b734b5ea4bcf83d58adb0cefb36e0a82d5caae6be1419a7f70b14d94c8b3008
+      From: PancakeSwap Router v2 (0x10ed43c718714eb63d5aa57b78b54704e256024e)
+
+7.3   Parent TX: 0x928996ba4fe8d5e9d341886c39a34c886c2b60cfc35cf588b38d43bfc5e09e27
+      From: PancakeSwap Router v2 (0x10ed43c718714eb63d5aa57b78b54704e256024e)
+
+7.4   Parent TX: 0xb97dcb8e4d046c71d27b925a8f5c02d808d298bb93b68a60ed3505d53b852284
+      From: Mdex Router (0x7dae51bd3e3376b8c7c4900e9107f12be3af1ba8)
+
+7.5   Parent TX: 0xa7821d711fbad6ada34f720b6227bc2d03b0acf72c47edb43f343c1342bc7de6
+      From: Mdex Router (0x7dae51bd3e3376b8c7c4900e9107f12be3af1ba8)
+
+7.6   Parent TX: 0xe3ee4ea83083ac38dafdeb2de4edc0a7a7799a4eb576a94967327e910675a2de
+      From: PancakeSwap Router v2 (0x10ed43c718714eb63d5aa57b78b54704e256024e)
+
+7.7   Parent TX: 0xaed76be58303025e9fbeca37cb0757f3c2896bbc844687018b842e07654ec803
+      From: Mdex Router (0x7dae51bd3e3376b8c7c4900e9107f12be3af1ba8)
+
+7.8   Parent TX: 0xbc34d844279679a65c207de5a7494fdd6f60639696c2d60120485049eeebfcd6
+      From: Mdex Router (0x7dae51bd3e3376b8c7c4900e9107f12be3af1ba8)
+
+7.9   Parent TX: 0x99f769cd72b179480ac0054c917604c3e983bd0a87d65405580470f469fc19ea
+      From: BNB Chain WBNB Token (0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c)
+
+7.10  Parent TX: 0x30a06a64c1fddf70bcca6c3506981b6b2c3aa51ba855d5479c4f2b3c0ce52680
+      From: Mdex Router (0x7dae51bd3e3376b8c7c4900e9107f12be3af1ba8)
+
+7.11  Parent TX: 0xf23564a569a8ee5e96e4764054e80246d40b652cbf118ec4712dd6d091968727
+      From: Mdex Router (0x7dae51bd3e3376b8c7c4900e9107f12be3af1ba8)
+
+7.12  Parent TX: 0x41fde3d5fbcf2180b245d9e58b1d55dc87475fa30758e1f2df65672f300c1d61
+      From: PancakeSwap Router (0x05ff2b0db69458a0750badebc4f9e13add608c7f)
+
+7.13  Parent TX: 0xddc17778d4cfb65a59c317f3b1757fcb5f617d4149350c880e870a7f37bd219a
+      From: PancakeSwap Router (0x05ff2b0db69458a0750badebc4f9e13add608c7f)
+
+7.14  Parent TX: 0x124ef5a7717370680c3f4576a29bd4f0bd5a31c25dc842cc41fa06ef8f499804
+      From: PancakeSwap Router (0x05ff2b0db69458a0750badebc4f9e13add608c7f)
+
+--------------------------------------------------------------------------------
+8. INTERNAL TRANSACTIONS - VALORES BNB RECIBIDOS (tabla detallada)
+--------------------------------------------------------------------------------
+
+Block 7512901 | 2021-05-18 9:49:31 | 1759 days ago | timestamp 1621331371
+   Valor: 0.17336185 BNB | $112.82
+
+Block 6953578 | 2021-04-28 8:24:56 | 1779 days ago | timestamp 1619598296
+   Valor: 0.00000756 BNB | $0.00
+
+Block 6953563 | 2021-04-28 8:24:11 | 1779 days ago | timestamp 1619598251
+   Valor: 0.00000144 BNB | $0.00
+
+Block 6897050 | 2021-04-26 8:52:51 | 1781 days ago | timestamp 1619427171
+   Valor: 0.00119534 BNB | $0.78
+
+Block 6896979 | 2021-04-26 8:49:18 | 1781 days ago | timestamp 1619426958
+   Valor: 0.1030828 BNB | $67.08
+
+Block 6896964 | 2021-04-26 8:48:33 | 1781 days ago | timestamp 1619426913
+   Valor: 0.00840075 BNB | $5.47
+
+Block 6580683 | 2021-04-15 7:04:10 | 1792 days ago | timestamp 1618470250
+   Valor: 0.38591697 BNB | $251.15
+
+Block 6551918 | 2021-04-14 7:03:55 | 1793 days ago | timestamp 1618383835
+   Valor: 0.02376827 BNB | $15.47
+
+Block 6497373 | 2021-04-12 9:33:40 | 1795 days ago | timestamp 1618220020
+   Valor: 0.0120718 BNB | $7.86
+
+Block 6497267 | 2021-04-12 9:28:22 | 1795 days ago | timestamp 1618219702
+   Valor: 0.00157554 BNB | $1.03
+
+Block 6497190 | 2021-04-12 9:24:31 | 1795 days ago | timestamp 1618219471
+   Valor: 0.33542132 BNB | $218.29
+
+Block 6387865 | 2021-04-08 13:26:02 | 1799 days ago | timestamp 1617888362
+   Valor: 0.02286665 BNB | $14.88
+
+Block 6387857 | 2021-04-08 13:25:23 | 1799 days ago | timestamp 1617888323
+   Valor: 0.0227328 BNB | $14.79
+
+Block 6380517 | 2021-04-08 6:55:38 | 1799 days ago | timestamp 1617864938
+   Valor: 0.0006946 BNB | $0.45
+
+--------------------------------------------------------------------------------
+9. MULTICHAIN PORTFOLIO
+--------------------------------------------------------------------------------
+Cadenas soportadas: 33
+Última actualización: less than 1 sec ago (en momento de consulta)
+
+BNB Chain (1): 0 - 100%
+Ethereum: 0 - 0%
+Polygon: 0 - 0%
+Arbitrum One: 0 - 0%
+Optimism: 0 - 0%
+Base: 0 - 0%
+BTTC: 0 - 0%
+Celo: 0 - 0%
+Gnosis: 0 - 0%
+Linea: 0 - 0%
+Moonbeam: 0 - 0%
+Moonriver: 0 - 0%
+Scroll: 0 - 0%
+Avax C-Chain: 0 - 0%
+opBNB: 0 - 0%
+Fraxtal: 0 - 0%
+Blast: 0 - 0%
+Mantle: 0 - 0%
+Taiko: 0 - 0%
+World: 0 - 0%
+XDC: 0 - 0%
+Ape: 0 - 0%
+Unichain: 0 - 0%
+Berachain: 0 - 0%
+MemeCore: 0 - 0%
+Sonic: 0 - 0%
+Abstract: 0 - 0%
+HyperEVM: 0 - 0%
+Katana: 0 - 0%
+Sei: 0 - 0%
+Monad: 0 - 0%
+Plasma: 0 - 0%
+Stable: 0 - 0%
+
+BNB (BNB):
+   Chain: BSC
+   Portfolio %: 100.00%
+   Price: $650.91 (o $651.40 según consulta)
+   Amount: 0.00001743
+   Value: $0.011348 (o $0.011358)
+
+--------------------------------------------------------------------------------
+10. CONTRATOS INTERACTUADOS (addresses completas)
+--------------------------------------------------------------------------------
+BUSD-T Stablecoin: 0x55d398326f99059ff775485246999027b3197955
+Dogecoin Token: 0xba2ae424d960c26247dd6c32edc70b295c744c43
+Ethereum ETH Token: 0x2170ed0880ac9a755fd29b2688956bd959f933f8
+Onebasis OBS Token: 0x095956b142431eb9cf88b99f392540b91acbf4ad
+PancakeSwap Router v2: 0x10ed43c718714eb63d5aa57b78b54704e256024e
+PancakeSwap Router (v1): 0x05ff2b0db69458a0750badebc4f9e13add608c7f
+Mdex Router: 0x7dae51bd3e3376b8c7c4900e9107f12be3af1ba8
+WBNB Token: 0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c
+Gate.io (fondeador): 0x0d0707963952f2fba59dd06f2b425ace40b492fe
+
+--------------------------------------------------------------------------------
+11. ENLACES BSCScan OFICIALES
+--------------------------------------------------------------------------------
+Address: https://bscscan.com/address/0xa0342781235a82eab63edb09642db9cbd8d0e1c7
+Transactions: https://bscscan.com/txs?a=0xa0342781235a82eab63edb09642db9cbd8d0e1c7
+Token Transfers: https://bscscan.com/address/0xa0342781235a82eab63edb09642db9cbd8d0e1c7#tokentxns
+Internal Txns: https://bscscan.com/address/0xa0342781235a82eab63edb09642db9cbd8d0e1c7#internaltx
+Advanced Filter: https://bscscan.com/advanced-filter?fadd=0xa0342781235a82eab63edb09642db9cbd8d0e1c7&tadd=0xa0342781235a82eab63edb09642db9cbd8d0e1c7
+CSV Export Address: https://bscscan.com/exportData?type=address&a=0xa0342781235a82eab63edb09642db9cbd8d0e1c7
+CSV Export Internal: https://bscscan.com/exportData?type=internaltxns&a=0xa0342781235a82eab63edb09642db9cbd8d0e1c7
+First TX: https://bscscan.com/tx/0xd6d1aee830cdf4f705ca17faf588c1dc6ea06229605a46c7639ace81762a9d4c
+Latest TX: https://bscscan.com/tx/0x1ce0f30dc6f6466215d8a9e73696b61947fcede8c73cc2bb6e55af211e20b10b
+Fondeo TX: https://bscscan.com/tx/0x9f7da5101d153181c60513a6e3d4d4a51addc0d3b01dddf926a6d9e39a91070d
+
+--------------------------------------------------------------------------------
+12. INFORMACION ADICIONAL BSCScan
+--------------------------------------------------------------------------------
+Contract Name: (vacío - es EOA)
+Compiler Version: 0
+Optimization Enabled: 0 BNB
+Other Settings: -NA-
+Cross-Chain Transactions: Loading (no datos en consulta)
+View all transactions: 200 totales
+View Contract Creation: filtro disponible
+View Incoming Txns: filtro disponible
+View Outgoing Txns: filtro disponible
+View Failed Txns: filtro disponible
+View Pending Txns: filtro disponible
+View Completed Txns: filtro disponible
+
+--------------------------------------------------------------------------------
+13. NOTA SOBRE DATOS NO INCLUIDOS
+--------------------------------------------------------------------------------
+- Las 200 transacciones completas requieren paginación en BscScan; este export
+  incluye las últimas 25 mostradas en la primera página.
+- Los 4 tokens BEP-20 restantes (de 20 total) no se listaron con nombre completo
+  en la interfaz consultada.
+- Precios BNB y USD son del momento de consulta y pueden variar.
+- Cross-Chain Transactions aparece como "Loading" en la página.
+
+--------------------------------------------------------------------------------
+FIN DEL EXPORT COMPLETO
+--------------------------------------------------------------------------------
+Generado respetando: reglas workspace, vitácora única, sin omisiones, sin
+exclusiones, sin suposiciones. Todo lo extraído de BscScan incluido.
+================================================================================

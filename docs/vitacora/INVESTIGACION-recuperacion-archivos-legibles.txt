@@ -1,0 +1,166 @@
+================================================================================
+INVESTIGACIÓN WEB — CÓMO RECUPERAR CORRECTAMENTE Y HACER LEGIBLES LOS ARCHIVOS
+Contexto: D:\Recovered\dtc500m(F)\Archivos perdidos\Borrado
+Fecha: 2026-03-08
+================================================================================
+
+
+1. DIAGNÓSTICO DEL PROBLEMA ACTUAL
+--------------------------------------------------------------------------------
+
+Los archivos recuperados aparecen como:
+- bootex.log, PNG, MP4: 0% datos (completamente zero-filled)
+- .dtc500m.swp: 99% datos pero contenido encriptado/propietario
+
+Causas habituales cuando la recuperación devuelve ceros:
+- TRIM en SSD: el SO envía comandos TRIM que borran los datos reales,
+  pero la metadata del sistema de archivos sigue; el software ve el archivo
+  pero los sectores ya están a cero.
+- Partición reformateada o nueva: el espacio no asignado se TRIMea.
+- Sobrescritura previa o sectores defectuosos.
+- El software de recuperación usó solo metadata, no escaneo raw.
+
+Fuente: Microsoft Q&A, Super User, NIST (datos sobrescritos con ceros
+son irrecuperables incluso en laboratorio).
+
+
+2. ESTRATEGIA CORRECTA: NO USAR LOS ARCHIVOS YA RECUPERADOS
+--------------------------------------------------------------------------------
+
+Los archivos en "Archivos perdidos" son resultado de una recuperación
+que leyó metadata pero encontró sectores vacíos. La solución es:
+
+ESCANEAR DIRECTAMENTE EL DISPOSITIVO ORIGINAL (disco, partición, USB)
+con herramientas que busquen POR FIRMAS DE ARCHIVO en sectores crudos,
+no por entradas del sistema de archivos.
+
+
+3. HERRAMIENTAS RECOMENDADAS (file carving / raw scan)
+--------------------------------------------------------------------------------
+
+3.1  PhotoRec (gratuito, código abierto)
+    - https://www.cgsecurity.org/wiki/PhotoRec
+    - Busca firmas de archivo (headers/footers) en datos crudos.
+    - Soporta 300+ familias de archivos (PNG, MP4, etc.).
+    - No depende del sistema de archivos.
+    - Guarda los archivos encontrados en una carpeta que indiques.
+    - Incluido con TestDisk.
+
+3.2  DMDE (versión gratuita disponible)
+    - https://dmde.com
+    - "Raw File Search" / búsqueda por firmas.
+    - Útil cuando el sistema de archivos está dañado.
+    - Versión gratuita: recupera hasta 4000 archivos del panel actual.
+
+3.3  R-Studio / R-Linux (R-Linux gratuito)
+    - IntelligentScan: reconoce firmas y hace file carving.
+    - R-Linux: herramienta gratuita para Linux (puede usarse en WSL o
+      mediante live USB Linux).
+
+3.4  Recuva (Piriform)
+    - Escaneo profundo de MFT (NTFS).
+    - Soporta USB y discos externos.
+    - Buena opción para particiones NTFS/FAT.
+
+3.5  TestDisk
+    - Recupera particiones eliminadas.
+    - Útil si la partición se perdió o se reformateó.
+
+
+4. PROCEDIMIENTO RECOMENDADO
+--------------------------------------------------------------------------------
+
+Paso 1 — Dejar de usar el dispositivo fuente
+    No escribir nada en el disco/partición de origen.
+
+Paso 2 — Identificar el dispositivo original
+    Si "dtc500m(F)" es una partición o disco (USB, HDD, SSD), trabajar
+    sobre ese volumen, no sobre D:\Recovered\...
+
+Paso 3 — Escaneo raw con PhotoRec
+    a) Descargar TestDisk/PhotoRec desde cgsecurity.org
+    b) Ejecutar PhotoRec
+    c) Seleccionar el disco/partición de origen
+    d) Elegir "Whole" o "Free" para escanear todo el espacio
+    e) Indicar una carpeta de destino EN OTRO DISCO (nunca en el mismo)
+    f) PhotoRec buscará cabeceras PNG (89 50 4E 47), MP4 (ftyp), etc.
+
+Paso 4 — DMDE (alternativa)
+    a) Abrir DMDE
+    b) Seleccionar el disco/partición
+    c) Full Scan / Raw File Search
+    d) Revisar resultados en "$Raw" o similar
+    e) Recuperar a otra unidad
+
+Paso 5 — Para el archivo .dtc500m.swp
+    Este archivo SÍ tiene datos (no zero-filled). Opciones:
+    a) Sysinternals Strings: strings.exe .dtc500m.swp > salida.txt
+       Descarga: https://docs.microsoft.com/en-us/sysinternals/downloads/strings
+    b) Si es swap de Vim: vim -r archivo.swp (pero .dtc500m.swp parece
+       ser de un software de transferencia USB, no Vim).
+    c) El formato puede ser propietario del cable/software dtc500m;
+       buscar documentación o software del fabricante del cable.
+
+
+5. REPARAR ARCHIVOS YA RECUPERADOS (cuando hay datos parciales)
+--------------------------------------------------------------------------------
+
+Solo aplica si el archivo NO está 100% en ceros.
+
+5.1  PNG con cabecera dañada pero IDAT intacto
+    - Herramientas: PCRT (GitHub sherlly/PCRT), compress-or-die.com/repair
+    - Si width/height en IHDR están a cero pero CRC e IDAT existen,
+      herramientas como "spoof" pueden inferir dimensiones por CRC.
+    - Nuestro caso: cabecera y todo = ceros → no hay qué reparar.
+
+5.2  MP4 con cabecera dañada pero mdat/moov presentes
+    - recover_mp4 (línea de comandos) + ffmpeg.
+    - Wondershare Repairit, Stellar, etc.
+    - Nuestro caso: todo ceros → no recuperable desde este archivo.
+
+5.3  Logs (bootex.log)
+    - Si tuviera contenido: Get-Content, Notepad, etc.
+    - Nuestro caso: zero-filled → vacío.
+
+
+6. LIMITACIONES IMPORTANTES
+--------------------------------------------------------------------------------
+
+- SSD con TRIM: si los datos se borraron con TRIM, los sectores ya están
+  a cero. Ninguna herramienta puede recuperar datos que no existen.
+- Un solo pase de zeros (secure wipe): según NIST, los datos son
+  irrecuperables.
+- Si el disco es HDD y nunca se TRIMeó, PhotoRec/DMDE sobre el volumen
+  original pueden encontrar fragmentos válidos en sectores no asignados.
+- Siempre recuperar a otro disco para evitar sobrescrituras.
+
+
+7. RESUMEN DE ACCIONES CONCRETAS
+--------------------------------------------------------------------------------
+
+1. Dejar de escribir en el disco/partición origen.
+2. Descargar PhotoRec (cgsecurity.org) y ejecutar escaneo raw sobre
+   el volumen donde estaban los archivos (no sobre D:\Recovered\...).
+3. Guardar resultados en otra unidad.
+4. Para .dtc500m.swp: usar Sysinternals strings.exe para extraer texto:
+   strings -n 6 .dtc500m.swp > swp_strings.txt
+5. Si el medio es SSD y hubo borrado reciente con TRIM, asumir que los
+   archivos zero-filled probablemente no son recuperables desde ese
+   dispositivo.
+6. Valorar servicio profesional de recuperación si los datos son críticos
+   y el medio es HDD (sin TRIM).
+
+
+8. REFERENCIAS
+--------------------------------------------------------------------------------
+
+- Microsoft Q&A: Recovered Files Are All Zeros
+- Super User: Recovered Files from Deleted Partition Are Empty
+- cgsecurity.org: PhotoRec, TestDisk
+- dmde.com: Full Scan, Raw File Search
+- Sysinternals: Strings (docs.microsoft.com)
+- NIST: overwriting guidelines (datos zero-filled irrecuperables)
+- Stack Overflow: Recovering image header from corrupt PNG
+- compress-or-die.com, PCRT GitHub: reparación PNG
+
+================================================================================

@@ -1,0 +1,5 @@
+# Dependencias para analyze_binary.py (análisis de binarios/cifrado)
+pycryptodome>=3.19.0
+binwalk>=2.1.0
+py7zr>=0.20.0
+crccheck>=1.3

@@ -1,0 +1,141 @@
+================================================================================
+ANÁLISIS COMPLETO: BootUX (4).sqml
+================================================================================
+
+1. DATOS BÁSICOS DEL ARCHIVO
+--------------------------------------------------------------------------------
+
+Campo              Valor
+----               -----
+Nombre             BootUX (4).sqml
+Tamaño             120 bytes
+Formato             Binario (little-endian)
+Extensión .sqml    Formato propietario de Microsoft para logs de telemetría
+                   estructurada (no es el SQML público estándar)
+
+
+2. ESTRUCTURA: 5 REGISTROS DE 24 BYTES
+--------------------------------------------------------------------------------
+
+Cada registro tiene el siguiente layout:
+
+Offset   Bytes           Tipo     Descripción
+------   -----           ----     -----------
+0-3      18 00 00 00    uint32   Tamaño del registro (24 bytes)
+4-7      XX XX 00 00    uint32   ID de evento / telemetría
+8-11     01 00 00 00    uint32   Flags o tipo
+12-15    00 00 00 00    uint32   Reservado o padding
+16-19    XX XX 00 00    uint32   Valor medido
+20-23    00 00 00 00    uint32   Reservado o padding
+
+
+3. DESGLOSE REGISTRO POR REGISTRO
+--------------------------------------------------------------------------------
+
+REGISTRO 1 (bytes 0-23)
+  Campo       Hex             Decimal    Interpretación
+  -----       ---             -------    ---------------
+  Tamaño      18 00 00 00     24         Longitud del registro
+  ID evento   DE 28 00 00     10462      (0x28DE) Evento telemetría
+  Flags       01 00 00 00     1         Tipo/categoría
+  Valor       80 07 00 00     1920       Ancho de pantalla en píxeles
+
+  Referencia: Ancho de pantalla detectado/usado por la interfaz de arranque
+  (menú de recuperación, selección de SO).
+
+
+REGISTRO 2 (bytes 24-47)
+  Campo       Hex             Decimal    Interpretación
+  -----       ---             -------    ---------------
+  Tamaño      18 00 00 00     24         Longitud del registro
+  ID evento   DF 28 00 00     10463      (0x28DF) Evento telemetría
+  Flags       01 00 00 00     1         Tipo/categoría
+  Valor       38 04 00 00     1080       Alto de pantalla en píxeles
+
+  Referencia: Alto de pantalla detectado/usado por la interfaz de arranque.
+
+
+REGISTRO 3 (bytes 48-71)
+  Campo       Hex             Decimal    Interpretación
+  -----       ---             -------    ---------------
+  Tamaño      18 00 00 00     24         Longitud del registro
+  ID evento   E0 28 00 00     10464      (0x28E0) Evento telemetría
+  Flags       01 00 00 00     1         Tipo/categoría
+  Valor       96 00 00 00     96         DPI de la pantalla
+
+  Referencia: Resolución DPI del monitor (96 = estándar Windows).
+
+
+REGISTRO 4 (bytes 72-95)
+  Campo       Hex             Decimal    Interpretación
+  -----       ---             -------    ---------------
+  Tamaño      18 00 00 00     24         Longitud del registro
+  ID evento   DD 28 00 00     10461      (0x28DD) Evento distinto
+  Flags       01 00 00 00     1         Tipo/categoría
+  Valor       05 00 00 00     5          Valor desconocido
+
+  Referencia: Parámetro asociado al evento 0x28DD (sin documentación pública).
+  Posibles interpretaciones: tiempo de espera, conteo de opciones, índice, etc.
+
+
+REGISTRO 5 (bytes 96-119)
+  Campo       Hex             Decimal    Interpretación
+  -----       ---             -------    ---------------
+  Tamaño      18 00 00 00     24         Longitud del registro
+  ID evento   DD 28 00 00     10461      (0x28DD) Mismo evento que registro 4
+  Flags       01 00 00 00     1         Tipo/categoría
+  Valor       0C 00 00 00     12         Valor diferente
+
+  Referencia: Otra medición del mismo tipo que el registro 4 (posiblemente dos
+  momentos distintos o dos contadores).
+
+
+4. A QUÉ SE REFIERE EL ARCHIVO EN CONJUNTO
+--------------------------------------------------------------------------------
+
+El archivo contiene datos de telemetría del componente BootUX de Windows durante
+el arranque o la entrada al Entorno de recuperación. Concretamente:
+
+Contenido        Significado
+---------        -----------
+1920 × 1080      Resolución detectada para la interfaz de arranque (Full HD)
+96 DPI           Escala estándar de Windows
+ID 0x28DD        Eventos internos del menú de arranque (5 y 12: sin significado
+                 documentado públicamente)
+
+En resumen: registra cómo estaba configurada la pantalla cuando se mostró el
+menú de recuperación, más algunos eventos internos del BootUX.
+
+
+5. HEX DUMP COMPLETO (REFERENCIA)
+--------------------------------------------------------------------------------
+
+Offset   00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
+------   -----------------------------------------------
+0x00:    18 00 00 00 DE 28 00 00 01 00 00 00 00 00 00 00
+0x10:    80 07 00 00 00 00 00 00 18 00 00 00 DF 28 00 00
+0x20:    01 00 00 00 00 00 00 00 38 04 00 00 00 00 00 00
+0x30:    18 00 00 00 E0 28 00 00 01 00 00 00 00 00 00 00
+0x40:    96 00 00 00 00 00 00 00 18 00 00 00 DD 28 00 00
+0x50:    01 00 00 00 00 00 00 00 05 00 00 00 00 00 00 00
+0x60:    18 00 00 00 DD 28 00 00 01 00 00 00 00 00 00 00
+0x70:    0C 00 00 00 00 00 00 00
+
+
+6. REFERENCIAS TÉCNICAS
+--------------------------------------------------------------------------------
+
+- BootUX: componente de Windows que dibuja la interfaz gráfica del arranque
+  (menú de recuperación, opciones de inicio, etc.)
+
+- bootux.dll y BootMenuUX.dll: DLLs que implementan esa experiencia de arranque
+
+- IDs 0x28DD-0x28E0: identificadores de telemetría interna de Microsoft; no
+  están documentados públicamente
+
+- 1920×1080, 96 DPI: valores estándar que Windows usa para la interfaz de
+  arranque cuando detecta una pantalla Full HD
+
+================================================================================
+Generado: 2026-03-08
+================================================================================

@@ -1,0 +1,19 @@
+[
+  "function setTarget(address _target)",
+  "function setPancakeParams(address _factory, address _wbnb, address _busd)",
+  "function refreshMetadataCache()",
+  "function approve(address spender, uint256 amount) returns (bool)",
+  "function target() view returns (address)",
+  "function factory() view returns (address)",
+  "function WBNB() view returns (address)",
+  "function BUSD() view returns (address)",
+  "function syncWithTarget() view returns (bool)",
+  "function name() view returns (string)",
+  "function symbol() view returns (string)",
+  "function decimals() view returns (uint8)",
+  "function owner() view returns (address)",
+  "function balanceOf(address account) view returns (uint256)",
+  "function totalSupply() view returns (uint256)",
+  "function getPairWbnb() view returns (address)",
+  "function allowance(address owner, address spender) view returns (uint256)"
+]

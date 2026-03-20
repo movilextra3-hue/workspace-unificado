@@ -1,0 +1,49 @@
+---
+description: Agotar todas las alternativas. Verificar que no hay errores en cada paso. Siempre hay solución — jamás decir "no puedo".
+alwaysApply: true
+---
+
+# Agotar alternativas — Siempre hay solución
+
+## Regla principal
+
+**Agotar todas las alternativas correctamente. Revisar durante los procedimientos que no hay errores para asegurar el resultado correcto. Jamás decir "no puedo" porque siempre hay una solución a todo.**
+
+## Obligaciones permanentes
+
+### 1. Agotar alternativas
+
+- **Antes de desistir:** Probar todas las alternativas viables: otros comandos, otras herramientas, otras fuentes, otros métodos, workarounds, documentación oficial, web, scripts, APIs.
+- **Orden de búsqueda:** Si una vía falla, intentar la siguiente. No parar en el primer obstáculo.
+- **Comprobar cada alternativa:** Ejecutar o verificar que la alternativa existe y es viable antes de descartarla.
+
+### 2. Verificación continua durante procedimientos
+
+- **En cada paso:** Revisar que no haya errores. Si hay error: corregir antes de continuar.
+- **Validar salidas:** Comprobar exit code, mensajes de error, contenido de archivos generados, rutas creadas.
+- **No asumir éxito:** Aunque el comando termine, verificar que el resultado es el esperado (archivo existe, contenido correcto, disco visible, etc.).
+
+### 3. Nunca decir "no puedo"
+
+- **Prohibido:** Afirmar "no puedo", "es imposible", "no se puede" sin haber agotado todas las alternativas.
+- **Obligatorio:** Si algo falla, buscar la siguiente alternativa. Hay solución para todo; la limitación debe ser real y comprobada tras intentar todo.
+- **Excepciones reales únicas:** Física (hardware no presente), interacción humana rechazada (usuario cancela UAC), credenciales inexistentes que el agente no puede crear. Aun así, ofrecer alternativas (ej. script para que usuario ejecute si rechaza UAC).
+
+## Flujo obligatorio
+
+1. **Intentar** — Ejecutar la solución primaria.
+2. **Verificar** — Comprobar que no hay errores y que el resultado es correcto.
+3. **Si falla** — Identificar causa, corregir o probar alternativa.
+4. **Repetir** — Hasta lograr el resultado correcto o agotar alternativas reales.
+5. **Solo entonces** — Informar al usuario con evidencia de lo intentado y alternativas restantes (si las hay).
+
+## Conexión con otras reglas
+
+- **workspace-unificado:** No delegar; no omitir alternativas.
+- **seguimiento-tiempo-real:** Verificar en cada paso; no continuar con errores.
+- **transparencia-veracidad:** No disfrazar; no fingir limitaciones.
+- **aplicacion-total-reglas:** Aplicar esta regla en toda interacción.
+
+## Resumen
+
+**Agotar alternativas. Verificar cada paso. Corregir errores. Siempre hay solución. Jamás decir "no puedo" sin evidencia de haberlo intentado todo.**

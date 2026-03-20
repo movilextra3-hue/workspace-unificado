@@ -1,0 +1,58 @@
+---
+description: Interacciones entre agentes — Orden, aislamiento y prevención de alteraciones incorrectas. Aplica cuando se usan subagentes (mcp_task) o múltiples sesiones.
+alwaysApply: true
+---
+
+# Interacciones entre agentes
+
+## Alcance
+
+**Aplica cuando:** se usan subagentes (mcp_task), agentes en paralelo o múltiples sesiones que puedan tocar los mismos recursos (archivos, vitácora, scripts).
+
+**Objetivo:** Garantizar que las interacciones entre agentes no alteren incorrectamente los procedimientos ni sobrescriban trabajo de otros. Orden correcto, aislamiento y trazabilidad.
+
+---
+
+## Regla principal — Orden y aislamiento
+
+1. **Orden secuencial cuando hay edición:** Si un subagente puede editar archivos, el agente principal **espera** el resultado antes de actuar sobre los mismos archivos. No actuar en paralelo sobre los mismos recursos editables.
+
+2. **Subagentes de solo lectura (explore, readonly):** Pueden ejecutarse en paralelo. No modifican archivos ni vitácora. El principal integra sus resultados.
+
+3. **Subagentes que editan:** Ejecutar **secuencialmente** o asignar recursos **disjuntos** (cada uno en archivos/proyectos distintos). Máximo **un subagente editando** a la vez sobre un mismo archivo o proyecto.
+
+4. **Vitácora:** Solo el **agente principal** que finaliza la tarea registra en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`. Los subagentes **no** escriben en vitácora.
+
+---
+
+## Responsabilidad del agente principal
+
+- **Integrar y verificar:** Al recibir resultado de un subagente, comprobar antes de aplicar. El principal es responsable de la corrección final.
+- **Registrar:** Todas las acciones relevantes (incluyendo las que integra de subagentes) las registra el principal al finalizar, en un solo apunte.
+- **No dar por terminado** hasta que él mismo haya comprobado que el procedimiento cumple el objetivo.
+
+---
+
+## Evitar alteraciones incorrectas
+
+| Situación | Acción correcta | Evitar |
+|-----------|-----------------|--------|
+| Subagente explora código | Ejecutar con `readonly: true` | Subagente con edición sin necesidad |
+| Varios subagentes en paralelo | Solo si todos son de lectura | Varios editando los mismos archivos |
+| Principal actúa tras subagente | Esperar resultado; verificar; luego actuar | Actuar antes de recibir resultado |
+| Registro en vitácora | Solo el principal al finalizar | Subagente escribiendo en vitácora |
+| Subagente A y B tocan mismo proyecto | Secuencial: A termina → B empieza; o recursos distintos | Paralelo editando mismo proyecto |
+
+---
+
+## Conexión con otras reglas
+
+- **No delegar (workspace-unificado):** Si se delega a subagente (excepción por limitación real), el principal integra, verifica y completa. No termina hasta comprobar.
+- **Seguimiento en tiempo real:** El principal hace seguimiento de todo el flujo (propio + subagentes) hasta finalizar.
+- **Vitácora única:** Un solo registro por tarea; lo hace el principal.
+
+---
+
+## Resumen
+
+**Orden correcto. Recursos disjuntos o secuenciales. Solo el principal registra. Verificar antes de aplicar.**

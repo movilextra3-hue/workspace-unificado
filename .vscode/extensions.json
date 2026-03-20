@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "ms-vscode-remote.remote-containers",
+    "NomicFoundation.hardhat-solidity",
+    "JuanBlanco.solidity",
+    "dbaeumer.vscode-eslint",
+    "mikestead.dotenv",
+    "EditorConfig.EditorConfig"
+  ],
+  "unwantedRecommendations": [
+    "cyfrin.aderyn",
+    "ackeeblockchain.tools-for-solidity",
+    "ms-vscode.powershell-preview",
+    "panekj.powershell",
+    "anysphere.remote-wsl"
+  ]
+}

@@ -1,0 +1,10 @@
+=== Búsqueda EXACTA ampliada TXaXTSUK ===
+
+Bytecode mainnet (sin metadata): 12259 bytes
+Probando: multi-file + flattened, OZ + custom, solc ampliado, runs 199/200/201
+
+
+⚠️ Sin coincidencia exacta después de 1176 comprobaciones.
+
+Mejor: 763 bytes prefix, 4001 total
+   Config: multi OZ 0.8.25 default runs 199 viaIR false

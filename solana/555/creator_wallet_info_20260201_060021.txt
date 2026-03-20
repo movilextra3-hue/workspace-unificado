@@ -1,0 +1,229 @@
+﻿=== INFORMACIÓN COMPLETA DE WALLET CREADORA ===
+Fecha: 2026-02-01 06:00:22
+Dirección: J3RX9CBrwB7vZmwNytRsJkJA9Wq7y6kwP25AZsX34TJa
+Rol: Creador del Token SPL
+Token Creado: DLyGgVVjcrsXvewd7PMr7H7FKpWiL96hymNvjZUCzeYf
+
+--- BALANCE SOL ---
+{
+    "sol":  0,
+    "lamports":  0
+}
+
+--- INFORMACIÓN DE CUENTA ---
+
+
+--- TOKENS SPL ASOCIADOS ---
+[
+    {
+        "amount":  50565.810654,
+        "account":  "ERYTL2q88XNi9yubbF9ZBXA3ZsSZPooitynLP9QhhHHt",
+        "isCreatedToken":  true,
+        "mint":  "DLyGgVVjcrsXvewd7PMr7H7FKpWiL96hymNvjZUCzeYf",
+        "decimals":  6
+    },
+    {
+        "amount":  0.0,
+        "account":  "F58FBLKoy4XiDWTegzybtFq4xgh9ApDGxC6hrHSYn8t9",
+        "isCreatedToken":  false,
+        "mint":  "BQcdHdAQW1hczDbBi9hiegXAR7A98Q9jx3X3iBBBDiq4",
+        "decimals":  6
+    },
+    {
+        "amount":  45.0,
+        "account":  "FmFcJBh48wcfvt1y1j8vZx1YnpMXVjtoMBofUgMU7WDp",
+        "isCreatedToken":  false,
+        "mint":  "7ZtDZz1JvJ5uXqk7GmaGtC9ajb4nvipo9ZGoZQnUcaJv",
+        "decimals":  6
+    },
+    {
+        "amount":  5004625.422,
+        "account":  "8ur7ZM1zcE5XYPCzXmt1h7PKNYdqth2U6UnQtsVEYHdF",
+        "isCreatedToken":  false,
+        "mint":  "C5qWV2XCss1sa2ijmBvhf92EJEYtQGhwv1Bjt1SaTN5i",
+        "decimals":  3
+    },
+    {
+        "amount":  15000000.0,
+        "account":  "34QFrbNjqe3e9qqqo9n7gzX4KmyEyXTARuAqrLLxmunK",
+        "isCreatedToken":  false,
+        "mint":  "38gRbAsqwiZMhMojWN3pFt27PCSitUfRGju3RDUi1QyD",
+        "decimals":  6
+    },
+    {
+        "amount":  0.0,
+        "account":  "J1KpjJArHdSTAgx4PW2yqLgPuqHfLx7MsbDnjWeoAUXj",
+        "isCreatedToken":  false,
+        "mint":  "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+        "decimals":  6
+    }
+]
+
+--- TRANSACCIONES RECIENTES ---
+[
+    {
+        "blockTime":  "\/Date(1763244111000)\/",
+        "signature":  "2dwyEJCYKeqkVGnv29qo3jzogLUs3dbt8Rqi2eny34MKVDKbR8tHV6ejDvA4EiMJW3qVmU9qPwrtQhEnpcBoNB5P",
+        "memo":  null,
+        "err":  null,
+        "slot":  380272026
+    },
+    {
+        "blockTime":  "\/Date(1763229074000)\/",
+        "signature":  "4P24Youg8QaUXndqsd9Y3QFRqJtMP4QRnAjHMJZB9uZ2fJoDtvz3bZBffGmNupAgs2NTxiMdQ7wv9qvfEuQEubZn",
+        "memo":  null,
+        "err":  null,
+        "slot":  380234245
+    },
+    {
+        "blockTime":  "\/Date(1763224058000)\/",
+        "signature":  "5iMqXvSinmBELRxi1qaboAnyLg7Tuo7LGENSV4uB6nrsMZauuMZECtw6QRtfvQuHUJc6sWTcUqwM722o4YrNPZue",
+        "memo":  null,
+        "err":  null,
+        "slot":  380221601
+    },
+    {
+        "blockTime":  "\/Date(1763223083000)\/",
+        "signature":  "2LbXv4vjeb9PVChJh1LnNd9yBuYF2161aDSCyTR4XjTxZxHvsD2NGgvmHh9bc8bG85tE1iFuL1SyPq2nyFTo4aD",
+        "memo":  null,
+        "err":  null,
+        "slot":  380219143
+    },
+    {
+        "blockTime":  "\/Date(1754174100000)\/",
+        "signature":  "2ZhGXxv3YGhu7vUtCeGQ73QkQBUNYF6q1TnnQtc2fMAmRApHUTK989Qx7cf3iMK15MM6ap6xDWGJamFZTGWcprSK",
+        "memo":  null,
+        "err":  null,
+        "slot":  357416184
+    },
+    {
+        "blockTime":  "\/Date(1754172237000)\/",
+        "signature":  "21jpCEcq44uqafGqqrPg8mpzhLexEdTbzYQZqxevS23yH8KbAWGt1V6hw7XQovufnS3CtL1mrJ6ExW4ZjWc64R8e",
+        "memo":  null,
+        "err":  null,
+        "slot":  357411504
+    },
+    {
+        "blockTime":  "\/Date(1754172169000)\/",
+        "signature":  "2Ryvk1dLHszwZBshdhsCAauyTwkHwSti7TDE2pVkwirsy6Vk7LxvQfkqxZfFbLj83ku5ym7qi9mg6fp6FoFG5FB4",
+        "memo":  null,
+        "err":  null,
+        "slot":  357411332
+    },
+    {
+        "blockTime":  "\/Date(1753477383000)\/",
+        "signature":  "2TcV1aCg4BUMcX7XrtQKACPcKCfm2v9VzozkG61BDEwvFKZUFMEkZciqJZo8rvaquG9ixjr19LqBb1EyWSNSzmxB",
+        "memo":  null,
+        "err":  null,
+        "slot":  355667572
+    },
+    {
+        "blockTime":  "\/Date(1753477322000)\/",
+        "signature":  "5SrS4xEJjV3qakdSgij7EKXV6sQCg5tA14JUfwsfLwV4cLpt7DgguTguWbZKD6PMEs3TLLkYGJgWdrzDM8R1nGrH",
+        "memo":  null,
+        "err":  null,
+        "slot":  355667416
+    },
+    {
+        "blockTime":  "\/Date(1753466577000)\/",
+        "signature":  "WHGUvAK2eMGxXQwHqwGk8r7n7oD4EtqKupLdHToezYUEBKEVeQ6LHRKwwe3WT4gvCpLzY9SiyeZqAf7GCCLn6JT",
+        "memo":  null,
+        "err":  null,
+        "slot":  355640467
+    },
+    {
+        "blockTime":  "\/Date(1753461059000)\/",
+        "signature":  "341Ax3AyzMKnUjjiRds1tBrZWKWqdsVAUfXrzXNDfcns6gy2C4nWaJ3h1bnxUpKuEC1MzVwoZNRqVR7FsKN8uh6Q",
+        "memo":  null,
+        "err":  null,
+        "slot":  355626633
+    },
+    {
+        "blockTime":  "\/Date(1753452471000)\/",
+        "signature":  "3xeGD7F6K4eZQEoanxy3A2nnxd2Lhw81n38H8B7KKAnTGnGV5SyYRgHjPP3kVmMfS6Ki3aGU2e9eRTak543coder",
+        "memo":  null,
+        "err":  null,
+        "slot":  355605186
+    },
+    {
+        "blockTime":  "\/Date(1753446949000)\/",
+        "signature":  "5uAMdcaMTpjd7fHHZfRciZJzkwQVyeTQ9xjYP1e8wSrc3sitZFRPobZiC9Mg4X2HKmKwu2wt5LAwDB4G5uoo6h9n",
+        "memo":  null,
+        "err":  {
+                    "InstructionError":  [
+                                             3,
+                                             {
+                                                 "Custom":  16
+                                             }
+                                         ]
+                },
+        "slot":  355591460
+    },
+    {
+        "blockTime":  "\/Date(1753446307000)\/",
+        "signature":  "2dTr51H5XnXV6UasZna1Fv75M6apjBXdHbYrzociozjsDUdZb57sZttZaf1eJKkoM5DAo9MjNzxi3KiCaG9jBgck",
+        "memo":  null,
+        "err":  {
+                    "InstructionError":  [
+                                             3,
+                                             {
+                                                 "Custom":  16
+                                             }
+                                         ]
+                },
+        "slot":  355589872
+    },
+    {
+        "blockTime":  "\/Date(1753445296000)\/",
+        "signature":  "472XX1NDaEaebnM4V9jSCGuyXPV8dKeCorcwozi5nFmqSU3nHMTeyP1d2r2Ypc5MmDvN2BL7CVF2PEneqgYge88P",
+        "memo":  null,
+        "err":  null,
+        "slot":  355587347
+    },
+    {
+        "blockTime":  "\/Date(1753439473000)\/",
+        "signature":  "4fwydUXorg2R9bNH46sqcd2feHKyxjwjGpooYePf7rx6ooEnYob5RDAHzFKU1Vxviq9zEGg1mJdYhHUCSfYa1ySA",
+        "memo":  null,
+        "err":  null,
+        "slot":  355572816
+    },
+    {
+        "blockTime":  "\/Date(1753431767000)\/",
+        "signature":  "273xkYxfSQqubhtkdt1eEXh7WLWeAeQS9Dz7v5bt8Lqgw9jqXioQPQGSEuQxwakf9stUBKb8C7bx6N2PJLpLvZG5",
+        "memo":  null,
+        "err":  null,
+        "slot":  355553556
+    },
+    {
+        "blockTime":  "\/Date(1753431269000)\/",
+        "signature":  "TWpFtUcR59y1pPJFHYteA12aa91TGwHUsRWUVB8Couq24yQwchc7mAqbyU4Zv8jtc8ym8JJ9c9rXQktttiPAZuP",
+        "memo":  null,
+        "err":  null,
+        "slot":  355552315
+    },
+    {
+        "blockTime":  "\/Date(1753422544000)\/",
+        "signature":  "2UJ91p6CPniQgQdEsNKrr3Z5mKm2WHJPHhE1ALMeSdPQ7GhV8gn6oDrWTSE2pC6mtTGMdZTu7o4coQu7B61bTzCQ",
+        "memo":  null,
+        "err":  null,
+        "slot":  355530375
+    },
+    {
+        "blockTime":  "\/Date(1753422477000)\/",
+        "signature":  "3RBFdUPaX9AYPdEXgYK5eZg4tSvCBbBipP6yYFhHf8JYjTaDc963zezAZkgYVdanVkRXXBjeUpi8KoSFBuHRLXwa",
+        "memo":  null,
+        "err":  null,
+        "slot":  355530207
+    }
+]
+
+--- INFORMACIÓN DE PROGRAMA ---
+
+
+--- ENLACES ÚTILES ---
+Solana Explorer: https://explorer.solana.com/address/J3RX9CBrwB7vZmwNytRsJkJA9Wq7y6kwP25AZsX34TJa
+Solscan: https://solscan.io/account/J3RX9CBrwB7vZmwNytRsJkJA9Wq7y6kwP25AZsX34TJa
+Solana Beach: https://solanabeach.io/address/J3RX9CBrwB7vZmwNytRsJkJA9Wq7y6kwP25AZsX34TJa
+
+--- DATOS COMPLETOS (JSON) ---
+Ver archivo: C:\Users\Administrador\Desktop\creator_wallet_info_20260201_060021.json

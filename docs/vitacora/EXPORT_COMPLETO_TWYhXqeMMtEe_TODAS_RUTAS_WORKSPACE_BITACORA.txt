@@ -1,0 +1,321 @@
+================================================================================
+EXPORT COMPLETO — TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+TODAS LAS RUTAS, WORKSPACE Y BITÁCORA
+Sin omisiones, exclusiones ni suposiciones. Reglas aplicadas.
+Fecha: 2026-03-12 | Actualizado: 2026-03-13 (ACTUALIZACION_TRON integrada)
+================================================================================
+
+================================================================================
+PARTE I — EXPORT TRONSCAN (API apilist.tronscanapi.com)
+================================================================================
+
+1. IDENTIFICACIÓN
+-----------------
+Dirección:        TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+Red:              TRON Mainnet
+Tipo:             EOA (wallet externa, no contrato)
+accountType:      0
+date_created:     1772500851000 (2026-03-03 06:40:51 UTC aprox.)
+witness:          0 (no es superrepresentante)
+name:             (vacío)
+risk:             false (normalAddressInfo)
+Riesgo:           Bajo
+
+2. BALANCES
+-----------
+Balance TRX:      496.180762 TRX (496180762 sun) [ACTUALIZACION_TRON 2026-03-13]
+totalFrozen:      0
+reward:           1
+rewardNum:        1229
+voteTotal:        0
+
+3. TOKENS TRC-10
+---------------
+| Token ID | Nombre          | Símbolo   | Balance (raw) | Balance (dec) |
+|----------|-----------------|-----------|---------------|---------------|
+| _        | trx             | trx       | 496180762     | 496.180762    |
+| 1005114  | GasFreeSolution | TRC20Ucom | 8888888       | 8.888888      |
+| 1005118  | gas08com        | BuyEnergy | 10000         | 0.01          |
+
+4. TOKENS TRC-20 (trc20token_balances)
+--------------------------------------
+[] (vacío — sin tokens TRC-20 en balance actual)
+
+5. TRANSCRIPCIONES
+------------------
+totalTransactionCount: 70 [ACTUALIZACION_TRON 2026-03-13]
+transactions_in:       41
+transactions_out:      8
+transactions:          49 (API alternativa)
+
+6. TRANSACCIONES INTERNAS (TRX recibido) — TABLA COMPLETA BITÁCORA
+-------------------------------------------------------------------
+Total: 5. Origen: TSJEtPuqHpvSaVnSwvCsngaeBxrGUzp95Q (SUN: SunSwap UniversalRouter)
+
+| Block    | Hash parent (completo)                                                | call_value (TRX) | call_value decimal | Timestamp    |
+|----------|----------------------------------------------------------------------|------------------|---------------------|--------------|
+| 80748224 | 2d607f1b4ae1a4ad5e94aefc03b50125d24c330017d6f719d1a7f3f218175c97   | 524749996        | 524.749996          | 1772911416000 |
+| 80640803 | 9f898f40ae0879c5938e80b5f8f167292f863a3504d3153ec0c11e5d8b455e17   | 715792580        | 715.79258           | 1772589063000 |
+| 80629467 | 103b9088c4a75d1c2d20925968b7635357917db605b69f83f3e4c6572b90140d   | 348962666        | 348.962666          | 1772555043000 |
+| 80625097 | f8729a3e26a744a4019610c865b7f67335ae1ad9bbeb5897de992f9df7f17212   | 170453824        | 170.453824          | 1772541600000 |
+| 80620103 | 8636880dbc1108ef470f9ac08d00e080af34fb799ff77dc8f48518889ba0fff5   | 177081546        | 177.081546          | 1772526120000 |
+
+Total TRX recibido (internas): ~1.936,04 TRX
+
+7. TRANSFERENCIAS TRC-20 (token_trc20/transfers) — TABLA COMPLETA BITÁCORA (11 registros)
+-----------------------------------------------------------------------------------------
+Con hash (64 hex) y fecha UTC legible. Fuente: API Tronscan token_trc20/transfers.
+
+| # | hash (tx)                                                            | fecha_UTC          | from                                             | to                                               | quant       | token                     | method         |
+|---|----------------------------------------------------------------------|--------------------|--------------------------------------------------|--------------------------------------------------|-------------|---------------------------|----------------|
+| 1 | 2d607f1b4ae1a4ad5e94aefc03b50125d24c330017d6f719d1a7f3f218175c97   | 2026-03-07 19:23   | TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz               | TGUZpxeGtx6sWBbeXxakaEui7iFb7RaM9z               | 150 USDT    | TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t | execute        |
+| 2 | bcdd6be7c2401328f76958dfff4cfa605a25af91695e5b1526b87f8bdd380d1a   | 2026-03-07 19:22   | TKqJoXvhBRtyguniVJHfreoEFYz9pWrGnP               | TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz               | 150 USDT    | USDT                      | transfer       |
+| 3 | 10d6a4d6a3d41a93a311a6dfcb3160ecb594ccb4f7210aaaef89aaeeb15f6815   | 2026-03-04 12:31   | T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb (Black Hole)   | TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz               | 1,000,000 Colateral USD | TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm | initialize     |
+| 4 | 9f898f40ae0879c5938e80b5f8f167292f863a3504d3153ec0c11e5d8b455e17   | 2026-03-04 07:11   | TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz               | TSUUVjysXV8YqHytSNjfkNXnnB49QDvZpx               | 200 USDT    | USDT                      | execute        |
+| 5 | e5d3ad80ebece9d2985effc957b55130bfdc3699a5e52cc68ac3f9c90ed6d800   | 2026-03-04 07:09   | TKqJoXvhBRtyguniVJHfreoEFYz9pWrGnP               | TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz               | 200 USDT    | USDT                      | transfer       |
+| 6 | 103b9088c4a75d1c2d20925968b7635357917db605b69f83f3e4c6572b90140d   | 2026-03-04 00:04   | TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz               | TVjuTE3V5bMVdpfNhid8kD2v35T2k1u1Br (SunSwap)     | 98 USDT     | USDT                      | execute        |
+| 7 | 9576238f75e7201d75d1cb79957266ee1f6c6eb75557dd2c1fbdab153848e64c   | 2026-03-03 22:04   | TTmzL77p4bq3SY7bfEeFHRSioA2kty7xGj               | TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz               | 98 USDT     | USDT                      | permitTransfer |
+| 8 | f8729a3e26a744a4019610c865b7f67335ae1ad9bbeb5897de992f9df7f17212   | 2026-03-03 20:20   | TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz               | TVjuTE3V5bMVdpfNhid8kD2v35T2k1u1Br               | 48 USDT     | USDT                      | execute        |
+| 9 | 973b484e950ec6415278da8473d9aec23d8abec0bded08bb72f406417f9b5806   | 2026-03-03 20:02   | TUsV4QQ6w89CwCFQdaJL1jDBQRJ8d6ruMy               | TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz               | 48 USDT     | USDT                      | permitTransfer |
+|10 | 8636880dbc1108ef470f9ac08d00e080af34fb799ff77dc8f48518889ba0fff5   | 2026-03-03 15:42   | TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz               | TVjuTE3V5bMVdpfNhid8kD2v35T2k1u1Br               | 50 USDT     | USDT                      | execute        |
+|11 | 32bd915585c2c31ed7c38ecfffa6ce8e01aa9c5bc3012ceaf0a1bebe9664e5d3   | 2026-03-03 15:10   | TKqJoXvhBRtyguniVJHfreoEFYz9pWrGnP               | TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz               | 50 USDT     | USDT                      | transfer       |
+
+Contratos interactuados: TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t (USDT), TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm (Colateral USD). TVjuTE3V5bMVdpfNhid8kD2v35T2k1u1Br = SUN: SunSwapV4 PoolManager.
+
+8. CONTRATOS CREADOS
+--------------------
+Creador: TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+
+- TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm — Token Proxy (Colateral USD / USDT)
+- TVeVPZGiMc9GWQ8sQHvUwhfg19EDZt3UjZ — ProxyAdmin (en uso)
+- TXaXTSUKgdAdX76MhQoqQ98msE8azBwiFS — Implementation (actual)
+- TYqRvxioNWBqVa2nJGog8RkYQrXQdPJwR3 — Implementation anterior (upgradeado)
+- TPK7VWSGSH1nK4jetcNCz1BQqMU7gmnaLe — CreateSmartContract (histórico)
+- TNduz3PrYRDDN9HmEWXFn3nEsXKCaJt9er — CreateSmartContract (histórico)
+- TDUPqTHo1mCTMUxajReCrmEF9eS86ymNVh — Proxy fallido (FAIL)
+- TXNE9tkkzhKR7E34RHpWzU7rLdeqmonJLA — TRC20TokenUpgradeable (histórico)
+- TQJ6f3eczr2rK9x9kN2JMTdDN1zTm46XxE — ProxyAdmin (histórico)
+- TVCkDGbhFpS2wBDuXvQxxTNYmzaR5nbZLN — TRC20TokenUpgradeable (histórico)
+- TTTT4AeRUjJEmTepb9X4uK4f6Pxg8UwwkW — ProxyAdmin (histórico)
+- TTMjwXXz6XdpJXxcJKvFgQnMVXxAQt4SVb — TRC20TokenUpgradeable (histórico)
+
+9. DIRECCIONES RELACIONADAS
+----------------------------
+TGUZpxeGtx6sWBbeXxakaEui7iFb7RaM9z — CreatedByContract
+TTmzL77p4bq3SY7bfEeFHRSioA2kty7xGj — CreatedByContract
+TSUUVjysXV8YqHytSNjfkNXnnB49QDvZpx — CreatedByContract
+TVjuTE3V5bMVdpfNhid8kD2v35T2k1u1Br — SUN: SunSwapV4 PoolManager
+TUsV4QQ6w89CwCFQdaJL1jDBQRJ8d6ruMy — CreatedByContract
+TSJEtPuqHpvSaVnSwvCsngaeBxrGUzp95Q — SUN: SunSwap UniversalRouter
+T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb — Black Hole Address(0)
+TKqJoXvhBRtyguniVJHfreoEFYz9pWrGnP — (sin tag) Wallet
+TTJxU3P8rHycAyFY4kVtGNfmnMH4ezcuM9 — Spender USDT (Approval ilimitado)
+
+10. ENLACES TRONSCAN
+--------------------
+- Address: https://tronscan.org/#/address/TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+- Transacciones: https://tronscan.org/#/transaction?address=TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+- Token transfers: https://tronscan.org/#/address/TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz/transfers
+
+================================================================================
+PARTE II — TRONGRID (api.trongrid.io) — API key: TRON_PRO_API_KEY
+================================================================================
+
+Datos exclusivos v1/accounts:
+- balance: 496180762 (496.180762 TRX) [ACTUALIZACION_TRON 2026-03-13]
+- trc20: TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm → "1000000000000" (1.000.000 Colateral USD, 6 decimals)
+- assetV2: TRC10 — 1005118 (10000), 1005114 (8888888)
+- unfrozenV2: 263 TRX ENERGY, unfreeze_expire_time 1773764745000
+- frozenV2: ENERGY, TRON_POWER (objetos vacíos)
+- create_time: 1772500851000
+
+TronGrid v1/accounts/:addr/transactions/trc20:
+- 12 eventos: 10 Transfer, 1 Approval
+- Approval ilimitado (USDT): owner TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz → spender TTJxU3P8rHycAyFY4kVtGNfmnMH4ezcuM9
+  value = max uint256 (115792089237316195423570985008687907853269984665640564039457584007913129639935)
+  Tx: 9e977c764bdfa56a2ee7cb958c515980ed280fdee5e4e4dccdae36398895bdb4, block 80619742
+
+================================================================================
+PARTE III — OTRAS RUTAS (web, Blockchair, 3xpl)
+================================================================================
+
+Búsqueda web (Google): 0 menciones públicas de la dirección TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz.
+
+Blockchair (blockchair.com/tron/address/...): 401 Unauthorized — requiere API key propia.
+
+3xpl web (3xpl.com/tron/address/...): OK
+- Balance 496.180762 TRX ($143.49) [ACTUALIZACION_TRON 2026-03-13]
+- TRC20Ucom 8.888888
+- BuyEnergy 0.010000
+- USDT 0 + 1.000.000 (Colateral USD)
+- Historial con hashes: 91052712..., fa8f5883..., 154fdecb..., 2d607f1b..., e3f8d661...
+- Enlaces cross-check a tronscan.org y blockchair.com
+
+Tronscan web (tronscan.org/#/address/...): explorador principal; datos equivalentes a API.
+
+================================================================================
+PARTE IV — BÚSQUEDA EXHAUSTIVA — MATRIZ DE RUTAS
+================================================================================
+
+Fuente                  | Endpoint / Ruta                                              | Estado | Notas
+------------------------|--------------------------------------------------------------|--------|------
+Tronscan API            | /api/transaction?address=...&limit=200                       | 200 OK | Transacciones, paginación 200
+Tronscan API            | /api/transaction?address=...&type=CreateSmartContract       | 200 OK | 11–12 CreateSmartContract
+Tronscan API            | /api/account/token_asset_overview?address=...               | 200 OK | 496.179533 TRX, totalTokenCount 3
+Tronscan API            | /api/vote?voter=...                                          | 200 OK | total 0, sin votos
+Tronscan API            | /api/account/resource?address=...                            | 200 OK | total 0, sin Stake 1.0
+Tronscan API            | /api/accountv2?address=...                                   | 401    | Requiere TRONSCAN_API_KEY
+Tronscan API            | /api/account/tokens?address=...&show=3                       | 401    | Requiere TRONSCAN_API_KEY
+Tronscan API            | /api/account/resourcev2?address=...                          | 401    | Requiere TRONSCAN_API_KEY
+Tronscan API            | /api/account/approve/list?address=...                        | 400    | Parámetro type obligatorio
+Tronscan API            | /api/participate_project?address=...                        | 401    | Requiere TRONSCAN_API_KEY
+Tronscan API            | /api/multiple/chain/query?address=...                       | 401    | Requiere TRONSCAN_API_KEY
+Tronscan API            | /api/contracts?search=...                                    | 200 OK | total 0 (search por nombre/dirección)
+Tronscan API            | /api/token_trc20/transfers?relatedAddress=...               | 200 OK | 10 transferencias TRC20
+Tronscan API            | /api/account/analysis?address=...&type=0                    | 200 OK | 9 días balance/TRX/USDT
+Tronscan API            | /api/account/approve/list?address=...&type=project           | 400    | Mismo 400 con type
+Tronscan API            | /api/account/approve/list?address=...&type=token              | 400    | Mismo 400 con type
+TronGrid                | GET /v1/accounts/:address                                     | 200 OK | Balance, trc20, frozenV2, unfrozenV2, assetV2
+TronGrid                | GET /v1/accounts/:address/resources                           | 404    | Endpoint no disponible
+TronGrid                | POST /wallet/getaccountresource                               | —      | Devuelve {} (body vacío o sin recursos)
+TronGrid                | GET /v1/accounts/:address/transactions                       | 200 OK | Historial con paginación
+TronGrid                | GET /v1/accounts/:address/transactions/trc20                 | 200 OK | 12 eventos TRC20
+3xpl.com                | Explorador web                                               | OK     | Balance ~496 TRX, 1M Colateral USD
+Blockchair             | blockchair.com/tron/address/...                              | 401    | Requiere API key
+Tronscan Web            | tronscan.org/#/address/...                                    | OK     | SPA; datos vía API
+Búsqueda web            | Google, etc.                                                 | OK     | 0 hits públicos
+
+Variables de entorno (.env blockchain/trc20-token):
+- TRONSCAN_API_KEY → apilist.tronscanapi.com (Tronscan)
+- TRON_PRO_API_KEY → api.trongrid.io (TronGrid)
+
+Scripts búsqueda:
+- blockchain/trc20-token/scripts/search-address-with-apikey.js
+- blockchain/trc20-token/scripts/search-address-all-routes.js
+
+RESUMEN CONSOLIDADO
+-------------------
+Balance TRX:           496.180762 [ACTUALIZACION_TRON 2026-03-13]
+TRC20 Colateral USD:   1.000.000 (TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm)
+TRC10:                 GasFreeSolution 8.888888, gas08com 0.01
+Unfreeze pendiente:    263 TRX ENERGY
+Votos:                 0
+Contratos creados:     11–12 CreateSmartContract
+Exploradores:          Tronscan, TronGrid, 3xpl, Blockchair, web
+Transferencias TRC20:  11 [ACTUALIZACION_TRON 2026-03-13]
+Approval USDT:         TTJxU3P8rHycAyFY4kVtGNfmnMH4ezcuM9 (ilimitado)
+
+================================================================================
+PARTE V — WORKSPACE (blockchain/trc20-token)
+================================================================================
+
+abi/addresses.json:
+{
+  "tokenAddress": "TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm",
+  "implementationAddress": "TXaXTSUKgdAdX76MhQoqQ98msE8azBwiFS",
+  "proxyAdminAddress": "TVeVPZGiMc9GWQ8sQHvUwhfg19EDZt3UjZ",
+  "updatedAt": "2026-03-07T19:28:18.662Z"
+}
+
+abi/token-info.json (resumen):
+- contractName: TRC20TokenUpgradeable
+- address: TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm
+- name: Colateral USD
+- symbol: USTD
+- decimals: 6
+- network: tron-mainnet
+- updatedAt: 2026-03-07T16:55:16.735Z
+
+Scripts relevantes:
+- search-address-with-apikey.js
+- search-address-all-routes.js
+- search-matching-source.js
+- check-mainnet-live.js
+- find-tx-created-TXaXTSUK.js
+- find-all-sources-robust.js
+- find-source-TXaXTSUK.js
+
+Archivos export existentes:
+- docs/vitacora/EXPORT_COMPLETO_Tronscan_TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz.txt
+
+================================================================================
+PARTE VI — BITÁCORA / VITÁCORA
+================================================================================
+
+Archivo principal: docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md
+
+Secciones relevantes para TWYhXqeMMtEe:
+- ACTUALIZACION_TRON_2026-03-13 (líneas ~68335-68397): Red Mainnet (bloque 80902563), Owner (496.180762 TRX, 70 tx), Contratos (Proxy✓ Admin✓ Impl✗), Token, 11 transferencias TRC20, addresses.json, enlaces, pendientes
+- BÚSQUEDA EXHAUSTIVA — TODAS LAS RUTAS (líneas ~68228-68323)
+- INFORME TRONSCAN (resumen consolidado dirección)
+- HISTORIAL_TRANSACCIONES (TWYhXqe)
+- DESPLIEGUES_TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+- LISTADO_MAINNET_OWNER_TWYhXqe
+- Registro de interacciones (append) — entradas 2026-03-08 a 2026-03-13
+
+Índice consolidación: 189 archivos consolidados en docs/vitacora.
+Dominios: TRC20 Token (TRON), Solana 555, Apps RTSP, Blockchain ERC20/Tenderly.
+
+Registro de interacciones relevantes a TWYhXqe (resumen):
+- 2026-03-08: Búsqueda source Implementation TXaXTSUK; deploy-info, migrate-run, LISTADO_MAINNET
+- 2026-03-09: Reporte búsqueda source TXaXTSUK; find-tx-created, find-all-sources; source exacto no identificado
+- 2026-03-09: 12 CreateSmartContract mapeadas; find-source-TXaXTSUK; deploy-info verificado
+- 2026-03-09: TXaXTSUK creada tx fa8f5883...; scripts deploy revisados; upgrade-with-solc NO bytecodeHash:none
+- 2026-03-09: Revisión mainnet: Token TV4P3sVf, Impl TXaXTSUK, Admin TVeVPZGi activos; Impl no verificado
+- 2026-03-12: Completar búsqueda exhaustiva: token_trc20/transfers, account/analysis, TronGrid transactions/trc20, Approval TTJxU3P8rH
+- 2026-03-12: Búsqueda exhaustiva todas las rutas; matriz completa; script search-address-all-routes.js
+- 2026-03-13: Actualización información TRON — balance 496.180762, 70 tx, 11 transferencias TRC20; sección ACTUALIZACION_TRON_2026-03-13 integrada
+
+================================================================================
+PARTE VI.5 — ACTUALIZACION_TRON_2026-03-13 (verificado en tiempo real)
+================================================================================
+
+Fuentes: check-mainnet-live.js, API Tronscan (account, block, token_trc20/transfers).
+
+Red TRON Mainnet:
+- Bloque más reciente: 80902563 (apilist.tronscanapi.com/api/block)
+- Timestamp: 1773374571000 (~2026-03-13 04:02 UTC)
+- rangeTotal: 80902564
+- Witness último bloque: HTX.COM (TN2W4cc7a4dsYyTLiLMWa9m7jVpdLjGvYs)
+
+Owner TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz:
+- Balance TRX: 496.180762 TRX
+- Tipo: EOA (accountType: 0)
+- Transacciones: 70 total (41 in, 8 out)
+- TRC10: GasFreeSolution 8.888888, BuyEnergy 0.01
+- TRC20 balances: [] (vacío)
+- Bandwidth: freeNetUsed 232, freeNetRemaining 368, freeNetLimit 600
+- Votos: 0
+
+Contratos (Colateral USD) — Estado TronGrid + Verificación Tronscan:
+- Token (Proxy) TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm: Activo | VERIFICADO (TransparentUpgradeableProxy)
+- Implementation TXaXTSUKgdAdX76MhQoqQ98msE8azBwiFS: Activo | No verificado
+- ProxyAdmin TVeVPZGiMc9GWQ8sQHvUwhfg19EDZt3UjZ: Activo | VERIFICADO
+- Tronscan cache proxy_implementation: TYqRvxio (addresses.json tiene TXaXTSUK tras upgrade)
+
+Enlaces verificados:
+- Proxy: https://tronscan.org/#/contract/TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm
+- Implementation: https://tronscan.org/#/contract/TXaXTSUKgdAdX76MhQoqQ98msE8azBwiFS
+- Owner: https://tronscan.org/#/address/TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+
+Pendientes: Perfil token Tronscan (logo, descripción, web); Verificación Implementation TXaXTSUK; TronScan MCP (reinicio Cursor).
+
+================================================================================
+PARTE VII — OTROS EXPORTS EN VITÁCORA
+================================================================================
+
+- EXPORT_COMPLETO_BSCScan_0xA0342781235A82EaB63Edb09642db9CbD8d0E1c7.txt (BSC Mainnet, dirección distinta)
+
+================================================================================
+METADATOS FINALES
+================================================================================
+
+- Reglas: vitácora única, sin omitir, excluir ni suponer
+- Fecha export: 2026-03-12 | Actualizado: 2026-03-13 (ACTUALIZACION_TRON integrada)
+- Fuentes: Tronscan API, TronGrid, 3xpl, Blockchair, web, workspace, vitácora
+- Dirección: TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz
+- Red: TRON Mainnet
+
+================================================================================
+FIN EXPORT COMPLETO — TODAS LAS RUTAS, WORKSPACE Y BITÁCORA
+================================================================================

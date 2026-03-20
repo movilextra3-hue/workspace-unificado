@@ -1,0 +1,16 @@
+{
+  "name": "Colateral USD",
+  "symbol": "USTD",
+  "decimals": 6,
+  "description": "Token TRC-20 estable vinculado a USD en la red TRON. Compatible con wallets y exploradores estándar.",
+  "website": "https://github.com/movilextra3-hue/workspace-unificado",
+  "logo": "https://gateway.pinata.cloud/ipfs/bafkreiegqiwybfy4l2kvylpslujwai2un6sc7pfjflcmvnergt3oy3wbma",
+  "logoUrlFallbacks": [
+    "https://gateway.pinata.cloud/ipfs/bafkreiegqiwybfy4l2kvylpslujwai2un6sc7pfjflcmvnergt3oy3wbma",
+    "https://raw.githubusercontent.com/movilextra3-hue/workspace-unificado/main/blockchain/trc20-token/assets/logo.png",
+    "https://cdn.jsdelivr.net/gh/movilextra3-hue/workspace-unificado@main/blockchain/trc20-token/assets/logo.png"
+  ],
+  "network": "tron",
+  "contractAddress": "TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm",
+  "_comment": "Perfil público. Logo: Pinata (prioridad), GitHub raw, jsDelivr (respaldos para Tronscan/wallets)."
+}

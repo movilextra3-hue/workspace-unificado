@@ -1,0 +1,16 @@
+{
+  "name": "Mi Token",
+  "symbol": "MTK",
+  "decimals": 18,
+  "description": "Descripción del token para CoinGecko, CoinMarketCap y Tronscan.",
+  "website": "https://tudominio.com",
+  "logo": "https://gateway.pinata.cloud/ipfs/TU_CID_AQUI",
+  "socials": {
+    "twitter": "",
+    "telegram": "",
+    "discord": ""
+  },
+  "network": "tron",
+  "contractAddress": "TU_DIRECCION_DEL_PROXY_AQUI",
+  "_comment": "Copiar a token-metadata.json (gitignored). Logo: subir con npm run upload:logo:pinata y pegar URL aquí. Sin claves ni datos sensibles."
+}
