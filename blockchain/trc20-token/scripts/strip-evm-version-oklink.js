@@ -24,7 +24,8 @@ function main() {
     delete data.settings.evmVersion;
   }
   fs.writeFileSync(OUT_FILE, JSON.stringify(data, null, 2), 'utf8');
-  if (data.settings && Object.hasOwn(data.settings, 'evmVersion')) {
+  const writtenOklink = JSON.parse(fs.readFileSync(OUT_FILE, 'utf8'));
+  if (writtenOklink.settings && Object.hasOwn(writtenOklink.settings, 'evmVersion')) {
     console.error('ERROR interno: OUT_FILE aún contiene evmVersion.');
     process.exit(1);
   }
@@ -38,7 +39,8 @@ function main() {
   }
   const outEmpty = path.join(PKG, 'standard-input-TFeLLtutbo-oklink-evm-empty.json');
   fs.writeFileSync(outEmpty, JSON.stringify(dataEmpty, null, 2), 'utf8');
-  if (dataEmpty.settings && dataEmpty.settings.evmVersion !== '') {
+  const writtenEmpty = JSON.parse(fs.readFileSync(outEmpty, 'utf8'));
+  if (!writtenEmpty.settings || writtenEmpty.settings.evmVersion !== '') {
     console.error('ERROR interno: variante evm-empty debe tener evmVersion "".');
     process.exit(1);
   }
