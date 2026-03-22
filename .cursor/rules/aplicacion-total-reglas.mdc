@@ -43,6 +43,7 @@ alwaysApply: true
 12. **enfoque-tarea-principal-retorno-automatico.mdc** — Mantener foco en la tarea principal; tras tareas secundarias, retornar automáticamente a la principal sin perder el propósito.
 13. **tareas-activas-flujo-continuidad.mdc** — Mantener tareas ejecutables en curso según el flujo; encadenar pasos viables; lista de tareas actualizada; sin cierre prematuro con trabajo que el agente aún pueda hacer (sin ampliar alcance).
 14. **flujo-automatizado-checkpoint-trc20.mdc** — Procedimiento TRC20: usar `npm run flujo:continuo` / resume / checkpoint en `trc20-token` cuando aplique; no dispersar pasos equivalentes sin persistencia.
+15. **local-proposito-mainnet.mdc** — Trabajo local en proyectos on-chain debe **garantizar o mejorar** lo desplegado en mainnet/red objetivo, o demostrar alineación; sin ese propósito verificable, no vale como cierre en ese ámbito.
 
 ## Flujo obligatorio en cada sesión
 
@@ -57,7 +58,7 @@ alwaysApply: true
 
 **La ejecución de absolutamente todas las reglas se aplica en cada interacción.** Sin excepciones.
 
-- Cada regla 0–14 debe estar efectivamente aplicada (no solo citada).
+- Cada regla 0–15 debe estar efectivamente aplicada (no solo citada).
 - Verificar tras cada paso que no hay errores antes de continuar.
 - Si la tarea principal está pendiente: continuar hasta completarla; no dar por cerrada la sesión con pendientes abordables.
 - Tras cualquier tarea secundaria (corrección, subtarea, verificación): retornar automáticamente a la tarea principal.
@@ -82,6 +83,7 @@ Antes de reportar al usuario o dar por finalizada la respuesta:
 - [ ] enfoque-tarea-principal: tarea principal identificada; retorno automático tras secundarias; foco mantenido.
 - [ ] tareas-activas-flujo-continuidad: sin tiempos muertos innecesarios; pasos ejecutables encadenados; lista de tareas coherente si aplica.
 - [ ] flujo-automatizado-checkpoint-trc20: si la tarea es procedimiento trc20-token multi-paso, `flujo:continuo` / resume / checkpoint respetados o justificación si no aplicaba.
+- [ ] local-proposito-mainnet: si la tarea tocó contratos/deploy/verificación on-chain, queda evidencia de vínculo con mainnet/red objetivo (`check:alignment`, `gate:mainnet`, plan honesto) o alcance excluyó cadena explícitamente.
 - [ ] Tarea principal completada o continuada con evidencia de lo realizado.
 
 ## Resumen

@@ -115,7 +115,8 @@ alwaysApply: true
 
 ## Uso obligatorio
 
-- **Consultar siempre** las reglas (este archivo + seguimiento-tiempo-real.mdc + vitacora-registro.mdc + aplicacion-total-reglas.mdc + tareas-activas-flujo-continuidad.mdc + flujo-automatizado-checkpoint-trc20.mdc) y la vitácora (`docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`) antes de actuar o responder. Son la base para interacción y ejecución correctas.
+- **Consultar siempre** las reglas (este archivo + seguimiento-tiempo-real.mdc + vitacora-registro.mdc + aplicacion-total-reglas.mdc + tareas-activas-flujo-continuidad.mdc + flujo-automatizado-checkpoint-trc20.mdc + **local-proposito-mainnet.mdc**) y la vitácora (`docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`) antes de actuar o responder. Son la base para interacción y ejecución correctas.
+- **Propósito mainnet** — En proyectos con despliegue en cadena, el trabajo local debe poder **justificarse** frente a mainnet o red objetivo (validar, alinear, mejorar); ver **local-proposito-mainnet.mdc**.
 
 ## Vitácora — Un solo archivo
 

@@ -29,7 +29,7 @@ alwaysApply: true
 
 5. **Pasos no automatizables** — OKLink / Tronscan / navegador siguen siendo manuales; el agente debe **señalar** el paquete `verification/PAQUETE-VERIFICACION-POST-UPGRADE/` y `VERIFICAR_AHORA.txt` tras completar lo automático, sin afirmar que el flujo npm sustituye la verificación en explorador.
 
-6. **Coherencia con otras reglas** — Sin ampliar alcance (`ejecucion-explicita.mdc`). Complementa **tareas-activas-flujo-continuidad.mdc** (continuidad real vía script, no solo intención).
+6. **Coherencia con otras reglas** — Sin ampliar alcance (`ejecucion-explicita.mdc`). Complementa **tareas-activas-flujo-continuidad.mdc** (continuidad real vía script, no solo intención). **local-proposito-mainnet.mdc** — el flujo encadenado existe para **demostrar** vínculo local ↔ mainnet.
 
 ## Comandos de referencia
 

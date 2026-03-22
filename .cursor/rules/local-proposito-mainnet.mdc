@@ -1,0 +1,40 @@
+---
+description: Estricto — El trabajo local debe garantizar o mejorar lo desplegado en mainnet (o red objetivo); sin ese propósito no vale.
+alwaysApply: true
+---
+
+# Local con propósito mainnet — Sin desconexión de la cadena
+
+## Regla principal — Permanente e inviolable
+
+**Todo lo que se hace en local en proyectos con despliegue en cadena** (contratos, scripts de deploy/upgrade/verificación, bytecode, direcciones, paquetes de verificación) **debe perseguir un fin verificable:** que **mainnet** (o la **red objetivo** del proyecto) **funcione correctamente**, **esté alineado** con el repositorio, o **mejore** de forma demostrable (seguridad, corrección, verificabilidad del código en explorador).
+
+**Si el trabajo local no contribuye a ese fin** —o no puede demostrarse el vínculo con la realidad on-chain cuando la tarea es de ese ámbito— **no cuenta como avance útil** y **no debe darse por cerrado** como éxito.
+
+**Garantía:** Antes de reportar “listo”, el agente debe poder indicar **qué** en mainnet queda **validado**, **alineado** o **preparado para validar** (p. ej. `check:alignment`, `gate:mainnet`, `addresses.json`, paquete de verificación vs bytecode en cadena).
+
+## Alcance
+
+- **Aplica** a: `blockchain/trc20-token`, y en general a cualquier proyecto del workspace cuya finalidad sea **operar contratos en una red pública** (TRON, Ethereum, Solana despliegues, etc.), cuando la tarea toque **código de contrato**, **scripts de despliegue/upgrade**, **verificación**, **bytecode** o **direcciones de contrato**.
+- **No invalida** trabajo puramente de infraestructura (solo IDE, linters globales, docs de proceso) **si el usuario lo pidió explícitamente** y **no** pretende afectar mainnet.
+- **Coexiste con ejecución explícita:** no añadir alcance; solo exige **coherencia de propósito** en lo que sí se hace en el ámbito on-chain.
+
+## Obligaciones del agente
+
+1. **Vínculo explícito** — Tras cambios en `contracts/`, `migrations/`, scripts de verificación o `config` de compilación: ejecutar o citar las comprobaciones que **conectan** local con mainnet (`npm run check:alignment`, `npm run gate:mainnet`, `verificar:bytecode-match`, etc.) cuando la red y las direcciones estén definidas en el repo.
+
+2. **No “éxito local” hueco** — No presentar solo “compila” o “lint OK” como cierre si la tarea era **asegurar el despliegue**: debe constar **alineación** o **motivo documentado** por el que aún no se puede comparar (p. ej. aún no hay dirección nueva).
+
+3. **Mejora real** — Refactors o features en contratos deben ir acompañados de **tests/compile** y, si ya hay contrato en mainnet, **plan** de upgrade o **evidencia** de que el cambio es para **nuevo** despliegue, no confusión con lo ya desplegado.
+
+4. **Vitácora** — Si se documenta un procedimiento, debe quedar claro **cómo** ese paso **sirve** a mainnet (ya registrado en entradas de procedimiento; no duplicar fuera de vitácora).
+
+## Conexión con otras reglas
+
+- **workspace-unificado** — Cero hipótesis: “local bien” = demostrable respecto a cadena cuando aplica.
+- **flujo-automatizado-checkpoint-trc20.mdc** — El `flujo:continuo` existe precisamente para **encadenar** evidencia local → mainnet.
+- **cero-errores-antes-continuar** — Incluye **no saltarse** la comprobación de alineación si el propósito es garantizar mainnet.
+
+## Resumen
+
+**Local sirve a mainnet o a la verificación honesta de mainnet. Sin ese propósito demostrable en tareas on-chain, el trabajo no se da por válido.**

@@ -24,6 +24,11 @@
 - En `blockchain/trc20-token`, ante procedimientos multi-paso (lint → test → gate mainnet → pipeline), **priorizar** `npm run flujo:continuo` y retoma con `flujo:continuo:resume` / `--from-step` para no perder avance entre sesiones.
 - Regla completa: `.cursor/rules/flujo-automatizado-checkpoint-trc20.mdc`.
 
+## Regla inviolable — Local con propósito mainnet / red objetivo
+
+- El trabajo en repo sobre **contratos, deploy o verificación** debe **garantizar o mejorar** lo que está en **mainnet** (o la red objetivo), o demostrar **alineación** (`check:alignment`, `gate:mainnet`, etc.). Un resultado “solo local” sin ese vínculo **no cuenta** como cierre válido en ese ámbito.
+- Regla completa: `.cursor/rules/local-proposito-mainnet.mdc`.
+
 ## Regla inviolable — No omitir, no excluir, no suponer, cero hipótesis
 
 **Permanente. Sin excepciones.**

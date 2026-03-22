@@ -5,7 +5,7 @@
 ## Obligatorio en cada sesión
 
 1. **Consultar primero** `.cursor/rules/00-INSTRUCCION-PRIMERA-OBLIGATORIA.mdc` y las demás reglas.
-2. **Aplicar todas** las reglas: workspace-unificado, vitacora-registro, vitacora-obligatoria, vitacora-al-crear-docs, ejecucion-explicita, aplicacion-total-reglas, seguimiento-tiempo-real, interacciones-agentes, tareas-activas-flujo-continuidad, flujo-automatizado-checkpoint-trc20.
+2. **Aplicar todas** las reglas: workspace-unificado, vitacora-registro, vitacora-obligatoria, vitacora-al-crear-docs, ejecucion-explicita, aplicacion-total-reglas, seguimiento-tiempo-real, interacciones-agentes, tareas-activas-flujo-continuidad, flujo-automatizado-checkpoint-trc20, local-proposito-mainnet.
 3. **Registrar antes de finalizar** en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` cualquier acción realizada.
 
 ## Reglas que NUNCA se omiten
