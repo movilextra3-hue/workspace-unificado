@@ -22,6 +22,10 @@ Carpeta generada con todo lo necesario:
 
 | Comando | Uso |
 |--------|-----|
+| **`npm run gate:mainnet`** | **Puerta de calidad:** `check:mainnet` + `check:alignment` + aviso Tronscan (no falla si solo falta verificación en explorador) |
+| **`npm run gate:mainnet:strict`** | Igual, pero **falla** si proxy/implementation/admin **no** están verificados en Tronscan |
+| **`npm run flujo:continuo`** | **Orquestador:** `lint:js` → `test` → `gate:mainnet` → `verify:implementation:pipeline`; guarda checkpoint para retomar |
+| **`npm run flujo:continuo:resume`** | Igual que `flujo:continuo --resume` — continúa tras fallo. Flags: `--resume`, `--from-step=gate:mainnet`, `--reset`, `--only-local` |
 | `npm run guardar:verificacion` | Regenera el paquete + Standard JSON OKLink (obligatorio si cambias `contracts/`) |
 | `npm run verify:oklink:prepare` | Solo regenera `standard-input-TFeLLtutbo*.json` |
 | `npm run verify:implementation:pipeline` | Compile + comprobaciones bytecode + lint |

@@ -13,6 +13,17 @@
 - Comprobar que todo esté correcto; si hay errores, corregirlos y continuar.
 - No finalizar hasta brindar una solución completa, efectiva y exitosa.
 
+## Regla inviolable — Tareas activas y continuidad (sin tiempos muertos)
+
+- Mantener el flujo de trabajo con **pasos ejecutables encadenados** hasta completar lo pedido (sin ampliar alcance).
+- **No** cerrar el turno dejando trabajo que el agente aún puede ejecutar; usar lista de tareas en encargos multi-paso.
+- Regla completa: `.cursor/rules/tareas-activas-flujo-continuidad.mdc`.
+
+## Regla inviolable — Flujo automatizado TRC20 + checkpoint
+
+- En `blockchain/trc20-token`, ante procedimientos multi-paso (lint → test → gate mainnet → pipeline), **priorizar** `npm run flujo:continuo` y retoma con `flujo:continuo:resume` / `--from-step` para no perder avance entre sesiones.
+- Regla completa: `.cursor/rules/flujo-automatizado-checkpoint-trc20.mdc`.
+
 ## Regla inviolable — No omitir, no excluir, no suponer, cero hipótesis
 
 **Permanente. Sin excepciones.**

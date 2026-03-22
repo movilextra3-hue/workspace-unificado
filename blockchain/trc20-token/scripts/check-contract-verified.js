@@ -74,7 +74,9 @@ async function main() {
   console.log('');
 
   let allOk = true;
-  for (const { name, addr } of toCheck) {
+  for (let i = 0; i < toCheck.length; i++) {
+    if (i > 0) await new Promise((ok) => setTimeout(ok, 450));
+    const { name, addr } = toCheck[i];
     const result = await checkVerified(addr);
     const label = result.verified ? 'VERIFICADO' : 'No verificado';
     console.log(name + ' (' + addr + '): ' + label + (result.verified ? '' : ' (verify_status=' + result.status + ')'));

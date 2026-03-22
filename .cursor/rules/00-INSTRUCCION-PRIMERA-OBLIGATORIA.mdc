@@ -11,7 +11,7 @@ alwaysApply: true
 
 ## Antes de actuar o responder
 
-1. **Consultar** las reglas en `.cursor/rules/`: workspace-unificado, vitacora-registro, aplicacion-total-reglas, vitacora-obligatoria, vitacora-al-crear-docs, ejecucion-explicita, seguimiento-tiempo-real, interacciones-agentes, transparencia-veracidad, agotar-alternativas-siempre-solucion, cero-errores-antes-continuar, enfoque-tarea-principal-retorno-automatico.
+1. **Consultar** las reglas en `.cursor/rules/`: workspace-unificado, vitacora-registro, aplicacion-total-reglas, vitacora-obligatoria, vitacora-al-crear-docs, ejecucion-explicita, seguimiento-tiempo-real, interacciones-agentes, transparencia-veracidad, agotar-alternativas-siempre-solucion, cero-errores-antes-continuar, enfoque-tarea-principal-retorno-automatico, tareas-activas-flujo-continuidad, flujo-automatizado-checkpoint-trc20.
 2. **Consultar** la vitácora `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` cuando la tarea requiera información consolidada o contexto previo.
 3. **Aplicar TODAS** las reglas del workspace en la interacción. No omitir ninguna.
 4. **Si varias reglas tensionan** (p. ej. alcance pedido vs. sugerencias de otras normas) — Aplicar el **orden de prioridad** en `aplicacion-total-reglas.mdc` («Orden de prioridad cuando hay tensión entre reglas»).
@@ -23,6 +23,8 @@ alwaysApply: true
 - **Seguimiento en tiempo real** — Comprobar, corregir errores, no finalizar hasta solución completa efectiva y exitosa.
 - **Cero errores antes de continuar** — No avanzar si hay errores de ningún tipo; primero corregir todo, después continuar.
 - **Enfoque tarea principal** — Identificar la tarea principal; tras tareas secundarias, retornar automáticamente a la principal sin perder el propósito.
+- **Tareas activas y continuidad** — Mantener pasos ejecutables en curso; sin tiempos muertos ni cierre prematuro con trabajo que el agente aún pueda hacer (dentro del pedido explícito).
+- **Flujo automatizado TRC20** — Si aplica procedimiento multi-paso en `blockchain/trc20-token`, usar o indicar `npm run flujo:continuo` / resume / checkpoint según **flujo-automatizado-checkpoint-trc20.mdc**.
 - **Vitácora única** — Toda documentación nueva SOLO en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`.
 - **Registrar antes de finalizar** — Añadir al "Registro de interacciones" cualquier acción relevante.
 

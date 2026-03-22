@@ -99,6 +99,7 @@ alwaysApply: true
 - **Retorno automático** — Tras completar cualquier tarea secundaria (corrección, verificación, subtarea), regresar de inmediato a la tarea principal y continuar el trabajo sin pérdida de foco.
 - **No perder el foco** — No dar por terminada la sesión ni reportar como completo si la tarea principal sigue pendiente. El agente retoma automáticamente donde quedó.
 - Ver enfoque-tarea-principal-retorno-automatico.mdc para la regla completa.
+- **Tareas activas y continuidad del flujo** — Mantener pasos ejecutables en curso; encadenar lo que sea viable en la misma sesión; lista de tareas multi-paso actualizada; no cerrar con tiempo muerto si queda trabajo que el agente puede hacer dentro del pedido. Ver **tareas-activas-flujo-continuidad.mdc**.
 
 ## Garantía de cumplimiento — Refuerzo ejecutivo
 
@@ -114,7 +115,7 @@ alwaysApply: true
 
 ## Uso obligatorio
 
-- **Consultar siempre** las reglas (este archivo + seguimiento-tiempo-real.mdc + vitacora-registro.mdc + aplicacion-total-reglas.mdc) y la vitácora (`docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`) antes de actuar o responder. Son la base para interacción y ejecución correctas.
+- **Consultar siempre** las reglas (este archivo + seguimiento-tiempo-real.mdc + vitacora-registro.mdc + aplicacion-total-reglas.mdc + tareas-activas-flujo-continuidad.mdc + flujo-automatizado-checkpoint-trc20.mdc) y la vitácora (`docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`) antes de actuar o responder. Son la base para interacción y ejecución correctas.
 
 ## Vitácora — Un solo archivo
 

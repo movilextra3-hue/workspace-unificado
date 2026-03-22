@@ -1,0 +1,42 @@
+---
+description: Procedimiento TRC20 — usar flujo encadenado npm con checkpoint entre sesiones; obligatorio cuando aplique el proyecto trc20-token.
+alwaysApply: true
+---
+
+# Flujo automatizado y checkpoint — `blockchain/trc20-token`
+
+## Regla principal — Permanente
+
+**En cada ejecución que implique el procedimiento operativo del token TRC20 en mainnet** (comprobaciones encadenadas, verificación de bytecode, gate mainnet, pipeline de implementation, continuidad entre peticiones o sesiones), el agente **debe respetar** el flujo automatizado del repo y el **checkpoint** persistido, salvo que el usuario pida explícitamente otro orden o solo un paso aislado.
+
+**Garantía:** No sustituir el procedimiento establecido por una lista manual dispersa de comandos cuando el encaje es el mismo objetivo que cubre `flujo:continuo`.
+
+## Alcance
+
+- **Proyecto:** `blockchain/trc20-token` (raíz de comandos para npm).
+- **Aplica cuando:** la tarea incluye validar lint/test, alinear con mainnet, gate, pipeline de verificación de implementation, o **retomar** trabajo tras un fallo intermedio.
+- **No aplica cuando:** el usuario pide un solo comando concreto, otra carpeta del monorepo sin relación, o explícitamente excluye este flujo.
+
+## Obligaciones del agente
+
+1. **Preferir el orquestador** — Ante procedimientos multi-paso equivalentes, indicar o ejecutar **`npm run flujo:continuo`** (desde `blockchain/trc20-token`) en lugar de repetir manualmente `lint` → `test` → `gate:mainnet` → `verify:implementation:pipeline` sin orden ni persistencia.
+
+2. **Retomar sin perder avance** — Si hubo fallo o sesión nueva, usar **`npm run flujo:continuo:resume`** o **`npm run flujo:continuo -- --resume`**, o **`--from-step=<id>`** según `README.md` del proyecto. **`--reset`** solo si conviene reiniciar el checkpoint.
+
+3. **Checkpoint** — Estado en `procedimiento-flujo-checkpoint.json` (local, gitignored). No confundir con vitácora; el checkpoint es **técnico-operativo** del script.
+
+4. **`--only-local`** — Solo lint + test; **no escribe checkpoint** para no pisar un flujo completo previo. Usar cuando el usuario pida validación local sin red.
+
+5. **Pasos no automatizables** — OKLink / Tronscan / navegador siguen siendo manuales; el agente debe **señalar** el paquete `verification/PAQUETE-VERIFICACION-POST-UPGRADE/` y `VERIFICAR_AHORA.txt` tras completar lo automático, sin afirmar que el flujo npm sustituye la verificación en explorador.
+
+6. **Coherencia con otras reglas** — Sin ampliar alcance (`ejecucion-explicita.mdc`). Complementa **tareas-activas-flujo-continuidad.mdc** (continuidad real vía script, no solo intención).
+
+## Comandos de referencia
+
+- `npm run flujo:continuo`
+- `npm run flujo:continuo:resume`
+- Flags: `--resume` · `--from-step=…` · `--reset` · `--only-local`
+
+## Resumen
+
+**Procedimiento TRC20 multi-paso = `flujo:continuo` + checkpoint. Retoma = resume / from-step. Local aislado = only-local. Explorador = manual documentado.**

@@ -23,7 +23,7 @@ alwaysApply: true
 
 1. **Primero** — Lo pedido **explícitamente** por el usuario (`ejecucion-explicita.mdc`). No añadir alcance, entregables ni documentación nueva no solicitada.
 2. **Si falta criterio** para cumplirlo (formato, ruta, alcance) — **Preguntar** antes de asumir.
-3. **Resto de reglas** — Rigen **cómo** ejecutar: no delegar, cero hipótesis comprobables, seguimiento hasta cerrar, corrección de errores antes de seguir, respuestas limpias, foco en tarea principal, etc.
+3. **Resto de reglas** — Rigen **cómo** ejecutar: no delegar, cero hipótesis comprobables, seguimiento hasta cerrar, corrección de errores antes de seguir, respuestas limpias, foco en tarea principal, **tareas activas sin tiempos muertos** dentro del alcance pedido, etc.
 4. **Vitácora** — Append en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` cuando haya **acciones relevantes** (comandos, ediciones, cambios de configuración). No usar el registro para crear documentación fuera de `docs/vitacora/`.
 
 ## Reglas que se aplican siempre
@@ -41,20 +41,23 @@ alwaysApply: true
 10. **agotar-alternativas-siempre-solucion.mdc** — Agotar todas las alternativas; revisar procedimientos sin errores; nunca decir "no puedo"; siempre hay solución.
 11. **cero-errores-antes-continuar.mdc** — No continuar si hay errores de ningún tipo; primero corregir todo, después continuar; en todos los pasos y contextos.
 12. **enfoque-tarea-principal-retorno-automatico.mdc** — Mantener foco en la tarea principal; tras tareas secundarias, retornar automáticamente a la principal sin perder el propósito.
+13. **tareas-activas-flujo-continuidad.mdc** — Mantener tareas ejecutables en curso según el flujo; encadenar pasos viables; lista de tareas actualizada; sin cierre prematuro con trabajo que el agente aún pueda hacer (sin ampliar alcance).
+14. **flujo-automatizado-checkpoint-trc20.mdc** — Procedimiento TRC20: usar `npm run flujo:continuo` / resume / checkpoint en `trc20-token` cuando aplique; no dispersar pasos equivalentes sin persistencia.
 
 ## Flujo obligatorio en cada sesión
 
 1. **Antes de actuar:** Consultar reglas y vitácora. Identificar la tarea principal.
 2. **Durante la tarea:** Aplicar todas las reglas (no delegar, no omitir, verificar, no suponer, cero hipótesis — todo comprobado; seguimiento en tiempo real; identificar errores en el momento; corregir antes de continuar; no ejecutar procedimientos siguientes con errores sin resolver).
-3. **Tras cada tarea secundaria:** Retornar automáticamente a la tarea principal; no perder el foco; continuar con el siguiente paso lógico sin pedir confirmación innecesaria.
-4. **Antes de finalizar:** Registrar acciones relevantes en la sección "Registro de interacciones" de `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`.
-5. **Continuar con lo dispuesto:** Si existe una tarea o objetivo pendiente documentado (vitácora, registro, sesión anterior), retomarlo y completarlo hasta lograr el resultado correcto.
+3. **Continuidad sin tiempos muertos:** Mientras queden pasos ejecutables dentro del pedido, **ejecutarlos** en la misma interacción o en el flujo lógico; actualizar lista de tareas multi-paso; no parar con trabajo abordable por el agente.
+4. **Tras cada tarea secundaria:** Retornar automáticamente a la tarea principal; no perder el foco; continuar con el siguiente paso lógico sin pedir confirmación innecesaria.
+5. **Antes de finalizar:** Registrar acciones relevantes en la sección "Registro de interacciones" de `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`.
+6. **Continuar con lo dispuesto:** Si existe una tarea o objetivo pendiente documentado (vitácora, registro, sesión anterior), retomarlo y completarlo hasta lograr el resultado correcto.
 
 ## Ejecución obligatoria — Todas, siempre
 
 **La ejecución de absolutamente todas las reglas se aplica en cada interacción.** Sin excepciones.
 
-- Cada regla 0–12 debe estar efectivamente aplicada (no solo citada).
+- Cada regla 0–14 debe estar efectivamente aplicada (no solo citada).
 - Verificar tras cada paso que no hay errores antes de continuar.
 - Si la tarea principal está pendiente: continuar hasta completarla; no dar por cerrada la sesión con pendientes abordables.
 - Tras cualquier tarea secundaria (corrección, subtarea, verificación): retornar automáticamente a la tarea principal.
@@ -77,6 +80,8 @@ Antes de reportar al usuario o dar por finalizada la respuesta:
 - [ ] agotar-alternativas-siempre-solucion: alternativas agotadas; sin errores pendientes; siempre hay solución.
 - [ ] cero-errores-antes-continuar: cero errores antes de continuar; todo corregido antes de avanzar.
 - [ ] enfoque-tarea-principal: tarea principal identificada; retorno automático tras secundarias; foco mantenido.
+- [ ] tareas-activas-flujo-continuidad: sin tiempos muertos innecesarios; pasos ejecutables encadenados; lista de tareas coherente si aplica.
+- [ ] flujo-automatizado-checkpoint-trc20: si la tarea es procedimiento trc20-token multi-paso, `flujo:continuo` / resume / checkpoint respetados o justificación si no aplicaba.
 - [ ] Tarea principal completada o continuada con evidencia de lo realizado.
 
 ## Resumen

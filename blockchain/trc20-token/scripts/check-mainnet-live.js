@@ -246,10 +246,13 @@ async function main() {
   }
   console.log('');
 
-  // 6. Datos Tronscan API (fallback cuando triggerconstant falla)
+  // 6. Datos Tronscan API (fallback cuando triggerconstant falla; pausa ~3 QPS sin API key)
   console.log('--- Tronscan API (estado en tiempo real) ---');
   const tronscanData = {};
-  for (const [key, addr] of Object.entries(ADDRESSES)) {
+  const addrsEntries = Object.entries(ADDRESSES);
+  for (let i = 0; i < addrsEntries.length; i++) {
+    if (i > 0) await new Promise((ok) => setTimeout(ok, 450));
+    const [key, addr] = addrsEntries[i];
     try {
       const r = await get('https://apilist.tronscanapi.com/api/contract?contract=' + encodeURIComponent(addr));
       const d = r.data?.[0];
@@ -266,6 +269,8 @@ async function main() {
         const v = d.verify_status === 2 ? 'VERIFICADO' : 'No verificado';
         console.log(`  ${key}: ${d.name} | ${v} | creador ${(d.creator?.address || '').slice(0, 12)}...`);
         if (d.proxy_implementation) console.log(`    proxy_implementation: ${d.proxy_implementation}`);
+      } else {
+        console.log(`  ${key}: (API Tronscan sin datos para esta dirección; reintentar o usar TRON_PRO_API_KEY en .env)`);
       }
     } catch (e) {
       console.log(`  ${key}: (error API: ${e.message})`);

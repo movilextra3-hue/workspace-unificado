@@ -130,14 +130,22 @@ async function main() {
 
   const report = [];
 
-  // 1. Tronscan verification status
+  // 1. Tronscan verification status (pausa entre llamadas: límite ~3 QPS sin API key)
   console.log('--- 1. Estado Tronscan (verificación) ---');
-  for (const [key, addr] of Object.entries(ADDRS)) {
+  const addrEntries = Object.entries(ADDRS);
+  for (let i = 0; i < addrEntries.length; i++) {
+    if (i > 0) await new Promise((ok) => setTimeout(ok, 450));
+    const [key, addr] = addrEntries[i];
     try {
       const r = await get('https://apilist.tronscanapi.com/api/contract?contract=' + encodeURIComponent(addr));
       const d = r.data?.[0];
-      const verified = d?.verify_status === 2;
-      const name = d?.name || '(sin nombre)';
+      if (!d) {
+        console.log(`  ${key}: (API Tronscan sin datos; reintentar o TRON_PRO_API_KEY en .env)`);
+        report.push({ contrato: key, verificado: false, nombre: '(sin respuesta API)' });
+        continue;
+      }
+      const verified = d.verify_status === 2;
+      const name = d.name || '(sin nombre)';
       report.push({ contrato: key, direccion: addr.slice(0, 12) + '...', verificado: verified, nombre: name });
       console.log(`  ${key}: ${verified ? '✅ VERIFICADO' : '❌ No verificado'} | ${name}`);
     } catch (e) {
@@ -192,6 +200,12 @@ async function main() {
     console.log('Probadas configs solc 0.8.25, Shanghai, runs 200, bytecodeHash none/default — sin coincidencia.');
     console.log('Posibles causas: compilador TRON (tron-solidity), params desconocidos, o source distinto.');
     console.log('');
+    process.exit(1);
+  }
+  const addrRow = report.find((r) => r.contrato === 'addresses_json');
+  if (addrRow && addrRow.ok === false) {
+    console.log('addresses.json no coincide con las direcciones cargadas para mainnet. Corregir antes de continuar.');
+    process.exit(1);
   }
 }
 

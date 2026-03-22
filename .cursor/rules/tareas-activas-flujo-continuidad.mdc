@@ -1,0 +1,45 @@
+---
+description: Obliga al agente a mantener tareas activas según el flujo de trabajo, sin tiempos muertos ni subutilización cuando queden acciones ejecutables.
+alwaysApply: true
+---
+
+# Tareas activas y continuidad del flujo — Sin tiempos muertos
+
+## Regla principal — Permanente
+
+**El agente debe mantener un estado de trabajo activo alineado con el flujo de la tarea**, aprovechando cada interacción para **avanzar pasos ejecutables** hasta completar el encargo o hasta una **limitación real comprobable**. No generar **tiempos muertos** ni cerrar turnos con trabajo pendiente que el propio agente pueda ejecutar.
+
+**Garantía:** Antes de dar por finalizada una respuesta, comprobar que no quedan pasos lógicos inmediatos sin intentar (dentro de lo pedido explícitamente y sin violar `ejecucion-explicita.mdc`).
+
+## Obligaciones
+
+1. **Flujo continuo de pasos** — Tras cada paso completado (lectura, comando, edición), **ejecutar el siguiente paso** del flujo si es viable con las herramientas disponibles. No detenerse en un resultado parcial si el siguiente paso no requiere input del usuario.
+
+2. **Tareas multi-paso visibles** — Para encargos con varios pasos, usar la **lista de tareas** del agente (`TodoWrite` o equivalente) con estados: en progreso / completado / cancelado; **actualizar** al avanzar; **no** dejar ítems pendientes sin ejecutar salvo bloqueo demostrable.
+
+3. **Sin “fin prematuro”** — No terminar con frases que deleguen al usuario lo que el agente puede hacer en la misma sesión (coherente con **workspace-unificado**: no delegar). No declarar “listo” si falló un paso y puede **corregirse y reintentarse** sin nueva instrucción.
+
+4. **Paralelización segura** — Cuando varias comprobaciones son **independientes y de solo lectura**, lanzarlas en paralelo para reducir latencia. **No** paralelizar ediciones sobre el mismo archivo o vitácora (ver **interacciones-agentes.mdc**).
+
+5. **Alineación con procedimientos del workspace** — Si la tarea aplica a un proyecto con flujo documentado (p. ej. `npm run gate:mainnet`, vitácora, scripts en `README`), **seguir ese orden** sin saltar verificaciones intermedias que eviten retrabajo o TRX desperdiciado.
+
+6. **Límite — ejecución explícita** — Esta regla **no** autoriza a ampliar el alcance ni a crear documentación no solicitada. Solo exige **densidad de ejecución** y **continuidad** dentro de lo pedido.
+
+7. **Limitación multi-turno / una sola petición** — No todos los procedimientos caben en una respuesta del agente. **Mitigación obligatoria cuando aplique al proyecto:** usar el flujo automatizado por script (`npm run flujo:continuo` en `blockchain/trc20-token`) que encadena pasos y guarda **checkpoint** (`procedimiento-flujo-checkpoint.json`) para **reanudar** con `npm run flujo:continuo -- --resume` o `--from-step=<id>` sin perder el avance. Los pasos que requieren navegador humano (OKLink/Tronscan) siguen documentados en el paquete de verificación; el script imprime recordatorios al completar lo automático. **Norma detallada y obligatoria en cada ejecución que aplique:** **flujo-automatizado-checkpoint-trc20.mdc** (regla 14 en `aplicacion-total-reglas.mdc`).
+
+## Qué cuenta como “tiempo muerto” (evitar)
+
+- Cerrar el turno con “puedes ejecutar X” cuando X es ejecutable por el agente.
+- Dejar comandos o ediciones obvias sin lanzar tras un error corregible.
+- Abandonar una lista de tareas con ítems `pending` abordables en la misma sesión.
+
+## Conexión con otras reglas
+
+- **enfoque-tarea-principal-retorno-automatico.mdc** — Retorno a la tarea principal tras secundarias; esta regla exige **densidad** y **cadena de pasos** sin pausas innecesarias.
+- **seguimiento-tiempo-real.mdc** — Seguimiento hasta el fin; continuidad operativa.
+- **workspace-unificado #1** — No delegar; ejecutar hasta completar.
+- **ejecucion-explicita.mdc** — Sin ampliar alcance; máximo avance **dentro** del pedido.
+
+## Resumen
+
+**Tareas activas hasta cerrar el objetivo. Siguiente paso ejecutable = ejecutarlo. Lista de tareas actualizada. Sin huecos innecesarios. Sin subutilizar la sesión.**
