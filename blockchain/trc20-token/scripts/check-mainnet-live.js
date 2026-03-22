@@ -13,7 +13,7 @@ const https = require('node:https');
 const ROOT = path.join(__dirname, '..');
 const DEF_ADDRESSES = {
   token: 'TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm',
-  implementation: 'TXaXTSUKgdAdX76MhQoqQ98msE8azBwiFS',
+  implementation: 'TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC',
   proxyAdmin: 'TVeVPZGiMc9GWQ8sQHvUwhfg19EDZt3UjZ'
 };
 
@@ -283,8 +283,20 @@ async function main() {
   console.log('Implementation (Tronscan cache):', tronscanData.token?.proxyImpl || 'N/A');
   console.log('Implementation (addresses.json):', ADDRESSES.implementation, implMismatch ? '⚠ Diferente (posible upgrade; Tronscan puede estar cacheado)' : '');
   console.log('ProxyAdmin:', ADDRESSES.proxyAdmin);
-  console.log('Verificación: Proxy', tronscanData.token?.verified ? '✓' : '✗', '| Impl TXaXTSUK', tronscanData.implementation?.verified ? '✓' : '✗', '| Admin', tronscanData.proxyAdmin?.verified ? '✓' : '✗');
-  console.log('Token datos (abi/token-info.json): Colateral USD, USTD, 6 decimals');
+  const implShort = ADDRESSES.implementation && ADDRESSES.implementation.length > 8
+    ? ADDRESSES.implementation.slice(0, 4) + '…' + ADDRESSES.implementation.slice(-4)
+    : ADDRESSES.implementation;
+  console.log('Verificación: Proxy', tronscanData.token?.verified ? '✓' : '✗', '| Impl ' + implShort, tronscanData.implementation?.verified ? '✓' : '✗', '| Admin', tronscanData.proxyAdmin?.verified ? '✓' : '✗');
+  let tiLine = '(sin abi/token-info.json)';
+  try {
+    const tp = path.join(ROOT, 'abi', 'token-info.json');
+    if (fs.existsSync(tp)) {
+      const j = JSON.parse(fs.readFileSync(tp, 'utf8'));
+      tiLine = `${j.name || '?'}, ${j.symbol || '?'}, ${j.decimals} decimals (token-info.json)`;
+    }
+  } catch (_) { /* omitir */ }
+  console.log('Token on-chain (Proxy):', [results.tokenData.name, results.tokenData.symbol, (results.tokenData.decimals != null ? results.tokenData.decimals + ' decimals' : '')].filter(Boolean).join(', '));
+  console.log('Token referencia (abi/token-info.json):', tiLine);
   console.log('Errores:', results.errors.length || 'ninguno');
   if (results.errors.length) results.errors.forEach(e => console.log('  -', e));
   console.log('');

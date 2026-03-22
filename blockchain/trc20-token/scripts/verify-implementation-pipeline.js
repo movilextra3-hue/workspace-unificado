@@ -2,7 +2,7 @@
 'use strict';
 /**
  * Pipeline automatizado: preparación verificación Implementation (OKLink / paquete).
- * No abre navegador; el paso final humano es: npm run verify:oklink:playwright
+ * No abre navegador; pasos finales humanos: verify:oklink:playwright y/o verify:tronscan
  *
  * Uso: node scripts/verify-implementation-pipeline.js
  *      npm run verify:implementation:pipeline
@@ -38,9 +38,10 @@ function main() {
 
   console.log('\n========================================');
   console.log('  PIPELINE OK — Sin errores de procedimiento.');
-  console.log('  Siguiente (manual en navegador): npm run verify:oklink:playwright');
+  console.log('  Siguiente OKLink (manual): npm run verify:oklink:playwright');
   console.log('  Luego pulsar Submit/Enviar en OKLink y esperar resultado.');
-  console.log('  Opcional: npm run verify:oklink:proxy');
+  console.log('  Intento Tronscan (paquete + pasos): npm run verify:tronscan:prepare');
+  console.log('  Opcional proxy OKLink: npm run verify:oklink:proxy');
   console.log('  Si cambió contracts/: ejecutar también npm run guardar:verificacion');
   console.log('========================================\n');
 }

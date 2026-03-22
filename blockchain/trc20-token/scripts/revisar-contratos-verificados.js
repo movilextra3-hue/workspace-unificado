@@ -32,7 +32,7 @@ function loadEsperado() {
   const j = JSON.parse(fs.readFileSync(p, 'utf8'));
   return {
     name: j.name || 'Colateral USD',
-    symbol: j.symbol || 'USTD',
+    symbol: j.symbol || 'USDT',
     decimals: String(j.decimals ?? 6),
     owner: j.owner || null
   };

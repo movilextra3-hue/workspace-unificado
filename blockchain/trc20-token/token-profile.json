@@ -1,6 +1,6 @@
 {
   "name": "Colateral USD",
-  "symbol": "USTD",
+  "symbol": "USDT",
   "decimals": 6,
   "description": "Token TRC-20 estable vinculado a USD en la red TRON. Compatible con wallets y exploradores estándar.",
   "website": "https://github.com/movilextra3-hue/workspace-unificado",

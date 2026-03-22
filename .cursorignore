@@ -1,4 +1,4 @@
-# Cursor: no indexar (seguridad y rendimiento)
+# Cursor: no indexar (seguridad y rendimiento; reduce OOM del IDE)
 **/node_modules/
 **/build/
 **/.env
@@ -8,3 +8,10 @@
 **/*.pem
 **/*.key
 **/secrets/
+**/trc20-token-backup*/
+**/*.zip
+**/bytecode*.bin
+**/bytecode*.txt
+**/ethervm-decompile*.html
+**/blockchain/**/artifacts/
+**/blockchain/**/cache/

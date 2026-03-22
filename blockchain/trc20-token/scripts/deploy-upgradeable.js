@@ -55,7 +55,7 @@ async function deploy() {
   }
 
   const name = process.env.TOKEN_NAME || 'Colateral USD';
-  const symbol = process.env.TOKEN_SYMBOL || 'USTD';
+  const symbol = process.env.TOKEN_SYMBOL || 'USDT';
   const decimals = parseInt(process.env.TOKEN_DECIMALS || '18', 10);
   if (isNaN(decimals) || decimals < 0 || decimals > 255) {
     console.error('TOKEN_DECIMALS debe ser un número entre 0 y 255');

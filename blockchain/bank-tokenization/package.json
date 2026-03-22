@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Bank-issued bUSDT on Ethereum mainnet, 1:1 backed by USDT, SWIFT/Oracle-driven mint-redeem",
   "scripts": {
+    "lint": "eslint \"scripts/**/*.js\" \"reconciliation/**/*.js\" \"hardhat.config.js\" --config .eslintrc.cjs",
     "build": "hardhat compile",
     "compile": "hardhat compile",
     "test": "hardhat test",
@@ -12,6 +13,7 @@
     "reconciliation": "node reconciliation/reconciliation.js"
   },
   "devDependencies": {
+    "eslint": "^8.57.0",
     "@nomicfoundation/hardhat-ethers": "^3.0.6",
     "@openzeppelin/contracts": "^4.9.6",
     "@openzeppelin/contracts-upgradeable": "^4.9.6",

@@ -76,21 +76,28 @@ function main() {
   }
   console.log('');
 
-  // 6. npm audit resumen
+  // 6. npm audit resumen (raíz del monorepo; spawnSync('npm') falla en Windows sin shell)
   console.log('--- 6. npm audit (resumen) ---');
   try {
-    const auditResult = spawnSync('npm', ['audit'], { cwd: ROOT, encoding: 'utf8', stdio: 'pipe' });
-    const out = (auditResult.stdout || '') + (auditResult.stderr || '');
+    const workspaceRoot = path.join(ROOT, '..', '..');
+    let out = '';
+    try {
+      out = execSync('npm audit', { cwd: workspaceRoot, encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 });
+    } catch (e) {
+      out = (e.stdout || '') + (e.stderr || '');
+    }
     const match = out.match(/(\d+)\s+vulnerabilit(y|ies)/i);
     if (match) {
       const n = parseInt(match[1], 10);
       if (n > 0) {
-        console.log('  ' + n + ' vulnerabilidades en dependencias.');
+        console.log('  ' + n + ' vulnerabilidades en dependencias (raíz workspace).');
         console.log('  Fix completo requeriría npm audit fix --force (puede ser breaking).');
         warnings.push(`npm audit: ${n} vulns en deps`);
+      } else {
+        console.log('  Sin vulnerabilidades reportadas por npm audit.');
       }
     } else {
-      console.log('  Sin vulnerabilidades encontradas.');
+      console.log('  Salida de npm audit no reconocida (revisar manualmente: npm audit en la raíz).');
     }
   } catch (e) {
     console.log('  npm audit no disponible o falló.');

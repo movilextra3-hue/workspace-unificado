@@ -3,20 +3,20 @@
 /**
  * Llama setSymbol en el proxy (token). Requiere implementation con setSymbol (tras upgrade).
  * Uso: node scripts/set-symbol.js [SYMBOL]
- * Por defecto: USTD
+ * Por defecto: USDT (mainnet)
  */
 const path = require('node:path');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 const { TronWeb } = require('tronweb');
 const fs = require('node:fs');
 
-const DEFAULT_SYMBOL = 'USTD';
+const DEFAULT_SYMBOL = 'USDT';
 const MAINNET = { fullHost: 'https://api.trongrid.io' };
 
 async function main() {
   const symbol = (process.argv[2] || process.env.TOKEN_SYMBOL || DEFAULT_SYMBOL).trim();
   if (!symbol || symbol.length > 32) {
-    console.error('Símbolo inválido. Uso: node scripts/set-symbol.js USTD');
+    console.error('Símbolo inválido. Uso: node scripts/set-symbol.js USDT');
     process.exit(1);
   }
 

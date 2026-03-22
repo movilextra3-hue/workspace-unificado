@@ -28,9 +28,11 @@ contract Initializable {
         _;
         if (isTopLevelCall) _initializing = false;
     }
+
     function _isConstructor() private view returns (bool) {
         return address(this).code.length == 0;
     }
+
     function _disableInitializers() internal virtual {
         if (_initializing) revert NotInitializing();
         _initialized = 255;
@@ -94,7 +96,7 @@ contract TRC20TokenUpgradeable is Initializable {
     error BatchEmpty();
     /// @notice Nombre del token.
     string public name;
-    /// @notice Símbolo del token (ej. USTD).
+    /// @notice Símbolo del token (ej. USDT).
     string public symbol;
     /// @notice Número de decimales.
     uint8 public decimals;
@@ -264,7 +266,7 @@ contract TRC20TokenUpgradeable is Initializable {
     /**
      * @notice Inicializa el token (reemplaza constructor en patrón upgradeable).
      * @param _name Nombre del token
-     * @param _symbol Símbolo (ej. USTD)
+     * @param _symbol Símbolo (ej. USDT)
      * @param _decimals Decimales (típicamente 18)
      * @param _initialSupply Supply inicial en unidades (se multiplica por 10^decimals)
      * @param _owner Dirección del owner inicial

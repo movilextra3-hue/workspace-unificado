@@ -11,6 +11,11 @@
  * Uso: node scripts/verify-oklink-playwright-TFeLLtutbo.js
  *      npm run verify:oklink:playwright
  *
+ * Envío automático (completa verificación sin pulsar Submit a mano):
+ *   npm run verify:oklink:playwright:submit
+ *   o: node scripts/verify-oklink-playwright-TFeLLtutbo.js --submit
+ *   OKLINK_HEADLESS=1 — navegador sin ventana (p. ej. CI); si OKLink bloquea, probar sin headless.
+ *
  * Variable opcional: OKLINK_STEP2_COMBO_OFFSET — salto sobre combobox VISIBLES del paso 2 en <main>
  * (p. ej. 2 si delante hay otros desplegables visibles antes de Optimization).
  *
@@ -21,6 +26,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const readline = require('node:readline');
 const { loadImplementationAddress } = require(path.join(__dirname, 'lib', 'implementation-address.js'));
+const { attachOklinkNetworkDebug } = require(path.join(__dirname, 'lib', 'oklink-network-debug.js'));
 
 const ROOT = path.join(__dirname, '..');
 const PKG = path.join(ROOT, 'verification', 'PAQUETE-VERIFICACION-POST-UPGRADE');
@@ -92,6 +98,107 @@ async function countVisibleComboboxes(scope) {
   return n;
 }
 
+/**
+ * Pulsa el botón de envío del paso 2 (evita el primer "Verify" genérico de la cabecera).
+ * @param {import('playwright').Page} page
+ * @param {(msg: string) => void} logFn
+ * @returns {Promise<boolean>}
+ */
+async function trySubmitVerification(page, logFn) {
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(600);
+
+  const main = page.locator('main').first();
+  const scope = (await main.count()) > 0 ? main : page;
+
+  const formWithJson = scope.locator('form:has(textarea)').first();
+  const hasForm = (await formWithJson.count()) > 0;
+
+  const tryClick = async (loc, reason) => {
+    if ((await loc.count()) === 0) return false;
+    const b = loc.first();
+    if (!(await b.isVisible().catch(() => false))) return false;
+    await b.scrollIntoViewIfNeeded().catch(() => {});
+    await b.click({ timeout: 20000, force: true }).catch(() => {});
+    logFn('Submit pulsado (' + reason + ').');
+    return true;
+  };
+
+  if (hasForm) {
+    if (await tryClick(formWithJson.locator('button[type="submit"]'), 'form+textarea type=submit')) return true;
+    if (await tryClick(
+      formWithJson.getByRole('button', { name: /submit|enviar|confirmar/i }),
+      'form+textarea nombre Submit/Enviar'
+    )) return true;
+    if (await tryClick(
+      formWithJson.getByRole('button', { name: /verify\s+and\s+publish|verificar\s+y\s+publicar/i }),
+      'form+textarea Verify and Publish'
+    )) return true;
+    if (await tryClick(
+      formWithJson.getByRole('button', { name: /^Verificar$/i }),
+      'form+textarea Verificar'
+    )) return true;
+    if (await tryClick(
+      formWithJson.getByRole('button', { name: /^Verify$/i }),
+      'form+textarea Verify (último recurso en formulario)'
+    )) return true;
+  }
+
+  const ordered = [
+    scope.getByRole('button', { name: /submit|enviar/i }),
+    scope.getByRole('button', { name: /verify\s+and\s+publish|verificar\s+y\s+publicar/i }),
+    scope.getByRole('button', { name: /^Confirmar$/i })
+  ];
+  for (let i = 0; i < ordered.length; i++) {
+    const loc = ordered[i];
+    if ((await loc.count()) === 0) continue;
+    const last = await loc.last();
+    if (await last.isVisible().catch(() => false)) {
+      await last.scrollIntoViewIfNeeded().catch(() => {});
+      await last.click({ timeout: 20000, force: true }).catch(() => {});
+      logFn('Submit pulsado (patrón main, prioridad ' + i + ').');
+      return true;
+    }
+  }
+
+  // OKLink a veces no envuelve el textarea en <form>; recorrer controles de abajo arriba en <main>.
+  const mainBtns = scope.locator('button, [role="button"]');
+  const btnCount = await mainBtns.count();
+  for (let i = btnCount - 1; i >= 0; i--) {
+    const b = mainBtns.nth(i);
+    if (!(await b.isVisible().catch(() => false))) continue;
+    const t = ((await b.textContent().catch(() => '')) || '').trim();
+    if (!t) continue;
+    if (
+      /^(Submit|Enviar|Verificar|Confirmar)$/i.test(t) ||
+      /verify\s+and\s+publish|verificar\s+y\s+publicar/i.test(t)
+    ) {
+      await b.scrollIntoViewIfNeeded().catch(() => {});
+      await b.click({ timeout: 20000, force: true }).catch(() => {});
+      logFn('Submit pulsado (botón en main, de abajo arriba): ' + t.slice(0, 60));
+      return true;
+    }
+  }
+
+  // Botones fuera de <main> (footer fijo) o etiquetas largas con Submit/Enviar.
+  const pageWide = page.locator('button, [role="button"]').filter({
+    hasText: /submit|enviar|提交|verify|verificar|publicar|confirm/i
+  });
+  const nw = await pageWide.count();
+  if (nw > 0) {
+    const pick = pageWide.last();
+    if (await pick.isVisible().catch(() => false)) {
+      await pick.scrollIntoViewIfNeeded().catch(() => {});
+      await pick.click({ timeout: 20000, force: true }).catch(() => {});
+      logFn('Submit pulsado (último control coincidente en página, n=' + nw + ').');
+      return true;
+    }
+  }
+
+  logFn('No se localizó botón de envío (revisar paso 2 visible o anti-bot OKLink).');
+  return false;
+}
+
 async function main() {
   let playwright;
   try {
@@ -101,9 +208,15 @@ async function main() {
     process.exit(1);
   }
 
+  // Por defecto: oklink.json (sin evmVersion). Solo evm-empty si OKLINK_JSON_VARIANT=evm-empty
   let jsonPath = STD_JSON;
-  if (fs.existsSync(STD_JSON_OKLINK_EVM_EMPTY)) jsonPath = STD_JSON_OKLINK_EVM_EMPTY;
-  else if (fs.existsSync(STD_JSON_OKLINK)) jsonPath = STD_JSON_OKLINK;
+  if (process.env.OKLINK_JSON_VARIANT === 'evm-empty' && fs.existsSync(STD_JSON_OKLINK_EVM_EMPTY)) {
+    jsonPath = STD_JSON_OKLINK_EVM_EMPTY;
+  } else if (fs.existsSync(STD_JSON_OKLINK)) {
+    jsonPath = STD_JSON_OKLINK;
+  } else if (fs.existsSync(STD_JSON_OKLINK_EVM_EMPTY)) {
+    jsonPath = STD_JSON_OKLINK_EVM_EMPTY;
+  }
   if (!fs.existsSync(jsonPath)) {
     log('Ejecutar: npm run generate:standard-input:oklink');
     process.exit(1);
@@ -115,41 +228,25 @@ async function main() {
   else if (jsonPath === STD_JSON_OKLINK) log('Usando standard-input-TFeLLtutbo-oklink.json (sin evmVersion)');
 
   const step2ComboOffset = Number.parseInt(process.env.OKLINK_STEP2_COMBO_OFFSET || '0', 10) || 0;
+  const headless =
+    process.argv.includes('--headless') ||
+    process.env.OKLINK_HEADLESS === '1' ||
+    process.env.OKLINK_HEADLESS === 'true';
+  const autoSubmit =
+    process.argv.includes('--submit') || process.env.OKLINK_AUTO_SUBMIT === '1';
 
   log('Implementation (deploy-info / abi/addresses): ' + ADDR);
-  log('Abriendo OKLink (headless: false). La verificación puede tardar varios minutos tras enviar.');
-  const browser = await playwright.chromium.launch({ headless: false });
+  log(
+    'Abriendo OKLink (headless: ' +
+      headless +
+      (autoSubmit ? '; modo --submit: envío automático' : '') +
+      '). La verificación puede tardar varios minutos tras enviar.'
+  );
+  const browser = await playwright.chromium.launch({ headless });
   const context = await browser.newContext();
   const page = await context.newPage();
-  let lastVerifyResponse = null;
   const logPath = path.join(PKG, 'oklink-last-submit-debug.log');
-  const writeDebug = (text) => {
-    try {
-      fs.writeFileSync(logPath, text + '\n', 'utf8');
-    } catch (_) { /* ignore */ }
-  };
-  page.on('response', async (res) => {
-    const url = res.url();
-    if (!/verify|contract|explorer\/api/i.test(url)) return;
-    const ct = (res.headers()['content-type'] || '').toLowerCase();
-    if (!ct.includes('application/json')) return;
-    try {
-      const bodyText = await res.text();
-      lastVerifyResponse = {
-        ts: new Date().toISOString(),
-        status: res.status(),
-        url,
-        body: bodyText.slice(0, 4000)
-      };
-      writeDebug([
-        'ts=' + lastVerifyResponse.ts,
-        'status=' + lastVerifyResponse.status,
-        'url=' + lastVerifyResponse.url,
-        'body=' + lastVerifyResponse.body
-      ].join('\n'));
-      log('Respuesta API detectada: status=' + lastVerifyResponse.status);
-    } catch (_) { /* ignore */ }
-  });
+  const oklinkDebug = attachOklinkNetworkDebug(page, logPath, { overwrite: true });
 
   try {
     await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
@@ -259,10 +356,58 @@ async function main() {
     if (n2 >= 2) {
       await combosAfter.nth(1).scrollIntoViewIfNeeded();
       await combosAfter.nth(1).click({ force: true });
-      await page.waitForTimeout(1000);
-      const opt025 = page.getByRole('option').filter({ hasText: /0\.8\.25|v0\.8\.25/i });
-      if (await opt025.count() > 0) {
-        await opt025.first().click({ force: true });
+      await page.waitForTimeout(400);
+      try {
+        await page.waitForSelector(
+          '[role="listbox"], [role="menu"], [data-radix-collection-item], .rc-virtual-list',
+          { timeout: 8000 }
+        );
+      } catch {
+        /* UI puede no usar estos roles; seguir con intentos de clic */
+      }
+      await page.waitForTimeout(600);
+      let picked025 = false;
+      const tryClick025 = async () => {
+        const locators = [
+          page.getByRole('option').filter({ hasText: /0\.8\.25|v0\.8\.25/i }),
+          page.locator('[role="option"]').filter({ hasText: /0\.8\.25/i }),
+          page.locator('[role="menuitem"]').filter({ hasText: /0\.8\.25/i }),
+          page.locator('li[role="option"], div[role="option"]').filter({ hasText: /0\.8\.25/i }),
+          page.getByText(/v?0\.8\.25\+commit|v?0\.8\.25\b/i)
+        ];
+        for (const loc of locators) {
+          try {
+            const n = await loc.count();
+            if (n > 0) {
+              const el = loc.first();
+              await el.scrollIntoViewIfNeeded({ timeout: 3000 }).catch(() => {});
+              await el.click({ force: true, timeout: 5000 });
+              return true;
+            }
+          } catch {
+            /* siguiente selector */
+          }
+        }
+        return false;
+      };
+      picked025 = await tryClick025();
+      if (!picked025) {
+        await page.keyboard.type('0.8.25', { delay: 80 });
+        await page.waitForTimeout(800);
+        picked025 = await tryClick025();
+      }
+      if (!picked025) {
+        const loose = page.locator('div, span, li').filter({ hasText: /^v?0\.8\.25/i });
+        try {
+          if (await loose.count() > 0) {
+            await loose.first().click({ force: true, timeout: 4000 });
+            picked025 = true;
+          }
+        } catch {
+          /* ignore */
+        }
+      }
+      if (picked025) {
         log('Compiler version: 0.8.25');
       } else {
         await page.keyboard.press('Escape');
@@ -274,7 +419,7 @@ async function main() {
     // 4) Next: solo dentro del mismo ámbito que dirección + combos (no barra global)
     const nextBtn = verifyRootStep1.getByRole('button', { name: /Next|Siguiente/i }).first();
     let nextClicked = false;
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 40; i++) {
       const enabled = await nextBtn.isEnabled().catch(() => false);
       if (enabled) {
         await nextBtn.scrollIntoViewIfNeeded().catch(() => {});
@@ -285,8 +430,22 @@ async function main() {
       }
       await page.waitForTimeout(500);
     }
-    if (!nextClicked) log('Next no se habilitó; revisa paso 1 o pulsa Siguiente a mano.');
-    await page.waitForTimeout(5000);
+    if (!nextClicked) {
+      log('Next no se habilitó; fallback: URL directa al paso 2 (edition 0.8.25 + type=json).');
+      const step2Direct =
+        'https://www.oklink.com/tron/verify-contract-sourcecode-sol-single#' +
+        'address=' +
+        encodeURIComponent(ADDR) +
+        '&edition=' +
+        encodeURIComponent('v0.8.25+commit.b61c2a91') +
+        '&zk-version=&type=json';
+      await page.goto(step2Direct, { waitUntil: 'domcontentloaded', timeout: 120000 });
+      await page.waitForSelector('textarea', { timeout: 90000 }).catch(() => {
+        log('Aviso: no apareció textarea en 90s tras paso 2; la página puede haber cambiado.');
+      });
+      await page.waitForTimeout(5000);
+    }
+    await page.waitForTimeout(2000);
 
     // Paso 2: los combos suelen estar en <main> junto al JSON, no siempre en el mismo <form> que el textarea
     let verifyRootStep2 = page.locator('main').first();
@@ -321,7 +480,7 @@ async function main() {
         if (n > 0) {
           const el = loc.first();
           const b = await el.boundingBox().catch(() => null);
-          if (b && b.height > 40) {
+          if (b && b.height > 8) {
             await el.fill(standardJson);
             log('JSON pegado en textarea');
             filled = true;
@@ -334,6 +493,16 @@ async function main() {
         if (await ta.count() > 0) {
           await ta.fill(standardJson);
           log('JSON pegado (primer textarea)');
+          filled = true;
+        }
+      }
+      if (!filled) {
+        const taPage = page.locator('main textarea').first();
+        if (await taPage.count() > 0) {
+          await taPage.fill(standardJson);
+          log('JSON pegado (main textarea, fallback página)');
+        } else {
+          log('ERROR: no se encontró textarea para el Standard JSON; revisa OKLink o ejecuta sin headless.');
         }
       }
     }
@@ -499,22 +668,54 @@ async function main() {
     await page.waitForTimeout(300);
 
     log('Biblioteca: este contrato no usa linkReferences; no rellenes direcciones de librería.');
-    log('Pulsa Submit/Verificar/Enviar tú mismo. OKLink puede tardar varios minutos en responder.');
     log('Debug API (si hay): ' + logPath);
     log('Resultado: https://www.oklink.com/tron/address/' + ADDR);
-    log('Pulsa Enter en esta terminal cuando termines (o tras ver el mensaje final).');
-    await new Promise((resolve) => {
-      const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-      rl.question('', () => { rl.close(); resolve(); });
-    });
+
+    const skipWaitEnter =
+      process.argv.includes('--no-wait') || process.env.OKLINK_SKIP_WAIT_ENTER === '1';
+    const waitAfterSubmitMs = Number.parseInt(process.env.OKLINK_WAIT_AFTER_SUBMIT_MS || '120000', 10) || 120000;
+
+    if (autoSubmit) {
+      const submitted = await trySubmitVerification(page, log);
+      if (submitted) {
+        log('Esperando respuesta OKLink hasta ' + Math.round(waitAfterSubmitMs / 1000) + 's (OKLINK_WAIT_AFTER_SUBMIT_MS).');
+        await page.waitForLoadState('networkidle', { timeout: 60000 }).catch(() => {});
+        await page.waitForTimeout(Math.min(waitAfterSubmitMs, 180000));
+      } else {
+        log('Envío automático no aplicado: completa Submit a mano o revisa la UI.');
+        if (!skipWaitEnter && process.stdin.isTTY) {
+          await new Promise((resolve) => {
+            const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+            rl.question('Pulsa Enter cuando hayas enviado… ', () => { rl.close(); resolve(); });
+          });
+        } else {
+          log('Sin TTY o OKLINK_SKIP_WAIT_ENTER: esperando 20s (no bloqueo en Enter).');
+          await page.waitForTimeout(20000);
+        }
+      }
+    } else {
+      log('Pulsa Submit/Verificar/Enviar tú mismo. OKLink puede tardar varios minutos en responder.');
+      if (skipWaitEnter) {
+        log('--no-wait / OKLINK_SKIP_WAIT_ENTER — esperando 15s; revisa el navegador y pulsa Submit si falta.');
+        await page.waitForTimeout(15000);
+      } else {
+        log('Pulsa Enter en esta terminal cuando termines (o tras ver el mensaje final).');
+        await new Promise((resolve) => {
+          const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+          rl.question('', () => { rl.close(); resolve(); });
+        });
+      }
+    }
 
     const pageMsg = await page.locator('text=/error|failed|try again|success|verified/i').first().textContent().catch(() => '');
     if (pageMsg) log('Mensaje visible en página: ' + pageMsg.trim());
+    const lastVerifyResponse = oklinkDebug.getLastResponse();
     if (lastVerifyResponse) {
-      log('Última respuesta API: status=' + lastVerifyResponse.status);
-      log('URL API: ' + lastVerifyResponse.url);
+      log('Última respuesta HTTP capturada: status=' + lastVerifyResponse.status);
+      log('URL: ' + lastVerifyResponse.url);
+      log('Detalle (inicio cuerpo): ' + (lastVerifyResponse.body || '').slice(0, 500).replace(/\s+/g, ' '));
     } else {
-      log('No se capturó respuesta JSON de API en esta sesión (puede ser normal si la respuesta no es application/json).');
+      log('No se capturó cuerpo de respuesta relevante; revisa ' + logPath + ' (F12 → Network en el navegador si sigue vacío).');
     }
   } catch (e) {
     log('Error: ' + e.message);

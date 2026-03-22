@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Scripts de corrección y automatización para USDTUnified en Polygon",
   "scripts": {
+    "lint": "eslint \"scripts/**/*.js\" \"config.js\" --config .eslintrc.cjs",
     "fix:target": "node scripts/fix-target.js",
     "fix:dex": "node scripts/set-pancake-params.js",
     "fix:metadata": "node scripts/refresh-metadata.js",
@@ -15,5 +16,8 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "ethers": "^6.13.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0"
   }
 }

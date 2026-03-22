@@ -34,7 +34,7 @@ function loadFallbackMetadata() {
   const deploy = loadJson(path.join(ROOT, 'deploy-info.json'));
   return {
     name: meta?.name || deploy?.name || 'Colateral USD',
-    symbol: meta?.symbol || deploy?.symbol || 'USTD',
+    symbol: meta?.symbol || deploy?.symbol || 'USDT',
     decimals: meta?.decimals ?? deploy?.decimals ?? 6
   };
 }

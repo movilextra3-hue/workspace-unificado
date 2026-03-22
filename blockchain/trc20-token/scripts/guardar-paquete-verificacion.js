@@ -11,14 +11,16 @@
  */
 const fs = require('node:fs');
 const path = require('node:path');
+const { execSync } = require('node:child_process');
 
 const ROOT = path.join(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'verification', 'PAQUETE-VERIFICACION-POST-UPGRADE');
 const CONTRACTS = path.join(ROOT, 'contracts');
 
 const KEEP_FILES = new Set([
-  'TRC20TokenUpgradeable.sol', 'TRC20TokenUpgradeable-MAINNET-EXACT.sol', 'PARAMETROS-TRONSCAN.txt', 'PARAMETROS-CORRECTOS-TFeLLtutbo.txt', 'PASOS-SEGUROS-VERIFICAR.txt', 'OKLINK-ERRORES-SOLUCIONES.txt', 'TRONSCAN-POR-QUE-FALLA.txt', 'VERIFICACION-ESTADO.txt', 'LEEME-VERIFICACION.txt', 'verification-params.json', 'VERIFICAR_AHORA.txt', 'BYTECODE-MAINNET-REPORT.txt',
-  'standard-input-TFeLLtutbo.json', 'standard-input-TFeLLtutbo-oklink.json', 'standard-input-TFeLLtutbo-oklink-evm-empty.json'
+  'TRC20TokenUpgradeable.sol', 'TRC20TokenUpgradeable-MAINNET-EXACT.sol', 'PARAMETROS-TRONSCAN.txt', 'PARAMETROS-CORRECTOS-TFeLLtutbo.txt', 'PASOS-SEGUROS-VERIFICAR.txt', 'OKLINK-ERRORES-SOLUCIONES.txt', 'OKLINK-INVALID-EVM.txt', 'TRONSCAN-POR-QUE-FALLA.txt', 'VERIFICACION-ESTADO.txt', 'LEEME-VERIFICACION.txt', 'verification-params.json', 'VERIFICAR_AHORA.txt', 'BYTECODE-MAINNET-REPORT.txt',
+  'standard-input-TFeLLtutbo.json', 'standard-input-TFeLLtutbo-oklink.json', 'standard-input-TFeLLtutbo-oklink-evm-empty.json',
+  'oklink-last-submit-debug.log', 'oklink-network-sniff.log'
 ]);
 
 function cleanObsoleteFiles() {
@@ -214,8 +216,11 @@ Documentación oficial: https://developers.tron.network/docs/contract-verificati
    g) Source: subir TRC20TokenUpgradeable.sol
 
 4. ARCHIVOS EN ESTA CARPETA:
-   - TRC20TokenUpgradeable.sol  : Único archivo, único contrato (Initializable + TRC20TokenUpgradeable)
-   - PARAMETROS-TRONSCAN.txt    : Parámetros exactos para verificación
+   - VERIFICAR_AHORA.txt         : Guía principal OKLink (JSON, comandos npm, orden de pruebas)
+   - OKLINK-ERRORES-SOLUCIONES.txt : Si falla la verificación
+   - TRC20TokenUpgradeable.sol   : Único archivo fuente (Initializable + TRC20TokenUpgradeable)
+   - standard-input-TFeLLtutbo*.json : Standard JSON para OKLink
+   - PARAMETROS-TRONSCAN.txt     : Parámetros Tronscan (limitaciones conocidas)
 
 Este paquete se generó desde contracts/ en el momento del guardado.
 Si cambias contracts/TRC20TokenUpgradeable.sol, ejecuta de nuevo:
@@ -259,6 +264,7 @@ OPCIÓN A — OKLINK (recomendado para TFeLLtutbo; el JSON lleva bytecodeHash:no
 
 
 OPCIÓN B — TRONSCAN (suele fallar para este contrato; ver TRONSCAN-POR-QUE-FALLA.txt)
+   Automatización: npm run verify:tronscan:playwright  (rellena formulario; reCAPTCHA a mano)
   Si aun así quieres probar: https://tronscan.org/#/contracts/verify
   Contract Address: TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC
   Contract Name: TRC20TokenUpgradeable | Compiler: 0.8.25 (Ethereum) | Optimization: Yes | Runs: 200 | EVM: Shanghai | License: MIT | Constructor: vacío
@@ -280,15 +286,28 @@ SI OKLINK MUESTRA ERRORES:
   const oklinkErroresTxt = `OKLINK — ERRORES FRECUENTES Y SOLUCIONES (TFeLLtutbo)
 ================================================================================
 
-1. "Invalid EVM version requested"
-   → Probar en este orden:
-   a) standard-input-TFeLLtutbo-oklink.json (sin clave evmVersion). En el formulario NO elegir "EVM Version".
-   b) standard-input-TFeLLtutbo-oklink-evm-empty.json (evmVersion: ""). Generar: npm run generate:standard-input:oklink
-   → Si ambos fallan, el backend OKLink TRON puede estar rechazando cualquier opción; contactar soporte OKLink.
+1. "Invalid EVM version requested" / JSONError (severity error, component general)
+   → CAUSA TÍPICA: estás usando standard-input-TFeLLtutbo.json en OKLink. Ese archivo INCLUYE
+     "evmVersion": "shanghai" en settings; el validador de OKLink lo rechaza.
+   → NO uses en OKLink el archivo standard-input-TFeLLtutbo.json para este error.
+   → SÍ usa SOLO (regenerar: npm run verify:oklink:prepare):
+     a) standard-input-TFeLLtutbo-oklink.json — sin clave evmVersion en settings.
+     b) En el formulario OKLink: NO elijas "EVM Version" / déjalo predeterminado / vacío (si contradices
+        el JSON o fuerzas Shanghai en la UI, puede volver a fallar).
+     c) Si sigue: standard-input-TFeLLtutbo-oklink-evm-empty.json (evmVersion: "").
+   → Ver también: OKLINK-INVALID-EVM.txt en esta carpeta.
+   → Si (a)(b)(c) fallan igual: backend OKLink TRON; contactar soporte OKLink.
 
 2. "Verification failed" / "Bytecode mismatch" / "Please confirm the correct parameters"
    → En TRONSCAN: falla porque no ofrece bytecodeHash:none (ver TRONSCAN-POR-QUE-FALLA.txt).
-   → En OKLink: asegúrate de usar standard-input-TFeLLtutbo-oklink.json completo, tipo "Standard JSON Input", Compiler 0.8.25, sin elegir EVM. Si sigue fallando, el backend de OKLink podría no aplicar metadata.bytecodeHash; no hay otra vía pública para este contrato.
+   → En OKLink (mensaje genérico): probar JSON en ESTE orden (regenerar: npm run verify:oklink:prepare):
+     a) standard-input-TFeLLtutbo.json (incluye evmVersion: shanghai) + en el formulario EVM/Shanghai si el sitio lo pide.
+     b) standard-input-TFeLLtutbo-oklink.json (sin evmVersion) + NO elegir EVM en formulario o dejar default.
+     c) standard-input-TFeLLtutbo-oklink-evm-empty.json (evmVersion: "").
+   → Tipo compilador: Solidity / Standard JSON Input (Ethereum), NO compilador TRON si la UI lo separa.
+   → Compiler: 0.8.25 o v0.8.25+commit.b61c2a91. Main contract: TRC20TokenUpgradeable (exacto).
+   → Si tras (a)(b)(c) sigue igual: npm run check:alignment debe seguir mostrando bytecode=mainnet; entonces es
+     límite del backend OKLink con metadata.bytecodeHash:none → soporte OKLink o Tronscan manual como prueba.
 
 3. Error relacionado con "metadata" o "settings" en el JSON
    → OKLink puede rechazar metadata.bytecodeHash u otras opciones.
@@ -308,6 +327,20 @@ SI OKLINK MUESTRA ERRORES:
    → Resolver CAPTCHA antes de Submit.
    → Si la página no carga: probar Tronscan.
 
+7. Mensaje genérico ("ocurrió un error", "inténtelo más tarde", toast sin texto técnico)
+   → La UI de OKLink a menudo NO muestra el motivo; el detalle suele ir en la respuesta HTTP de su API.
+   → Cómo ver el error REAL:
+     a) En el navegador: F12 → pestaña Network → filtrar por "api" o "verify" →
+        pulsar Submit → seleccionar la petición POST/GET que falle o devuelva JSON →
+        pestaña Response / Preview (copiar el cuerpo).
+     b) Desde el proyecto: npm run verify:oklink:sniff
+        Abre el paso 2, registra tráfico en: oklink-network-sniff.log (en esta carpeta).
+        Tras enviar, pulsa Enter en la terminal.
+     c) Tras npm run verify:oklink:playwright también se escribe en: oklink-last-submit-debug.log
+        (ahora captura más que solo application/json).
+   → Si el JSON de respuesta indica rate limit, 429, 5xx, validación de campo o código numérico,
+     actuar según ese mensaje (esperar, otro JSON, soporte OKLink).
+
 RECOMENDACIÓN: Para TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC usar OKLINK con Standard JSON
 (standard-input-TFeLLtutbo-oklink.json). Tronscan falla porque no ofrece bytecodeHash:none.
 Ver TRONSCAN-POR-QUE-FALLA.txt y PASOS-SEGUROS-VERIFICAR.txt.
@@ -318,8 +351,48 @@ Documentación API OKLink (verificación y proxy): https://www.oklink.com/docs/e
 
   fs.writeFileSync(path.join(OUT_DIR, 'OKLINK-ERRORES-SOLUCIONES.txt'), oklinkErroresTxt, 'utf8');
 
+  const oklinkInvalidEvmTxt = `Invalid EVM version requested (JSONError)
+========================================
+
+Puede salir en OKLink (subida de Standard JSON) o en TRONSCAN al validar.
+Si fue en Tronscan: el formulario no es el mismo que OKLink — ver TRONSCAN-POR-QUE-FALLA.txt
+(sección "Invalid EVM en Tronscan").
+
+En OKLink, casi siempre es porque pegaste el JSON EQUIVOCADO.
+
+NO uses en OKLink:
+  standard-input-TFeLLtutbo.json
+  (contiene "evmVersion": "shanghai" → OKLink lo rechaza.)
+
+SÍ usa en OKLink (en este orden):
+  1) standard-input-TFeLLtutbo-oklink.json
+     (sin clave evmVersion; generado por npm run verify:oklink:prepare)
+  2) En el formulario: no fuerces "EVM Version" / deja predeterminado.
+  3) Si sigue el error: standard-input-TFeLLtutbo-oklink-evm-empty.json
+
+Regenerar JSON:
+  cd blockchain/trc20-token
+  npm run verify:oklink:prepare
+  (o npm run guardar:verificacion)
+
+Detalle: OKLINK-ERRORES-SOLUCIONES.txt sección 1.
+`;
+  fs.writeFileSync(path.join(OUT_DIR, 'OKLINK-INVALID-EVM.txt'), oklinkInvalidEvmTxt, 'utf8');
+
   const tronscanFallaTxt = `POR QUÉ TRONSCAN DICE "verification failed. Please confirm the correct parameters"
 ===============================================================================================
+
+--- Invalid EVM version requested (JSONError) EN TRONSCAN ---
+  El explorador devuelve a veces este error al compilar/validar, no solo OKLink.
+  Qué probar en el formulario Tronscan (https://tronscan.org/#/contracts/verify):
+  - Compiler / tipo: solc Ethereum **0.8.25** (o v0.8.25+commit.b61c2a91 si lo listan).
+  - EVM: prueba **Shanghai**; si falla, **predeterminado** o la opción más cercana (la UI
+    de Tronscan cambia; no siempre coincide con el despliegue).
+  - Optimization: Yes, Runs: 200, License: MIT, Main: TRC20TokenUpgradeable.
+  - Fuente: un solo archivo TRC20TokenUpgradeable.sol de esta carpeta.
+  Límite: aunque el EVM cuadre, Tronscan NO permite bytecodeHash:none → suele seguir
+  fallando con "confirm the correct parameters". La vía que sí lleva el JSON completo
+  con metadata es OKLink (ver más abajo y OKLINK-INVALID-EVM.txt para Standard JSON).
 
 CAUSA COMPROBADA:
   Este contrato se desplegó con metadata.bytecodeHash: 'none' (config/trc20-networks.js).
@@ -341,8 +414,9 @@ SOLUCIÓN:
   8. CAPTCHA y Submit
 
   Si OKLink da "Invalid EVM version": probar standard-input-TFeLLtutbo-oklink-evm-empty.json
-  (evmVersion: ""). Generar con: npm run generate:standard-input:oklink. El script Playwright
-  usa esa variante primero si existe.
+  (evmVersion: ""). Generar con: npm run generate:standard-input:oklink.
+  Playwright (npm run verify:oklink:playwright) usa por defecto standard-input-TFeLLtutbo-oklink.json;
+  forzar evm-empty: variable de entorno OKLINK_JSON_VARIANT=evm-empty.
 
 DESPUÉS DE VERIFICAR LA IMPLEMENTATION — Vincular el proxy:
   https://www.oklink.com/es-la/tron/verify-proxy-contract
@@ -376,12 +450,12 @@ VÍAS PROBADAS:
 4. Sourcify: no soporta TRON.
 
 PRÓXIMOS PASOS RECOMENDADOS:
-- Volver a intentar OKLink con: npm run generate:standard-input:oklink y
-  npm run verify:oklink:playwright (usa variante evm-empty). No elegir EVM en el formulario.
-- Contactar soporte OKLink: indicar dirección TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC,
-  error "Invalid EVM version requested" al verificar con Standard JSON Input (sin evmVersion
-  o evmVersion ""), solicitar soporte para TRON con compilación metadata.bytecodeHash:none.
-- Si Tronscan añade opción de metadata/bytecode hash en el futuro, verificar ahí con el .sol
+- npm run guardar:verificacion  (regenera JSON y VERIFICAR_AHORA.txt)
+- npm run verify:oklink:playwright  o  npm run verify:oklink:playwright:auto  (--no-wait)
+- Orden de JSON si "verification failed": ver VERIFICAR_AHORA.txt y OKLINK-ERRORES-SOLUCIONES.txt §2.
+- Contactar soporte OKLink: dirección TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC, Standard JSON con
+  bytecodeHash:none (igual que despliegue), errores "Invalid EVM" o "confirm parameters".
+- Si Tronscan añade opción de metadata/bytecode hash en el futuro, verificar con el .sol
   de este paquete y parámetros 0.8.25, 200 runs, Shanghai, MIT.
 `;
 
@@ -390,51 +464,75 @@ PRÓXIMOS PASOS RECOMENDADOS:
   const verificarAhoraTxt = `VERIFICAR CONTRATO AHORA — OKLink (Implementation TFeLLtutbo)
 ================================================================================
 
-Qué se compara en la verificación: el explorador compila tu Standard JSON y compara
-el bytecode generado (deployedBytecode completo, incluido sufijo metadata) con el
-bytecode en mainnet (runtimecode de getcontractinfo). Deben ser idénticos byte a byte.
+Qué se compara: el explorador compila tu Standard JSON y compara el bytecode resultante
+con el runtime en mainnet. Deben coincidir byte a byte (incl. sufijo metadata según config).
 
-El script de rellenado NO hace clic en Submit: tú debes resolver el CAPTCHA (si aparece)
-y pulsar Submit/Enviar manualmente cuando estés listo.
+CONFIG LOCAL (debe seguir OK antes de insistir en OKLink):
+  npm run check:alignment          → bytecode fuente contracts/ = mainnet
+  npm run check:bytecode:mainnet   → informe BYTECODE-MAINNET-REPORT.txt en esta carpeta
+  npm run verify:objective:status  → alignment + estado Tronscan (verify_status) en un comando
 
-PASOS (en orden):
+El script Playwright NO pulsa Submit: CAPTCHA (si hay) y envío final son manuales.
 
-1. En blockchain/trc20-token ejecuta:
+--------------------------------------------------------------------------------
+1) Regenerar este paquete y los JSON
+--------------------------------------------------------------------------------
+   cd blockchain/trc20-token
    npm run guardar:verificacion
 
-   (Incluye: compilación, bytecode paquete=build, bytecode compilado=mainnet, y al final
-   npm run generate:standard-input:oklink para generar standard-input-TFeLLtutbo*.json.)
-   Si solo necesitas regenerar JSON sin todo el guardado: npm run verify:oklink:prepare
+   (Solo JSON: npm run verify:oklink:prepare)
+   Pipeline completo opcional: npm run verify:implementation:pipeline
 
-2. Opcional pero recomendado antes de enviar a OKLink:
-   npm run check:bytecode:mainnet
-   Debe mostrar "¿Idénticos? SÍ". Si no, no enviar hasta alinear source/config.
-   Informe detallado: PAQUETE.../BYTECODE-MAINNET-REPORT.txt
+--------------------------------------------------------------------------------
+2) Archivos JSON — ORDEN si ves "verification failed / confirm parameters"
+--------------------------------------------------------------------------------
+   Si ves "Invalid EVM version requested" (JSONError): NO uses el archivo (A) en OKLink.
+   Lee OKLINK-INVALID-EVM.txt y usa solo *-oklink*.json. Orden para otros errores:
 
-3. Abre OKLink y rellena con el script (o a mano):
+   Carpeta: verification/PAQUETE-VERIFICACION-POST-UPGRADE/
+
+   A) standard-input-TFeLLtutbo.json
+      → Incluye evmVersion "shanghai" en settings. En OKLink, si hay selector EVM, elige Shanghai
+         coherente con el JSON (no contradecir formulario vs JSON).
+
+   B) standard-input-TFeLLtutbo-oklink.json  [por defecto también en Playwright]
+      → Sin evmVersion en settings. En el formulario NO fuerces otro EVM o déjalo en default.
+
+   C) standard-input-TFeLLtutbo-oklink-evm-empty.json
+      → evmVersion "". Si "Invalid EVM version" con (B).
+
+   Playwright: OKLINK_JSON_VARIANT=evm-empty  fuerza (C) en el script.
+
+--------------------------------------------------------------------------------
+3) OKLink — parámetros
+--------------------------------------------------------------------------------
+   URL: https://www.oklink.com/tron/verify-contract-preliminary
+   Red: TRON   Contract: TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC
+   Tipo: Solidity Standard JSON Input (Ethereum), NO compilador TRON si compila distinto.
+   Compiler: 0.8.25 o v0.8.25+commit.b61c2a91
+   Main contract: TRC20TokenUpgradeable
+
+--------------------------------------------------------------------------------
+4) Automatizar relleno y envío (opcional)
+--------------------------------------------------------------------------------
    npm run verify:oklink:playwright
+   npm run verify:oklink:playwright:auto    (cierra sin "pulsa Enter"; --no-wait)
+   npm run verify:oklink:playwright:submit  (rellena + pulsa Submit; log: oklink-last-submit-debug.log)
 
-   El script rellena: dirección, Standard JSON Input, compilador 0.8.25, pega el JSON.
-   El navegador se queda abierto.
+--------------------------------------------------------------------------------
+5) Tras verificar Implementation — proxy (opcional)
+--------------------------------------------------------------------------------
+   npm run verify:oklink:proxy
+   Proxy: TV4P3sVfSQULNnsCPyzLnofCbK6cwkHeDm
 
-4. IMPORTANTE:
-   - Resuelve el CAPTCHA si aparece.
-   - Haz clic en Submit/Enviar TÚ MISMO (el script ya no hace clic automático).
-   - Espera la respuesta de OKLink.
+--------------------------------------------------------------------------------
+6) Comprobar estado en explorador
+--------------------------------------------------------------------------------
+   npm run check:oklink
+   https://www.oklink.com/tron/address/TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC
 
-5. Si pide "Contract name" o "Main contract":
-   Usar: TRC20TokenUpgradeable
-   Si falla, probar: TRC20TokenUpgradeable.sol:TRC20TokenUpgradeable
-
-6. Archivo JSON a pegar (en la pestaña 2):
-   verification/PAQUETE-VERIFICACION-POST-UPGRADE/standard-input-TFeLLtutbo-oklink-evm-empty.json
-   (o standard-input-TFeLLtutbo-oklink.json si el primero da error)
-
-URL: https://www.oklink.com/tron/verify-contract-preliminary
-Comprobar después: https://www.oklink.com/tron/address/TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC
-
-Tronscan: no verifica este contrato porque no soporta metadata.bytecodeHash:none
-(bytecode 19113 vs 19072 en mainnet). Solo OKLink con Standard JSON.
+Tronscan con .sol suelen fallar: no exponen bytecodeHash:none (ver TRONSCAN-POR-QUE-FALLA.txt).
+Documentación extendida: docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md
 `;
 
   fs.writeFileSync(path.join(OUT_DIR, 'VERIFICAR_AHORA.txt'), verificarAhoraTxt, 'utf8');
@@ -470,8 +568,10 @@ Tronscan: no verifica este contrato porque no soporta metadata.bytecodeHash:none
   }
   console.log('  [OK] Bytecode compilado = bytecode mainnet (comprobación real; lo que compara el verificador).');
 
-  const genOklink = spawnSync('npm', ['run', 'generate:standard-input:oklink'], { cwd: ROOT, encoding: 'utf8', stdio: 'inherit' });
-  if (genOklink.status !== 0) {
+  try {
+    // execSync + shell por defecto en Windows; spawnSync('npm') sin shell suele fallar (ENOENT / status null).
+    execSync('npm run generate:standard-input:oklink', { cwd: ROOT, stdio: 'inherit', env: process.env });
+  } catch {
     console.error('ERROR: generate:standard-input:oklink falló. Ejecutar: npm run generate:standard-input:oklink');
     process.exit(1);
   }
@@ -484,6 +584,7 @@ Tronscan: no verifica este contrato porque no soporta metadata.bytecodeHash:none
   console.log('  - PARAMETROS-CORRECTOS-TFeLLtutbo.txt (si la verificación falla, usar estos valores exactos)');
   console.log('  - PASOS-SEGUROS-VERIFICAR.txt (pasos seguros Tronscan + OKLink)');
   console.log('  - OKLINK-ERRORES-SOLUCIONES.txt (si OKLink muestra errores)');
+  console.log('  - OKLINK-INVALID-EVM.txt (error Invalid EVM version / JSONError)');
   console.log('  - TRONSCAN-POR-QUE-FALLA.txt (por qué Tronscan da "confirm the correct parameters")');
   console.log('  - VERIFICACION-ESTADO.txt (resumen de vías probadas y próximos pasos)');
   console.log('  - VERIFICAR_AHORA.txt (pasos definitivos para verificar en OKLink; Submit manual tras CAPTCHA)');

@@ -24,6 +24,10 @@ function main() {
     delete data.settings.evmVersion;
   }
   fs.writeFileSync(OUT_FILE, JSON.stringify(data, null, 2), 'utf8');
+  if (data.settings && Object.hasOwn(data.settings, 'evmVersion')) {
+    console.error('ERROR interno: OUT_FILE aún contiene evmVersion.');
+    process.exit(1);
+  }
   console.log('Generado (sin evmVersion):', OUT_FILE);
   console.log('Usar este archivo en OKLink si aparece "Invalid EVM version requested".');
 
@@ -34,8 +38,15 @@ function main() {
   }
   const outEmpty = path.join(PKG, 'standard-input-TFeLLtutbo-oklink-evm-empty.json');
   fs.writeFileSync(outEmpty, JSON.stringify(dataEmpty, null, 2), 'utf8');
+  if (dataEmpty.settings && dataEmpty.settings.evmVersion !== '') {
+    console.error('ERROR interno: variante evm-empty debe tener evmVersion "".');
+    process.exit(1);
+  }
   console.log('Variante (evmVersion: ""):', outEmpty);
   console.log('Si el primero sigue dando error, probar pegando este en OKLink.');
+  console.log('');
+  console.log('NO subas a OKLink standard-input-TFeLLtutbo.json si ves JSONError "Invalid EVM version"');
+  console.log('(ese archivo incluye evmVersion: shanghai). Usa solo *-oklink*.json.');
 }
 
 main();

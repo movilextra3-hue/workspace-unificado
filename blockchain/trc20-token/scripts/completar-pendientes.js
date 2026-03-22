@@ -29,15 +29,15 @@ function main() {
   const items = [
     {
       id: '0',
-      name: 'Corregir symbol USDT→USTD (mainnet actual vs esperado)',
+      name: 'Metadata local alineada con mainnet (symbol USDT)',
       automated: true,
       steps: [
-        'Mainnet tiene symbol=USDT, esperado USTD (token-info.json).',
-        'Comando: npm run set:symbol USTD',
-        'Requisitos: PRIVATE_KEY + TRON_PRO_API_KEY en .env, ~3 TRX.',
-        'No requiere upgrade; setSymbol es cambio de estado en Implementation activa.'
+        'Mainnet (Proxy) expone symbol=USDT — comprobar: npm run check:mainnet.',
+        'abi/token-info.json, token-profile.json y TOKEN_SYMBOL en .env deben reflejar USDT.',
+        'Importante: la verificación de bytecode en Tronscan/OKLink solo usa fuentes .sol + compilador; token-info.json NO entra en solc ni en el Standard JSON — no era la causa de un mismatch de bytecode.',
+        'Si el verificador fallaba: revisar compiler 0.8.25, runs 200, Shanghai, metadata.bytecodeHash:none (igual que config/trc20-networks.js).'
       ],
-      check: 'npm run revisar:contratos (comparar symbol actual vs esperado)'
+      check: 'npm run check:alignment && npm run guardar:verificacion'
     },
     {
       id: '1',
@@ -58,8 +58,8 @@ function main() {
       name: 'Verificación Implementation en Tronscan',
       automated: false,
       steps: [
-        'TXaXTSUK (Implementation antigua): bytecode no coincidió con source local — obsoleta tras upgrade.',
-        'Tras upgrade: verificar la NUEVA Implementation con verification/PAQUETE-VERIFICACION-POST-UPGRADE/',
+        'Implementation actual (TFeLLtutbo…): verificar código fuente en OKLink (Tronscan no expone bytecodeHash:none).',
+        'Paquete: verification/PAQUETE-VERIFICACION-POST-UPGRADE/',
         'Pasos: npm run guardar:verificacion, luego Tronscan → Contract address = deploy-info.json implementationAddress',
         'Subir: TRC20TokenUpgradeable.sol (de verification/PAQUETE-VERIFICACION-POST-UPGRADE/)',
         'Contract Verify: https://tronscan.org/#/contracts/verify'

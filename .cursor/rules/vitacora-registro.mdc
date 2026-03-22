@@ -39,6 +39,10 @@ No delegar lo asignado. Solo delegar si existe una limitación real, comprobable
 - Al final del archivo, en la sección **"Registro de interacciones"** (append-only).
 - Formato: `- **YYYY-MM-DD HH:MM** — Descripción. (Contexto si aplica.)`
 
+## Archivo muy grande — sin OOM ni fallos de herramienta
+
+`CONSOLIDACION_COMPLETA_TODO.md` puede superar decenas de miles de líneas. **No leerlo entero de una vez** salvo acotación (`offset`/`limit`, cola del archivo, o búsqueda por patrón). Para append: anclar la sustitución en una entrada reciente única del registro. Detalle operativo: `AGENTS.md` → sección **«Vitácora monolítica — consulta y registro sin OOM ni errores de herramienta»**.
+
 ## Reglas
 
 1. **Consultar** el archivo de vitácora antes de actuar (información consolidada).

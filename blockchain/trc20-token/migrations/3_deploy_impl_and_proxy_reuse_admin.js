@@ -66,7 +66,7 @@ async function deployReuseAdmin(deployer, network, accounts) {
   }
 
   const name = process.env.TOKEN_NAME || 'Colateral USD';
-  const symbol = process.env.TOKEN_SYMBOL || 'USTD';
+  const symbol = process.env.TOKEN_SYMBOL || 'USDT';
   const decimals = parseEnvDecimals();
   const initialSupply = parseEnvSupply();
   const initialOwner = accounts[0];

@@ -207,7 +207,7 @@ async function main() {
   }
 
   const name = process.env.TOKEN_NAME || 'Mi Token';
-  const symbol = process.env.TOKEN_SYMBOL || 'USTD';
+  const symbol = process.env.TOKEN_SYMBOL || 'USDT';
   console.log('  Token:', name, '(' + symbol + ')');
   console.log('');
 

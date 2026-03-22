@@ -9,7 +9,7 @@ alwaysApply: true
 
 Estas reglas aplican **siempre** a:
 
-- **Todos los proyectos existentes:** `blockchain/trc20-token`, `blockchain/token-erc20`, `blockchain/tenderly_tools`, `solana/555`, `apps/rtsp-virtual-webcam`, `apps/rtsp-webcam`, y cualquier otro en el workspace.
+- **Todos los proyectos existentes:** `blockchain/trc20-token`, `blockchain/token-erc20`, `blockchain/tenderly_tools` (carpeta presente; **no** forma parte de `npm` workspaces en la raíz — instalar deps con `npm run install:tenderly-tools` si se usa), `solana/555`, `apps/rtsp-virtual-webcam`, `apps/rtsp-webcam`, y cualquier otro en el workspace.
 - **Todos los proyectos nuevos:** Cualquier carpeta o proyecto que se añada al workspace en el futuro.
 - **Cualquier ruta:** No importa en qué subcarpeta se trabaje; la vitácora es la única ubicación para documentación.
 

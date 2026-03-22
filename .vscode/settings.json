@@ -5,39 +5,81 @@
   "git.autorefresh": false,
   "git.autofetch": false,
   "git.decorations.enabled": true,
+  "git.repositoryScanMaxDepth": 4,
+  "search.followSymlinks": false,
+  "search.smartCase": true,
+  "search.useIgnoreFiles": true,
   "files.watcherExclude": {
     "**/node_modules/**": true,
     "**/build/**": true,
+    "**/dist/**": true,
+    "**/out/**": true,
+    "**/coverage/**": true,
     "**/venv/**": true,
+    "**/.venv/**": true,
     "**/.git/**": true,
     "**/trc20-token-backup*/**": true,
     "**/__pycache__/**": true,
+    "**/.mypy_cache/**": true,
     "**/abi/**": true,
-    "**/.cursor/**": true
+    "**/.cursor/**": true,
+    "**/.forge-verify/**": true,
+    "**/playwright-report/**": true,
+    "**/test-results/**": true,
+    "**/canvas/**": true,
+    "**/tools/binary/**": true,
+    "**/blockchain/**/verification/**": true,
+    "**/docs/vitacora/**": true,
+    "**/blockchain/**/artifacts/**": true,
+    "**/blockchain/**/cache/**": true,
+    "**/*.zip": true
   },
   "files.exclude": {
     "**/node_modules": true,
     "**/venv": true,
-    "**/__pycache__": true
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/.mypy_cache": true
   },
   "search.exclude": {
     "**/node_modules": true,
     "**/build": true,
+    "**/dist": true,
+    "**/out": true,
+    "**/coverage": true,
     "**/venv": true,
+    "**/.venv": true,
     "**/trc20-token-backup*": true,
     "**/abi": true,
-    "**/verification": true
+    "**/verification": true,
+    "**/blockchain/**/verification": true,
+    "**/.git": true,
+    "**/.forge-verify": true,
+    "**/playwright-report": true,
+    "**/test-results": true,
+    "**/blockchain/**/artifacts": true,
+    "**/blockchain/**/cache": true,
+    "**/*.zip": true
   },
   "eslint.workingDirectories": [
-    { "directory": "blockchain/trc20-token", "changeProcessCWD": true },
-    { "directory": "blockchain/bank-tokenization", "changeProcessCWD": true },
-    { "directory": ".", "changeProcessCWD": true }
+    {
+      "directory": "blockchain/trc20-token",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "blockchain/bank-tokenization",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": ".",
+      "changeProcessCWD": true
+    }
   ],
   "eslint.validate": [
     "javascript",
     "javascriptreact"
   ],
-  "eslint.run": "onType",
+  "eslint.run": "onSave",
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.formatOnSave": true,
@@ -46,19 +88,62 @@
     }
   },
   "editor.formatOnSave": true,
+  "editor.largeFileOptimizations": true,
+  "editor.minimap.enabled": false,
+  "workbench.editorLargeFileConfirmation": 24,
+  "files.maxMemoryForLargeFilesMB": 1536,
   "files.associations": {
     "*.env*": "dotenv"
   },
   "solidity.defaultCompiler": "remote",
   "solidity.compileUsingRemoteVersion": "v0.8.25+commit.b61c2a91",
   "typescript.disableAutomaticTypeAcquisition": true,
+  "typescript.tsserver.maxTsServerMemory": 4096,
+  "typescript.tsserver.watchOptions": {
+    "watchFile": "useFsEventsOnParentDirectory",
+    "watchDirectory": "useFsEvents",
+    "fallbackPolling": "dynamicPriorityPolling"
+  },
   "python.analysis.indexing": false,
+  "python.analysis.packageIndexDepths": [
+    {
+      "name": "",
+      "depth": 1,
+      "includeAllSymbols": false
+    }
+  ],
+  "python.defaultInterpreterPath": "c:\\Users\\oman_\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+  "python.experiments.enabled": false,
+  "python.locator": "js",
   "java.import.gradle.enabled": false,
   "java.import.maven.enabled": false,
   "extensions.autoCheckUpdates": false,
   "workbench.startupEditor": "none",
   "[solidity]": {
-    "editor.defaultFormatter": "JuanBlanco.solidity",
+    "editor.defaultFormatter": "NomicFoundation.hardhat-solidity",
     "editor.formatOnSave": true
-  }
+  },
+  "cursor.general.enableCodebaseIndexing": false,
+  "pointbreak.bridge.enabled": false,
+  "solidity.telemetry": false,
+  "dev.containers.showReopenInContainerPrompt": false,
+  "redHatDependencyAnalytics.exclude": [
+    "**/tools/**",
+    "**/binary/**",
+    "**/CyberChef/**",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/coverage/**",
+    "**/out/**",
+    "**/trc20-token-backup*/**",
+    "**/docs/vitacora/**",
+    "**/.cursor/**",
+    "**/playwright-report/**",
+    "**/test-results/**",
+    "**/venv/**",
+    "**/.venv/**",
+    "**/.forge-verify/**",
+    "**/blockchain/**/verification/**"
+  ]
 }

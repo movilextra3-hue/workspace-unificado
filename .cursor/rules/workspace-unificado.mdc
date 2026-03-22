@@ -135,7 +135,7 @@ alwaysApply: true
 ## Convenciones
 
 - Responde siempre en **español**.
-- Este workspace incluye: `blockchain/trc20-token` (TRON), `blockchain/token-erc20`, `solana/555`, `apps/rtsp-*`.
+- Este workspace incluye: `blockchain/trc20-token` (TRON, foco operativo), `blockchain/token-erc20`, `solana/555`, `apps/rtsp-*`. `blockchain/tenderly_tools` existe como carpeta opcional; no va en `npm` workspaces raíz — `npm run install:tenderly-tools` si hace falta.
 - **Nunca** incluyas en código ni en commits: contraseñas, claves privadas, `.env` real, tokens de GitHub ni otros secretos. Los archivos sensibles están en `.gitignore`; no crear archivos con credenciales en el repo.
 - Para Git en el token TRC20: el repo es `movilextra3-hue/workspace-unificado`; push con Personal Access Token (no contraseña). Información en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` (sección GITHUB_PUSH).
 - Al trabajar en el token TRON (despliegue, contratos, scripts): usar la carpeta `blockchain/trc20-token` como raíz del proyecto (npm, tronbox, .env).

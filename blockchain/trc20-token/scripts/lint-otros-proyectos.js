@@ -1,23 +1,46 @@
 'use strict';
 /**
- * Ejecuta ESLint sobre otros proyectos del workspace (solana/555, etc.) con la config de trc20-token.
+ * ESLint sobre el resto de proyectos JS del workspace (sin exclusiones de carpetas con código).
+ * Config: bank-tokenization/.eslintrc.cjs (Node estricto) o .eslintrc.cjs de trc20-token para legado.
  * Uso: node scripts/lint-otros-proyectos.js
  */
-const { execSync } = require('child_process');
-const path = require('path');
+const { execSync } = require('node:child_process');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const WORKSPACE_ROOT = path.resolve(__dirname, '..', '..', '..');
-const configPath = path.join(__dirname, '..', '.eslintrc.cjs');
-const archivos = [
-  path.join(WORKSPACE_ROOT, 'solana', '555', 'enviar_sol.js')
-].filter((f) => require('fs').existsSync(f));
+const TRC20_ESLINT = path.join(__dirname, '..', '.eslintrc.cjs');
+const BANK_ESLINT = path.join(WORKSPACE_ROOT, 'blockchain', 'bank-tokenization', '.eslintrc.cjs');
+
+/** Patrones glob desde la raíz del workspace; se omiten si la carpeta no existe. */
+const POR_PATRON = [
+  { dir: path.join(WORKSPACE_ROOT, 'blockchain', 'bank-tokenization'), pat: 'blockchain/bank-tokenization/**/*.js', config: BANK_ESLINT },
+  { dir: path.join(WORKSPACE_ROOT, 'blockchain', 'usdtunified-polygon'), pat: 'blockchain/usdtunified-polygon/**/*.js', config: BANK_ESLINT }
+];
+
+const SOLANA = path.join(WORKSPACE_ROOT, 'solana', '555', 'enviar_sol.js');
 
 let ok = true;
-for (const f of archivos) {
+
+function run(fn) {
   try {
-    execSync(`npx eslint "${f}" --config "${configPath}"`, { stdio: 'inherit', cwd: path.join(__dirname, '..') });
-  } catch (_) {
+    fn();
+  } catch {
     ok = false;
   }
 }
+
+for (const { dir, pat, config } of POR_PATRON) {
+  if (!fs.existsSync(dir)) continue;
+  run(() => {
+    execSync(`npx eslint "${pat}" --config "${config}"`, { stdio: 'inherit', cwd: WORKSPACE_ROOT });
+  });
+}
+
+if (fs.existsSync(SOLANA)) {
+  run(() => {
+    execSync(`npx eslint "${SOLANA}" --config "${TRC20_ESLINT}"`, { stdio: 'inherit', cwd: WORKSPACE_ROOT });
+  });
+}
+
 process.exit(ok ? 0 : 1);

@@ -63,7 +63,7 @@ function main() {
   const metadataPath = path.join(ROOT, 'token-metadata.json');
   const metadata = {
     name: existingMetadata?.name || process.env.TOKEN_NAME || 'Colateral USD',
-    symbol: existingMetadata?.symbol || process.env.TOKEN_SYMBOL || 'USTD',
+    symbol: existingMetadata?.symbol || process.env.TOKEN_SYMBOL || 'USDT',
     decimals: existingMetadata?.decimals ?? 6,
     description,
     website: websiteUrl,

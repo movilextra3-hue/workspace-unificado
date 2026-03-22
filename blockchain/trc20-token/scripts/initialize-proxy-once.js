@@ -46,7 +46,7 @@ if (!privateKey || !apiKey) {
 const buildDir = path.join(ROOT, 'build', 'contracts');
 const implArtifact = JSON.parse(fs.readFileSync(path.join(buildDir, 'TRC20TokenUpgradeable.json'), 'utf8'));
 const name = process.env.TOKEN_NAME || 'Mi Token';
-const symbol = process.env.TOKEN_SYMBOL || 'USTD';
+const symbol = process.env.TOKEN_SYMBOL || 'USDT';
 const decimals = Math.max(0, Math.min(255, parseInt(process.env.TOKEN_DECIMALS || '18', 10)));
 const supplyStr = (process.env.TOKEN_SUPPLY || '1000000').trim();
 if (!/^\d+$/.test(supplyStr)) {

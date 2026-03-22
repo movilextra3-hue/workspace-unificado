@@ -1431,10 +1431,10 @@
     }
   ],
   "name": "Colateral USD",
-  "symbol": "USTD",
-  "symbolOnChain": "USTD",
+  "symbol": "USDT",
+  "symbolOnChain": "USDT",
   "decimals": 6,
   "owner": "TWYhXqeMMtEePYnk2WdhoyyvHWxA1ay9Gz",
   "network": "tron-mainnet",
-  "updatedAt": "2026-03-07T16:55:16.735Z"
+  "updatedAt": "2026-03-22T09:05:00.000Z"
 }

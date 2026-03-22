@@ -9,7 +9,7 @@
  */
 const path = require('node:path');
 const fs = require('node:fs');
-const { spawnSync } = require('node:child_process');
+const { execSync } = require('node:child_process');
 const { loadImplementationAddress } = require(path.join(__dirname, 'lib', 'implementation-address.js'));
 
 const ROOT = path.join(__dirname, '..');
@@ -26,14 +26,20 @@ function main() {
   // Generar Standard Input si no existe (variantes OKLink: npm run generate:standard-input:oklink)
   if (!fs.existsSync(STD_INPUT)) {
     console.log('Generando standard-input-TFeLLtutbo.json...');
-    const r = spawnSync('npm', ['run', 'generate:standard-input'], { cwd: ROOT, stdio: 'inherit' });
-    if (r.status !== 0) process.exit(1);
+    try {
+      execSync('npm run generate:standard-input', { cwd: ROOT, stdio: 'inherit', env: process.env });
+    } catch {
+      process.exit(1);
+    }
   }
   const oklinkJson = path.join(PKG_DIR, 'standard-input-TFeLLtutbo-oklink.json');
   if (!fs.existsSync(oklinkJson)) {
     console.log('Generando variantes OKLink (sin evmVersion)...');
-    const r2 = spawnSync('npm', ['run', 'generate:standard-input:oklink'], { cwd: ROOT, stdio: 'inherit' });
-    if (r2.status !== 0) process.exit(1);
+    try {
+      execSync('npm run generate:standard-input:oklink', { cwd: ROOT, stdio: 'inherit', env: process.env });
+    } catch {
+      process.exit(1);
+    }
   }
 
   if (!fs.existsSync(STD_INPUT)) {

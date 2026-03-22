@@ -1,0 +1,10 @@
+# Gitleaks — usado por .github/workflows/security-secrets.yml (y localmente si instalas gitleaks).
+# https://github.com/gitleaks/gitleaks
+
+title = "workspace-unificado"
+
+[extend]
+useDefault = true
+
+# Si el escaneo marca falsos positivos en un archivo concreto, añade aquí reglas mínimas
+# (paths o regexes) documentando el motivo — no excluir vitácora entera.

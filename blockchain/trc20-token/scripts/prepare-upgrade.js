@@ -2,7 +2,7 @@
 'use strict';
 /**
  * Prepara el upgrade on-chain (cambio de Implementation del proxy).
- * Verifica: .env, deploy-info.json, TOKEN_SYMBOL=USTD, tronbox config, compilación.
+ * Verifica: .env, deploy-info.json, TOKEN_SYMBOL=USDT (mainnet), tronbox config, compilación.
  * No gasta TRX. Uso: npm run prepare:upgrade
  */
 const path = require('node:path');
@@ -11,7 +11,7 @@ const fs = require('node:fs');
 const ROOT = path.join(__dirname, '..');
 require('dotenv').config({ path: path.join(ROOT, '.env') });
 
-const EXPECTED_SYMBOL = 'USTD';
+const EXPECTED_SYMBOL = 'USDT';
 const CHECK_ONLY = process.argv.includes('--check-only');
 
 function fail(msg, code = 1) {
@@ -22,7 +22,7 @@ function fail(msg, code = 1) {
 function main() {
   console.log('=== Preparación para upgrade (cambio de Implementation) ===\n');
   if (CHECK_ONLY) {
-    console.log('Modo --check-only: verifica config y USTD sin .env\n');
+    console.log('Modo --check-only: verifica config y USDT sin .env\n');
   }
 
   // 1. .env (omitido en --check-only)
@@ -42,10 +42,10 @@ function main() {
 
   const tokenSymbol = (process.env.TOKEN_SYMBOL || '').trim();
   if (tokenSymbol !== EXPECTED_SYMBOL) {
-    console.warn('  ⚠ TOKEN_SYMBOL en .env = "' + (tokenSymbol || '(vacío)') + '". Se recomienda USTD.');
+    console.warn('  ⚠ TOKEN_SYMBOL en .env = "' + (tokenSymbol || '(vacío)') + '". Se recomienda USDT (mainnet).');
     console.warn('    Tras el upgrade, ejecuta: npm run set:symbol');
   } else {
-    console.log('  ✓ TOKEN_SYMBOL=USTD');
+    console.log('  ✓ TOKEN_SYMBOL=USDT');
   }
 
   // 2. deploy-info.json (o .example en --check-only)
@@ -83,9 +83,9 @@ function main() {
 
   const cp = deployInfo.constructorParams || {};
   if (cp.symbol && cp.symbol !== EXPECTED_SYMBOL) {
-    console.warn('  ⚠ constructorParams.symbol en deploy-info = "' + cp.symbol + '". Se recomienda USTD.');
+    console.warn('  ⚠ constructorParams.symbol en deploy-info = "' + cp.symbol + '". Se recomienda USDT.');
   } else if (cp.symbol === EXPECTED_SYMBOL) {
-    console.log('  ✓ constructorParams.symbol = USTD');
+    console.log('  ✓ constructorParams.symbol = USDT');
   }
 
   // 3. trc20-token.config.json
@@ -94,9 +94,9 @@ function main() {
     try {
       const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
       if (config.tokenSymbol && config.tokenSymbol !== EXPECTED_SYMBOL) {
-        console.warn('  ⚠ trc20-token.config.json tokenSymbol = "' + config.tokenSymbol + '". Se recomienda USTD.');
+        console.warn('  ⚠ trc20-token.config.json tokenSymbol = "' + config.tokenSymbol + '". Se recomienda USDT.');
       } else if (config.tokenSymbol === EXPECTED_SYMBOL) {
-        console.log('  ✓ trc20-token.config.json tokenSymbol = USTD');
+        console.log('  ✓ trc20-token.config.json tokenSymbol = USDT');
       }
     } catch { /* config opcional */ }
   }
@@ -143,8 +143,8 @@ function main() {
   console.log('  A) npm run upgrade          — usa build/ (compile-with-solc)');
   console.log('  B) npm run upgrade:solc     — usa verification/ (prepare:verification primero)');
   console.log('');
-  console.log('Tras el upgrade, si el símbolo on-chain no es USTD:');
-  console.log('  npm run set:symbol          — llama setSymbol("USTD") en el proxy');
+  console.log('Tras el upgrade, si el símbolo on-chain no es USDT:');
+  console.log('  npm run set:symbol          — llama setSymbol("USDT") en el proxy');
   console.log('');
   console.log('Verificación en Tronscan:');
   console.log('  npm run prepare:verification && npm run verify:before:tronscan -- <nueva_impl>');

@@ -5,7 +5,7 @@
   "proxyAdminAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "constructorParams": {
     "name": "Colateral USD",
-    "symbol": "USTD",
+    "symbol": "USDT",
     "decimals": 6,
     "initialSupply": "1000000"
   },

@@ -1,24 +1,32 @@
 #!/usr/bin/env node
 'use strict';
 /**
- * Verificación asistida en Tronscan para TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC.
+ * Verificación asistida en Tronscan (Implementation desde deploy-info / abi).
  * 1. Comprueba que el bytecode local coincida con mainnet (check-alignment).
  * 2. Muestra pasos exactos para verificación manual en Tronscan.
  *
  * Uso: node scripts/verificar-tronscan-TFeLLtutbo.js
  *      npm run verify:tronscan
+ *      npm run verify:tronscan:prepare   (regenera paquete + este script)
  */
 const path = require('node:path');
 const fs = require('node:fs');
 const { spawnSync } = require('node:child_process');
+const { loadImplementationAddress } = require('./lib/implementation-address.js');
 
 const ROOT = path.join(__dirname, '..');
 const PKG_DIR = path.join(ROOT, 'verification', 'PAQUETE-VERIFICACION-POST-UPGRADE');
-const IMPL_ADDR = 'TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC';
 const VERIFY_URL = 'https://tronscan.org/#/contracts/verify';
 
 function main() {
-  console.log('\n=== VERIFICACIÓN TRONSCAN — TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC ===\n');
+  const IMPL_ADDR = loadImplementationAddress();
+  console.log('\n=== VERIFICACIÓN TRONSCAN — Implementation ' + IMPL_ADDR + ' ===\n');
+
+  console.log(
+    'NOTA: El despliegue usa metadata.bytecodeHash:none (config/trc20-networks.js). ' +
+      'Tronscan no suele permitir elegir eso en el formulario; si falla la verificación ' +
+      'con "confirm the correct parameters", usar OKLink + Standard JSON: npm run verify:oklink:prepare\n'
+  );
 
   // 1. Verificar que el paquete existe
   const sourcePath = path.join(PKG_DIR, 'TRC20TokenUpgradeable.sol');
@@ -66,6 +74,8 @@ function main() {
   console.log('');
   console.log('4. Completar CAPTCHA y clicar "Verify and Publish".');
   console.log('');
+  console.log('Automatizar relleno en navegador (Playwright): npm run verify:tronscan:playwright');
+  console.log('');
   console.log('--- Si falla "confirm the correct parameters" ---');
   console.log('- Probar VM version: default o "evm" en lugar de Shanghai');
   console.log('- Verificar que Compiler sea ETHEREUM (no TRON) si Tronscan ofrece ambos');
@@ -85,7 +95,7 @@ function main() {
         execSync(`xdg-open "${VERIFY_URL}"`, { stdio: 'ignore' });
       }
       console.log('Tronscan abierto en el navegador.');
-    } catch (_e) {
+    } catch {
       console.log('Abrir manualmente:', VERIFY_URL);
     }
   }

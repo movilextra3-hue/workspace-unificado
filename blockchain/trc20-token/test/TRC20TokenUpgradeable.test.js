@@ -453,7 +453,7 @@ contract('TRC20TokenUpgradeable', (accounts) => {
     assert.isFalse(await token.blacklisted(addr2));
   });
 
-  it('aliases USTD: isBlackListed, getBlackListStatus y getOwner', async () => {
+  it('aliases API legacy: isBlackListed, getBlackListStatus y getOwner', async () => {
     assert.equal(await token.getOwner(), owner, 'getOwner debe devolver owner');
     assert.isFalse(await token.isBlackListed(addr1));
     assert.isFalse(await token.getBlackListStatus(addr1));

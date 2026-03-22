@@ -1,0 +1,13 @@
+# Actualizaciones de dependencias (reduce riesgo de vulnerabilidades conocidas).
+# Revisa los PRs que genere Dependabot antes de fusionar.
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "security"

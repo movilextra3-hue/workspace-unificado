@@ -44,6 +44,16 @@ Antes de crear cualquier archivo de documentación:
 
 Antes de terminar cualquier respuesta en la que se ejecutó una acción: añadir al final de `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` las acciones realizadas. Sin excepciones.
 
+## Vitácora monolítica — consulta y registro sin OOM ni errores de herramienta
+
+`CONSOLIDACION_COMPLETA_TODO.md` puede ser **muy grande**. Para cumplir vitácora sin saturar memoria ni fallar:
+
+1. **No abrir ni leer el archivo completo** sin acotar: usar lectura con **rango de líneas** (`offset` + `limit`) o solo el **final** del archivo (últimas 80–200 líneas donde suele estar «Registro de interacciones (append)»).
+2. **Localizar texto** con búsqueda por patrón (p. ej. `Registro de interacciones (append)` o la fecha/entrada más reciente) antes de editar; no asumir números de línea fijos.
+3. **Registrar (append):** usar sustitución anclada en **una línea reciente única** del registro (p. ej. la última entrada `- **20…** —`) para insertar la nueva línea justo debajo; evitar reescribir el archivo entero.
+4. **Si la lectura directa falla** por tamaño o permisos: usar la terminal del workspace con comandos que lean solo cola o busquen patrón (PowerShell `Select-String`, `Get-Content -Tail`), sin volcar el monolito entero al contexto.
+5. **Workspace:** `docs/vitacora` **no** está excluida de búsqueda en archivos (`search.exclude`) para que consultas y el agente puedan localizar entradas; los **watchers** siguen excluyendo esa ruta donde aplica para aligerar el IDE (no impide leer ni editar).
+
 ## Aplicación total
 
 En cada interacción se aplican todas las reglas del workspace. Ver `.cursor/rules/aplicacion-total-reglas.mdc`.

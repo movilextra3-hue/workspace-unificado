@@ -2,7 +2,7 @@
   "name": "workspace-unificado",
   "version": "1.0.0",
   "private": true,
-  "description": "Proyecto unificado E: — blockchain (TRC20, ERC20, Tenderly), Solana (555), apps (RTSP). Un solo lugar, bien estructurado.",
+  "description": "Monorepo con foco operativo TRC20/TRON en blockchain/trc20-token. ERC20 (lint), Solana, apps RTSP y blockchain/tenderly_tools son opcionales; Tenderly no forma parte del flujo npm install raíz (ver script install:tenderly-tools).",
   "scripts": {
     "sync": "node scripts/sync-desde-E.js",
     "sync:dry": "node scripts/sync-desde-E.js --dry-run",
@@ -16,6 +16,8 @@
     "postinstall": "node scripts/install-ruff.js && echo Ejecuta 'npm run sync' para poblar subproyectos desde E: si están vacíos.",
     "audit": "npm audit",
     "audit:fix": "npm audit fix --no-fund",
+    "security:secrets": "node scripts/check-secrets.js",
+    "install:tenderly-tools": "npm install --no-fund --prefix blockchain/tenderly_tools",
     "gallery": "node docs/vitacora/gallery-viewer/server.js",
     "fix:cursor": "powershell -ExecutionPolicy Bypass -File scripts/cerrar-cursor-y-fix-extensions.ps1",
     "crear:lanzador": "powershell -ExecutionPolicy Bypass -File scripts/crear-lanzador-escritorio.ps1"
@@ -25,8 +27,7 @@
   },
   "workspaces": [
     "blockchain/trc20-token",
-    "blockchain/token-erc20",
-    "blockchain/tenderly_tools"
+    "blockchain/token-erc20"
   ],
   "engines": {
     "node": ">=18.0.0"
@@ -238,7 +239,7 @@
     "fast-safe-stringify": "^2.1.1",
     "fast-uri": "^3.1.0",
     "fast-xml-builder": "^1.0.0",
-    "fast-xml-parser": "^5.4.1",
+    "fast-xml-parser": "^5.4.2",
     "fastq": "^1.20.1",
     "fdir": "^6.5.0",
     "file-entry-cache": "^6.0.1",
@@ -247,7 +248,7 @@
     "find-up": "^5.0.0",
     "flat": "^5.0.2",
     "flat-cache": "^3.2.0",
-    "flatted": "^3.4.1",
+    "flatted": "^3.4.2",
     "fmix": "^0.1.0",
     "follow-redirects": "^1.15.11",
     "for-each": "^0.3.5",
@@ -460,7 +461,7 @@
     "multihashes": "^0.4.21",
     "murmur-128": "^0.2.1",
     "nano-json-stream-parser": "^0.1.2",
-    "nanoid": "^3.3.3",
+    "nanoid": "^3.3.8",
     "natural-compare": "^1.4.0",
     "ndjson": "^2.0.0",
     "negotiator": "^0.6.4",
@@ -622,7 +623,7 @@
     "through2": "^4.0.2",
     "timed-out": "^4.0.1",
     "tinyglobby": "^0.2.15",
-    "tmp": "^0.0.33",
+    "tmp": "^0.2.4",
     "to-buffer": "^1.2.2",
     "to-regex-range": "^5.0.1",
     "toidentifier": "^1.0.1",
@@ -703,7 +704,7 @@
     "wrap-ansi": "^7.0.0",
     "wrap-ansi-cjs": "^7.0.0",
     "wrappy": "^1.0.2",
-    "ws": "^8.17.1",
+    "ws": "^8.18.0",
     "xhr": "^2.6.0",
     "xhr-request": "^1.1.0",
     "xhr-request-promise": "^0.1.3",
@@ -716,6 +717,9 @@
     "yargs-unparser": "^2.0.0",
     "yn": "^3.1.1",
     "yocto-queue": "^0.1.0"
+  },
+  "overrides": {
+    "axios": "^1.13.6"
   },
   "repository": {
     "type": "git",

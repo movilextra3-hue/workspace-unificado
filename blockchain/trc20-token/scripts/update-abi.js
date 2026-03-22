@@ -93,7 +93,7 @@ function main() {
 
   // ABI + direcciones + metadata del token (nombre, símbolo, decimales) para DApps/frontends
   let tokenName = 'Colateral USD';
-  let tokenSymbol = 'USTD';
+  let tokenSymbol = 'USDT';
   let tokenDecimals = 6;
   const configPath = path.join(ROOT, 'trc20-token.config.json');
   if (fs.existsSync(configPath)) {
