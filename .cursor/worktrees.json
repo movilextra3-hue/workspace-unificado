@@ -1,0 +1,16 @@
+{
+  "setup-worktree-unix": [
+    "npm install",
+    "[ -n \"$ROOT_WORKTREE_PATH\" ] && [ -f \"$ROOT_WORKTREE_PATH/blockchain/trc20-token/.env\" ] && mkdir -p blockchain/trc20-token && cp \"$ROOT_WORKTREE_PATH/blockchain/trc20-token/.env\" blockchain/trc20-token/.env && echo 'Copiado .env' || true",
+    "echo 'Worktree listo'"
+  ],
+  "setup-worktree-windows": [
+    "npm install",
+    "if ($env:ROOT_WORKTREE_PATH) { $p = Join-Path $env:ROOT_WORKTREE_PATH 'blockchain/trc20-token/.env'; if (Test-Path $p) { New-Item -ItemType Directory -Force -Path blockchain/trc20-token | Out-Null; Copy-Item $p blockchain/trc20-token/.env; Write-Host 'Copiado .env' } }",
+    "Write-Host 'Worktree listo'"
+  ],
+  "setup-worktree": [
+    "npm install",
+    "echo 'Worktree listo'"
+  ]
+}
