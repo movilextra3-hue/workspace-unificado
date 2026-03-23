@@ -188,7 +188,7 @@
     "ee-first": "^1.1.1",
     "elliptic": "^6.6.1",
     "emoji-regex": "^8.0.0",
-    "encode-utf8": "^1.0.3",
+    "encode-utf8": "^2.0.0",
     "encodeurl": "^2.0.0",
     "end-of-stream": "^1.4.5",
     "enquirer": "^2.4.1",
