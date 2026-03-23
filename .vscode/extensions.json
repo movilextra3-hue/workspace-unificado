@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "MS-CEINTL.vscode-language-pack-es",
     "NomicFoundation.hardhat-solidity",
     "ms-vscode.powershell",
     "dbaeumer.vscode-eslint",
