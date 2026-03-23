@@ -520,7 +520,7 @@
     "pluralize": "^8.0.0",
     "possible-typed-array-names": "^1.1.0",
     "prelude-ls": "^1.2.1",
-    "prettier": "^2.8.8",
+    "prettier": "^3.8.1",
     "proc-log": "^4.2.0",
     "process": "^0.11.10",
     "process-nextick-args": "^2.0.1",
