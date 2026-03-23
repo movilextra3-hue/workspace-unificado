@@ -6,5 +6,6 @@ Archivos ligeros en `docs/vitacora/registro/`. Para normas y plantilla: **`regis
 |------------|----------------------------------|
 | 2026-03-14 | [registro/2026-03-14.md](registro/2026-03-14.md) |
 | 2026-03-22 | [registro/2026-03-22.md](registro/2026-03-22.md) |
+| 2026-03-23 | [registro/2026-03-23.md](registro/2026-03-23.md) |
 
 *Añadir una fila al crear el primer registro de cada día nuevo.*
