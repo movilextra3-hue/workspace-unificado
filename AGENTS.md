@@ -72,7 +72,7 @@ Antes de terminar cualquier respuesta en la que se ejecutó una acción: añadir
 
 ## Aplicación total
 
-En cada interacción se aplican todas las reglas del workspace. Ver `.cursor/rules/aplicacion-total-reglas.mdc`.
+En cada interacción se aplican todas las reglas del workspace **aplicables al alcance** de la petición: procedimiento (vitácora, verificación, no delegar, etc.) **más** lo pedido explícitamente. «Aplicar todas» **no** significa inventar tareas extra; la semántica unificada está en `.cursor/rules/aplicacion-total-reglas.mdc` (sección «Semántica…» y orden de prioridad). Si el usuario pide revisar o continuar un **proyecto concreto**, el alcance suele incluir los comandos documentados en ese proyecto (p. ej. `flujo:continuo` en TRC20).
 
 ## Orden de prioridad (sin contradicciones)
 

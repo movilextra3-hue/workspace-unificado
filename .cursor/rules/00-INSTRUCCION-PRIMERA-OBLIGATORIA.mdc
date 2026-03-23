@@ -13,7 +13,7 @@ alwaysApply: true
 
 1. **Consultar** las reglas en `.cursor/rules/`: workspace-unificado, vitacora-registro, aplicacion-total-reglas, vitacora-obligatoria, vitacora-al-crear-docs, ejecucion-explicita, seguimiento-tiempo-real, interacciones-agentes, transparencia-veracidad, agotar-alternativas-siempre-solucion, cero-errores-antes-continuar, enfoque-tarea-principal-retorno-automatico, tareas-activas-flujo-continuidad, flujo-automatizado-checkpoint-trc20, local-proposito-mainnet.
 2. **Consultar** la vitácora reciente: `docs/vitacora/REGISTRO_DIARIO_INDICE.md` y `docs/vitacora/registro/YYYY-MM-DD.md` según fechas relevantes. El monolito `CONSOLIDACION_COMPLETA_TODO.md` solo si hace falta **histórico antiguo** (siempre acotado: grep, offset/limit).
-3. **Aplicar TODAS** las reglas del workspace en la interacción. No omitir ninguna.
+3. **Aplicar TODAS** las reglas del workspace en la interacción, en el sentido de **`aplicacion-total-reglas.mdc`** (sección «Semántica: «aplicar todas las reglas» sin chocar con el alcance»): todas las **aplicables** al alcance, con procedimiento completo dentro de ese alcance. No omitir ninguna norma pertinente.
 4. **Si varias reglas tensionan** (p. ej. alcance pedido vs. sugerencias de otras normas) — Aplicar el **orden de prioridad** en `aplicacion-total-reglas.mdc` («Orden de prioridad cuando hay tensión entre reglas»).
 
 ## Durante la tarea

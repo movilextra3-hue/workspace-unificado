@@ -24,6 +24,12 @@ Ejemplos:
 - No añadir pasos ni entregables que el usuario no haya pedido.
 - No combinar instrucciones de otras reglas con la instrucción del usuario sin preguntar.
 
+## Proyectos y procedimientos documentados (alcance sí incluye el flujo del repo)
+
+Cuando el usuario pide **revisar, analizar, corregir o continuar** un proyecto concreto (p. ej. `blockchain/trc20-token`) o **seguir lo pendiente** según README / vitácora, **el alcance explícito incluye** ejecutar los comandos y comprobaciones **documentados para ese proyecto** (p. ej. `npm run flujo:continuo`, `gate:mainnet`, `guardar:verificacion`). Eso **no** es ampliar alcance por otras reglas: es **cumplir** el encargo de forma completa.
+
+Si el pedido es vago (sin proyecto ni objetivo), **preguntar** antes de asumir qué repositorio o qué comando.
+
 ## Resumen
 
 **Lo que el usuario pide = lo que se hace.** Si hace falta elegir o interpretar, preguntar antes.

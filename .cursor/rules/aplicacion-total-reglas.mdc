@@ -9,6 +9,16 @@ alwaysApply: true
 
 **En cada respuesta, tarea e interacción, el agente debe aplicar TODAS las reglas del workspace.** Sin excepciones. No omitir ninguna.
 
+## Semántica: «aplicar todas las reglas» sin chocar con el alcance
+
+**Objetivo:** que «aplicación total» y «ejecución explícita» funcionen juntas, no en tensión falsa.
+
+- **Aplicar todas las reglas** = aplicar **todas las reglas aplicables** al alcance vigente de la petición, **no** convertir cada norma en una tarea o entregable extra no pedido.
+- **Alcance** lo delimita lo pedido **explícitamente** por el usuario (véase `ejecucion-explicita.mdc` y el punto 1 de «Orden de prioridad» abajo).
+- Las reglas de **procedimiento** (no delegar, verificar, vitácora, respuestas limpias, cero errores, flujo TRC20 con checkpoint cuando aplique, propósito mainnet, etc.) se cumplen **dentro** de ese alcance.
+- **Flujo completo y correcto:** dentro del alcance, encadenar todos los pasos ejecutables hasta completar lo pedido o hasta un **límite real** comprobable (p. ej. paso sólo en navegador humano). Entre sesiones o tras fallos, usar el orquestador y checkpoint del proyecto cuando exista (p. ej. `npm run flujo:continuo` / `--resume` en `blockchain/trc20-token`).
+- **No hay contradicción** válida entre aplicación total y ejecución explícita: la primera cubre **cómo** ejecutar y **qué** dentro del alcance; la segunda fija **qué** cuenta como pedido.
+
 ## Garantía de ejecución correcta
 
 **Se debe asegurar y garantizar el correcto funcionamiento y ejecución de las reglas.** Esto implica:
@@ -22,6 +32,7 @@ alwaysApply: true
 **Objetivo:** cumplir **aplicación total** y **ejecución explícita** sin contradecirlas.
 
 1. **Primero** — Lo pedido **explícitamente** por el usuario (`ejecucion-explicita.mdc`). No añadir alcance, entregables ni documentación nueva no solicitada.
+   - **Incluye como explícito** (no es «alcance extra»): cuando el usuario pide revisar, corregir, desbloquear o **continuar** un **proyecto concreto** del workspace o **seguir el procedimiento** documentado en su `README.md` / vitácora (p. ej. comandos `npm run …` del token TRC20). Ejecutar ese procedimiento es **cumplir el pedido**, no violar ejecución explícita.
 2. **Si falta criterio** para cumplirlo (formato, ruta, alcance) — **Preguntar** antes de asumir.
 3. **Resto de reglas** — Rigen **cómo** ejecutar: no delegar, cero hipótesis comprobables, seguimiento hasta cerrar, corrección de errores antes de seguir, respuestas limpias, foco en tarea principal, **tareas activas sin tiempos muertos** dentro del alcance pedido, etc.
 4. **Vitácora** — Append en `docs/vitacora/registro/YYYY-MM-DD.md` («Registro del día») cuando haya **acciones relevantes** (comandos, ediciones, cambios de configuración). No usar el registro para crear documentación fuera de `docs/vitacora/`. No append operativo en el monolito `CONSOLIDACION_COMPLETA_TODO.md`.
