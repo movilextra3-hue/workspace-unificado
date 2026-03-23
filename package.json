@@ -692,7 +692,7 @@
     "web3-providers-ws": "^1.10.4",
     "web3-shh": "^1.10.4",
     "web3-utils": "^1.10.4",
-    "webidl-conversions": "^3.0.1",
+    "webidl-conversions": "^8.0.1",
     "websocket": "^1.0.35",
     "whatwg-url": "^5.0.0",
     "which": "^2.0.2",
