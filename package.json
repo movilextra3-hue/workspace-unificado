@@ -402,7 +402,7 @@
     "mdurl": "^2.0.0",
     "media-typer": "^0.3.0",
     "memorystream": "^0.3.1",
-    "merge-descriptors": "^1.0.3",
+    "merge-descriptors": "^2.0.0",
     "merge2": "^1.4.1",
     "methods": "^1.1.2",
     "mi-token": "^1.0.0",
