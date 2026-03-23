@@ -377,7 +377,7 @@
     "keccak": "^3.0.4",
     "keyv": "^4.5.4",
     "kleur": "^3.0.3",
-    "latest-version": "^7.0.0",
+    "latest-version": "^9.0.0",
     "leven": "^3.1.0",
     "levn": "^0.4.1",
     "lines-and-columns": "^1.2.4",
