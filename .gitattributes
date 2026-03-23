@@ -1,0 +1,2 @@
+# Scripts POSIX: evitar CRLF en Windows para shebang y compatibilidad en Unix.
+*.sh text eol=lf
