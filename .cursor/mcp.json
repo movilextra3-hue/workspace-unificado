@@ -8,6 +8,12 @@
       "env": {
         "TRON_NETWORK": "mainnet"
       }
+    },
+    "tronscan": {
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/scripts/mcp-tronscan-remote.js"
+      ]
     }
   }
 }

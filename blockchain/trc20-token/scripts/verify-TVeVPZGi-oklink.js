@@ -115,7 +115,7 @@ async function main() {
   if (await runsInp.count() > 0) await runsInp.fill('200').catch(() => {});
 
   console.log('');
-  console.log('Resuelve el CAPTCHA y pulsa Enviar/Submit.');
+  console.log('Pulsa Enviar/Submit.');
   console.log('Navegador abierto 5 min.');
   await page.waitForTimeout(300000);
   await browser.close();

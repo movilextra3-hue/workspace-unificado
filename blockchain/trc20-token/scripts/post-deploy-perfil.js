@@ -47,5 +47,5 @@ console.log('');
 console.log('6. Project website:');
 console.log('   ' + websiteUrl);
 console.log('');
-console.log('Ver todos los textos y pasos: docs/TRONSCAN_DATOS_PEGAR.md');
+console.log('Registro de acciones: docs/vitacora/registro/ (vitácora del workspace).');
 console.log('');

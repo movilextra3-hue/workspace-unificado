@@ -301,9 +301,7 @@ async function main() {
   await page.evaluate(() => window.scrollBy(0, 400));
   await page.waitForTimeout(400);
 
-  // --- CAPTCHA: OKLink puede mostrar reCAPTCHA. Si hay iframe recaptcha, el usuario debe resolverlo. ---
-  const hasCaptcha = await page.locator('iframe[src*="recaptcha"], [data-sitekey]').count() > 0;
-  if (hasCaptcha) log('CAPTCHA detectado. Resuélvelo manualmente antes de que el script haga Submit.');
+  // OKLink TRON — verificación: sin CAPTCHA en el flujo real usado por el proyecto (no reCAPTCHA en pantalla).
 
   // --- Submit: todas las estrategias posibles ---
   let submitted = false;

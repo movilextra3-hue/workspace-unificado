@@ -21,7 +21,7 @@ const IMPL_ADDR = loadImplementationAddress();
 function main() {
   console.log('\n=== VERIFICACIÓN OKLINK — TFeLLtutboNwVwSSdNqAiXoQGzXZrbTDMC ===\n');
   console.log('Ejecución por el agente (regla #1): npm run verify:oklink:playwright');
-  console.log('  (rellena dirección, Standard JSON, Main Contract y envía; solo CAPTCHA manual si aparece)\n');
+  console.log('  (rellena dirección, Standard JSON, Main Contract y envía)\n');
 
   // Generar Standard Input si no existe (variantes OKLink: npm run generate:standard-input:oklink)
   if (!fs.existsSync(STD_INPUT)) {

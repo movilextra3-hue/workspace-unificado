@@ -440,20 +440,53 @@ async function main() {
         encodeURIComponent('v0.8.25+commit.b61c2a91') +
         '&zk-version=&type=json';
       await page.goto(step2Direct, { waitUntil: 'domcontentloaded', timeout: 120000 });
+      await page.waitForLoadState('networkidle', { timeout: 120000 }).catch(() => {});
       await page.waitForSelector('textarea', { timeout: 90000 }).catch(() => {
         log('Aviso: no apareció textarea en 90s tras paso 2; la página puede haber cambiado.');
       });
-      await page.waitForTimeout(5000);
+      // OKLink SPA: los combobox del paso 2 aparecen varios segundos después del textarea.
+      await page.waitForTimeout(8000);
+      await page.waitForSelector('main [role="combobox"]', { state: 'visible', timeout: 90000 }).catch(() => {
+        log('Aviso: sin combobox visible en main tras espera; se intentan combos igualmente.');
+      });
+      await page.waitForTimeout(4000);
     }
     await page.waitForTimeout(2000);
 
-    // Paso 2: los combos suelen estar en <main> junto al JSON, no siempre en el mismo <form> que el textarea
-    let verifyRootStep2 = page.locator('main').first();
-    if (await verifyRootStep2.count() === 0) {
+    // OKLink (React): en montaje lee localStorage "verifyContractCondition". Sin licencia/EVM el Submit no pasa validación interna.
+    try {
+      await page.evaluate(() => {
+        const cond = {
+          optimization: true,
+          contractSource: '',
+          licenseType: 'MIT License (MIT)',
+          // Estado inicial OKLink (bundle): valueEvmVersion por defecto "default"; alinear con JSON sin evmVersion.
+          evmVersion: 'default',
+          libraryList: [{}]
+        };
+        localStorage.setItem('verifyContractCondition', JSON.stringify(cond));
+      });
+      log('localStorage verifyContractCondition (MIT, default EVM, optimization) — recarga para aplicar.');
+      await page.reload({ waitUntil: 'domcontentloaded', timeout: 120000 });
+      await page.waitForLoadState('networkidle', { timeout: 120000 }).catch(() => {});
+      await page.waitForTimeout(6000);
+      await page.waitForSelector('textarea', { timeout: 90000 }).catch(() => {
+        log('Aviso: textarea tardó tras reload.');
+      });
+    } catch (e) {
+      log('localStorage prefill: ' + (e && e.message));
+    }
+
+    // Paso 2: OKLink puede renderizar dos <main> (shell vs contenido); el del formulario es el que contiene textarea.
+    let verifyRootStep2 = page.locator('main').filter({ has: page.locator('textarea') }).first();
+    if ((await verifyRootStep2.count()) === 0) {
+      verifyRootStep2 = page.locator('main').last();
+    }
+    if ((await verifyRootStep2.count()) === 0) {
       const ta = page.locator('textarea').first();
       verifyRootStep2 = await getVerifyFormRoot(page, (await ta.count()) > 0 ? ta : null);
     } else {
-      log('Paso 2: ámbito <main> para JSON + combos (evita form demasiado estrecho).');
+      log('Paso 2: ámbito <main> con textarea (no main.first(); OKLink usa varios <main>).');
     }
 
     // 5) Paso 2: JSON (archivo preferido; textarea grande)
@@ -507,6 +540,14 @@ async function main() {
       }
     }
     await page.waitForTimeout(1000);
+    const taReact = verifyRootStep2.locator('textarea').first();
+    if ((await taReact.count()) > 0) {
+      await taReact.evaluate((el) => {
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      log('Textarea: eventos input/change disparados (React).');
+    }
 
     // 6) Main contract (solo inputs dentro del mismo bloque que el JSON)
     const allInputs = verifyRootStep2.locator('input:not([type="hidden"])');
@@ -541,6 +582,19 @@ async function main() {
     }
     await page.waitForTimeout(400);
 
+    // Desplazar: OKLink agrupa varios <select> bajo el JSON; sin scroll solo cuenta 1 combobox visible.
+    for (let pass = 0; pass < 4; pass++) {
+      await page.evaluate(() => window.scrollBy(0, 450));
+      await verifyRootStep2
+        .evaluate((el) => {
+          try {
+            el.scrollTop = el.scrollHeight;
+          } catch (_) { /* ignore */ }
+        })
+        .catch(() => {});
+      await page.waitForTimeout(600);
+    }
+
     // 7) Combos paso 2: Optimization Sí, Via IR No, MIT, EVM — índice sobre combobox VISIBLES en verifyRootStep2
     /** @param {RegExp | RegExp[]} optionRegex uno o varios patrones (se prueba en orden hasta acertar). */
     async function selectComboByVisibleIndex(scope, visibleIdx, optionRegex, label) {
@@ -566,6 +620,95 @@ async function main() {
       return false;
     }
 
+    /**
+     * OKLink no garantiza el orden de los combobox (Optimization / Via IR / License / EVM).
+     * Busca el desplegable cuyas opciones incluyen MIT (no solo por índice).
+     * @returns {Promise<boolean>}
+     */
+    async function selectLicenseMitAnywhere(scope, logFn) {
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(200);
+      const mitOptionPatterns = [
+        /MIT\s+License\s*\(\s*MIT\s*\)/i,
+        /Licencia\s+MIT\s*\(\s*MIT\s*\)/i,
+        /MIT\s*\(\s*MIT\s*\)/i,
+        /^MIT\s*License$/i,
+        /^MIT$/i
+      ];
+      const tryPickMitFromOpenList = async () => {
+        for (const pat of mitOptionPatterns) {
+          const opt = page.getByRole('option').filter({ hasText: pat });
+          if (await opt.count() > 0) {
+            await opt.first().click({ force: true });
+            return true;
+          }
+        }
+        const loose = page.getByRole('option').filter({ hasText: /\bMIT\b/ });
+        if (await loose.count() > 0) {
+          await loose.first().click({ force: true });
+          return true;
+        }
+        return false;
+      };
+
+      const tryLabel = async () => {
+        const byName = scope.getByRole('combobox', { name: /license|licencia|spdx/i });
+        if ((await byName.count()) > 0) {
+          const c = byName.first();
+          if (await c.isVisible().catch(() => false)) {
+            await c.scrollIntoViewIfNeeded();
+            await c.click({ force: true });
+            await page.waitForTimeout(600);
+            if (await tryPickMitFromOpenList()) {
+              logFn('License: MIT (combobox por nombre accesible)');
+              return true;
+            }
+            await page.keyboard.press('Escape');
+          }
+        }
+        return false;
+      };
+
+      if (await tryLabel()) return true;
+
+      const all = scope.getByRole('combobox');
+      const total = await all.count();
+      for (let i = 0; i < total; i++) {
+        const box = all.nth(i);
+        if (!(await box.isVisible().catch(() => false))) continue;
+        await box.scrollIntoViewIfNeeded();
+        await box.click({ force: true });
+        await page.waitForTimeout(550);
+        if (await tryPickMitFromOpenList()) {
+          logFn('License: MIT (combo escaneado, índice DOM ' + i + ')');
+          await page.waitForTimeout(300);
+          return true;
+        }
+        await page.keyboard.press('Escape');
+        await page.waitForTimeout(200);
+      }
+
+      const nativeSelects = scope.locator('select');
+      const ns = await nativeSelects.count();
+      for (let i = 0; i < ns; i++) {
+        const sel = nativeSelects.nth(i);
+        if (!(await sel.isVisible().catch(() => false))) continue;
+        const opts = sel.locator('option');
+        const oc = await opts.count();
+        for (let j = 0; j < oc; j++) {
+          const t = ((await opts.nth(j).textContent().catch(() => '')) || '').trim();
+          if (/MIT/i.test(t)) {
+            await sel.selectOption({ index: j });
+            logFn('License: MIT (<select> nativo, opción ' + j + ')');
+            return true;
+          }
+        }
+      }
+
+      logFn('License MIT: no se encontró desplegable con opción MIT (revisa idioma UI).');
+      return false;
+    }
+
     const nCombos2 = await countVisibleComboboxes(verifyRootStep2);
     log('Combos visibles en paso 2 (<main>): ' + nCombos2 + ' (offset base=' + step2ComboOffset + ')');
 
@@ -585,17 +728,7 @@ async function main() {
         regex: [/^No$/i, /desactivado/i, /sin\s*ir/i, /via\s*ir.*no/i],
         label: 'Via IR: No (EN/ES)'
       },
-      {
-        rel: 2,
-        regex: [
-          /MIT License\s*\(MIT\)/i,
-          /Licencia MIT\s*\(MIT\)/i,
-          /MIT\s*\(MIT\)/i,
-          /^MIT$/i,
-          /\bMIT\b/
-        ],
-        label: 'License: MIT (EN/ES)'
-      },
+      // License (rel 2) no va por índice fijo: OKLink cambia orden → selectLicenseMitAnywhere después
       {
         rel: 3,
         regex: [
@@ -620,30 +753,10 @@ async function main() {
       }
     }
 
-    // Refuerzo (legacy): licencia MIT y Optimization Sí — por índice visible
-    if (nCombos2 > step2ComboOffset + 2) {
-      await page.evaluate(() => window.scrollBy(0, 600));
-      await page.waitForTimeout(400);
-      await page.keyboard.press('Escape');
-      await page.waitForTimeout(200);
-      const licCombo = await nthVisibleCombobox(verifyRootStep2, step2ComboOffset + 2);
-      if (!licCombo) {
-        log('Refuerzo licencia: no hay combo visible en índice ' + (step2ComboOffset + 2));
-      } else {
-      await licCombo.scrollIntoViewIfNeeded();
-      await licCombo.click({ force: true });
-      await page.waitForTimeout(1000);
-      let mit = page.getByRole('option').filter({ hasText: /MIT License\s*\(MIT\)|Licencia MIT\s*\(MIT\)|MIT\s*\(MIT\)/i });
-      if (await mit.count() === 0) mit = page.getByRole('option').filter({ hasText: /\bMIT\b/ });
-      if (await mit.count() > 0) {
-        await mit.first().click({ force: true });
-        log('License MIT: confirmado (refuerzo EN/ES)');
-      } else {
-        await page.keyboard.press('Escape');
-      }
-      await page.waitForTimeout(400);
-      }
-    }
+    await page.evaluate(() => window.scrollBy(0, 500));
+    await page.waitForTimeout(400);
+    await selectLicenseMitAnywhere(verifyRootStep2, log);
+
     if (nCombos2 > step2ComboOffset) {
       await page.keyboard.press('Escape');
       await page.waitForTimeout(200);

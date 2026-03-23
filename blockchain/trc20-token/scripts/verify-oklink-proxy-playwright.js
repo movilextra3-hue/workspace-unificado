@@ -76,7 +76,7 @@ async function main() {
       await page.waitForTimeout(5000);
     }
 
-    log('Comprobar resultado en la página. Si hay CAPTCHA, resolverlo.');
+    log('Comprobar resultado en la página.');
     log('Proxy en OKLink: https://www.oklink.com/tron/address/' + proxy);
     await page.waitForTimeout(30000);
   } catch (e) {

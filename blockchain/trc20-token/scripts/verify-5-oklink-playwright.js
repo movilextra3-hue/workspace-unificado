@@ -2,7 +2,7 @@
 'use strict';
 /**
  * Verifica los 5 contratos no verificados en OKLink (evita bloqueo Cloudflare de TronScan).
- * Abre el navegador para cada uno; el usuario debe resolver CAPTCHA y enviar.
+ * Abre el navegador para cada uno; revisa Submit si el script no lo completa (OKLink: sin CAPTCHA en este flujo).
  *
  * Los 5 contratos:
  * - 2 ProxyAdmin: TTTT4AeRUjJEmTepb9X4uK4f6Pxg8UwwkW, TQJ6f3eczr2rK9x9kN2JMTdDN1zTm46XxE
@@ -159,7 +159,7 @@ async function main() {
     }
 
     await fillAndSubmit(page, c, sourceCode);
-    log('Resuelve CAPTCHA y pulsa Enviar/Submit si no se envió.');
+    log('Pulsa Enviar/Submit si no se envió.');
     if (i < end) {
       log('Cuando termines (o en 2 min), siguiente contrato.');
       await page.waitForTimeout(120000);

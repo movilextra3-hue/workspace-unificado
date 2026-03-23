@@ -44,7 +44,7 @@ console.log('Dirección proxy:', proxy);
 console.log('Dirección implementación:', impl);
 console.log('');
 console.log('Ejecución por el agente (regla #1): npm run verify:oklink:proxy');
-console.log('  (Playwright rellena campos y pulsa Siguiente; solo CAPTCHA manual si aparece)');
+console.log('  (Playwright rellena campos y pulsa Siguiente)');
 console.log('');
 console.log('Solo abrir URL (sin rellenar): npm run verify:oklink:proxy:open');
 console.log('');

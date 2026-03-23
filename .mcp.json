@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tronscan": {
+      "type": "http",
+      "url": "https://mcp.tronscan.org/mcp"
+    }
+  }
+}

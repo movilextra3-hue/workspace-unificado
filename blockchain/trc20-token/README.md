@@ -22,6 +22,7 @@ Carpeta generada con todo lo necesario:
 
 | Comando | Uso |
 |--------|-----|
+| **`npm run continuidad:local`** | **Checkpoint verificable:** `lint:js` → `test` → `check:alignment` → `check:perfil`. Exit 0 = repo listo en local; **no** incluye estado en explorador. |
 | **`npm run gate:mainnet`** | **Puerta de calidad:** `check:mainnet` + `check:alignment` + aviso Tronscan (no falla si solo falta verificación en explorador) |
 | **`npm run gate:mainnet:strict`** | Igual, pero **falla** si proxy/implementation/admin **no** están verificados en Tronscan |
 | **`npm run flujo:continuo`** | **Orquestador:** `lint:js` → `test` → `gate:mainnet` → `verify:implementation:pipeline`; guarda checkpoint para retomar |
@@ -37,10 +38,12 @@ Carpeta generada con todo lo necesario:
 | `npm run verify:oklink:sniff` | Solo diagnóstico: captura respuestas HTTP en `oklink-network-sniff.log` (error genérico en UI) |
 | `npm run verify:oklink:proxy` | Tras verificar la Implementation: vincular proxy en OKLink |
 | `npm run verify:tronscan:prepare` | Paquete + checklist Tronscan (limitación `bytecodeHash`) |
-| `npm run verify:tronscan:playwright` | Abre **Tronscan** y rellena el formulario (reCAPTCHA + Verify manual) |
+| `npm run verify:tronscan:playwright` | Abre **Tronscan** y rellena el formulario; el sitio puede mostrar reCAPTCHA según flujo (ver vitácora: hechos CAPTCHA/SSR) |
 | `npm run verify:tronscan:playwright:auto` | Igual, sin bloqueo en Enter (`--no-wait`) |
 | `npm run check:oklink` | Comprueba estado de verificación vía script |
 | `npm run verify:objective:status` | `check:alignment` + `check:oklink` (estado del objetivo verificación) |
+| `npm run perfil` · `post-deploy:perfil` | Datos listos para pegar en el perfil TRC20 de Tronscan |
+| `npm run perfil:tronscan:open` | Abre el formulario Tronscan con Playwright y rellena campos (conectar wallet y guardar) |
 
 **URL OKLink:** https://www.oklink.com/tron/verify-contract-preliminary  
 

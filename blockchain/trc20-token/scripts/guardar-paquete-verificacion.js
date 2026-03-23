@@ -255,7 +255,7 @@ OPCIÓN A — OKLINK (recomendado para TFeLLtutbo; el JSON lleva bytecodeHash:no
 
 7. Main Contract Name: TRC20TokenUpgradeable
 
-8. CAPTCHA y Submit.
+8. Pulsa Submit / Verificar (OKLink no usa CAPTCHA en este flujo).
 
 9. DESPUÉS de verificar la Implementation: vincular el Proxy en OKLink
    https://www.oklink.com/tron/verify-proxy-contract
@@ -322,10 +322,10 @@ SI OKLINK MUESTRA ERRORES:
 5. "Contract name" / "Main contract" incorrecto
    → Escribir exactamente: TRC20TokenUpgradeable (sin .sol, sin espacios).
 
-6. Errores de red / CAPTCHA / tiempo de espera
+6. Errores de red / tiempo de espera
    → Comprobar que la red sea TRON Mainnet en OKLink.
-   → Resolver CAPTCHA antes de Submit.
    → Si la página no carga: probar Tronscan.
+   → (Tronscan verify puede pedir reCAPTCHA; OKLink Standard JSON en este proyecto no.)
 
 7. Mensaje genérico ("ocurrió un error", "inténtelo más tarde", toast sin texto técnico)
    → La UI de OKLink a menudo NO muestra el motivo; el detalle suele ir en la respuesta HTTP de su API.
@@ -411,7 +411,7 @@ SOLUCIÓN:
   5. Compiler: 0.8.25 (NO elijas "EVM Version" en el formulario)
   6. Next → pega TODO el contenido de: standard-input-TFeLLtutbo-oklink.json
   7. Main Contract: TRC20TokenUpgradeable
-  8. CAPTCHA y Submit
+  8. Pulsa Submit / Verificar (OKLink: sin CAPTCHA en este flujo).
 
   Si OKLink da "Invalid EVM version": probar standard-input-TFeLLtutbo-oklink-evm-empty.json
   (evmVersion: ""). Generar con: npm run generate:standard-input:oklink.
@@ -472,7 +472,7 @@ CONFIG LOCAL (debe seguir OK antes de insistir en OKLink):
   npm run check:bytecode:mainnet   → informe BYTECODE-MAINNET-REPORT.txt en esta carpeta
   npm run verify:objective:status  → alignment + estado Tronscan (verify_status) en un comando
 
-El script Playwright NO pulsa Submit: CAPTCHA (si hay) y envío final son manuales.
+El script Playwright puede dejar Submit para revisión manual por selectores; OKLink no incluye paso CAPTCHA en este flujo.
 
 --------------------------------------------------------------------------------
 1) Regenerar este paquete y los JSON
@@ -587,7 +587,7 @@ Documentación extendida: docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md
   console.log('  - OKLINK-INVALID-EVM.txt (error Invalid EVM version / JSONError)');
   console.log('  - TRONSCAN-POR-QUE-FALLA.txt (por qué Tronscan da "confirm the correct parameters")');
   console.log('  - VERIFICACION-ESTADO.txt (resumen de vías probadas y próximos pasos)');
-  console.log('  - VERIFICAR_AHORA.txt (pasos definitivos para verificar en OKLink; Submit manual tras CAPTCHA)');
+  console.log('  - VERIFICAR_AHORA.txt (pasos definitivos OKLink; Submit manual si el script no lo pulsa)');
   console.log('  - BYTECODE-MAINNET-REPORT.txt (informe comprobación real mainnet; ver check:bytecode:mainnet)');
   console.log('\nTras el upgrade, usa la nueva implementationAddress en Tronscan.');
   console.log('');

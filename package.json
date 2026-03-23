@@ -17,6 +17,7 @@
     "audit": "npm audit",
     "audit:fix": "npm audit fix --no-fund",
     "security:secrets": "node scripts/check-secrets.js",
+    "verify:mcp-tronscan": "node scripts/verify-mcp-tronscan-integration.js",
     "install:tenderly-tools": "npm install --no-fund --prefix blockchain/tenderly_tools",
     "gallery": "node docs/vitacora/gallery-viewer/server.js",
     "fix:cursor": "powershell -ExecutionPolicy Bypass -File scripts/cerrar-cursor-y-fix-extensions.ps1",
