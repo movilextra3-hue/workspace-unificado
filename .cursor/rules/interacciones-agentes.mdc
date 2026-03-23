@@ -21,7 +21,7 @@ alwaysApply: true
 
 3. **Subagentes que editan:** Ejecutar **secuencialmente** o asignar recursos **disjuntos** (cada uno en archivos/proyectos distintos). Máximo **un subagente editando** a la vez sobre un mismo archivo o proyecto.
 
-4. **Vitácora:** Solo el **agente principal** que finaliza la tarea registra en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`. Los subagentes **no** escriben en vitácora.
+4. **Vitácora:** Solo el **agente principal** que finaliza la tarea registra en `docs/vitacora/registro/YYYY-MM-DD.md`. Los subagentes **no** escriben en vitácora.
 
 ---
 

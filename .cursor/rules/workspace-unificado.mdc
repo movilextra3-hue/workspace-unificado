@@ -115,14 +115,15 @@ alwaysApply: true
 
 ## Uso obligatorio
 
-- **Consultar siempre** las reglas (este archivo + seguimiento-tiempo-real.mdc + vitacora-registro.mdc + aplicacion-total-reglas.mdc + tareas-activas-flujo-continuidad.mdc + flujo-automatizado-checkpoint-trc20.mdc + **local-proposito-mainnet.mdc**) y la vitácora (`docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`) antes de actuar o responder. Son la base para interacción y ejecución correctas.
+- **Consultar siempre** las reglas (este archivo + seguimiento-tiempo-real.mdc + vitacora-registro.mdc + aplicacion-total-reglas.mdc + tareas-activas-flujo-continuidad.mdc + flujo-automatizado-checkpoint-trc20.mdc + **local-proposito-mainnet.mdc**) y la vitácora **reciente** (`docs/vitacora/REGISTRO_DIARIO_INDICE.md` + `docs/vitacora/registro/YYYY-MM-DD.md` de los días pertinentes) antes de actuar o responder. El monolito `CONSOLIDACION_COMPLETA_TODO.md` solo para **contexto histórico acotado** (búsqueda/tramos), no como lectura obligatoria entera.
 - **Propósito mainnet** — En proyectos con despliegue en cadena, el trabajo local debe poder **justificarse** frente a mainnet o red objetivo (validar, alinear, mejorar); ver **local-proposito-mainnet.mdc**.
 
-## Vitácora — Un solo archivo
+## Vitácora — Registro diario + histórico
 
-- **Ubicación:** `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` — contiene toda la información consolidada.
-- **Registro:** Toda documentación, logs, cambios e interacciones nuevas se añaden ahí (append-only). Ver vitacora-registro.mdc.
-- **No crear** documentos nuevos en otros sitios; solo en docs/vitacora, en el archivo único (o su continuación si supera 5 MB).
+- **Registro operativo:** `docs/vitacora/registro/YYYY-MM-DD.md` — un archivo por día; append en «Registro del día». Ver `docs/vitacora/registro/README.md` y vitacora-registro.mdc.
+- **Índice:** `docs/vitacora/REGISTRO_DIARIO_INDICE.md`.
+- **Histórico consolidado:** `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` (y `_02`… si existen) — solo lectura acotada; **no** append de registro cotidiano desde 2026-03-22.
+- **No crear** documentación de registro fuera de `docs/vitacora`.
 
 ## Calidad de respuestas
 
@@ -139,7 +140,7 @@ alwaysApply: true
 - Responde siempre en **español**.
 - Este workspace incluye: `blockchain/trc20-token` (TRON, foco operativo), `blockchain/token-erc20`, `solana/555`, `apps/rtsp-*`. `blockchain/tenderly_tools` existe como carpeta opcional; no va en `npm` workspaces raíz — `npm run install:tenderly-tools` si hace falta.
 - **Nunca** incluyas en código ni en commits: contraseñas, claves privadas, `.env` real, tokens de GitHub ni otros secretos. Los archivos sensibles están en `.gitignore`; no crear archivos con credenciales en el repo.
-- Para Git en el token TRC20: el repo es `movilextra3-hue/workspace-unificado`; push con Personal Access Token (no contraseña). Información en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` (sección GITHUB_PUSH).
+- Para Git en el token TRC20: el repo es `movilextra3-hue/workspace-unificado`; push con Personal Access Token (no contraseña). Referencia histórica: monolito `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` (sección GITHUB_PUSH); entradas nuevas en `docs/vitacora/registro/YYYY-MM-DD.md`.
 - Al trabajar en el token TRON (despliegue, contratos, scripts): usar la carpeta `blockchain/trc20-token` como raíz del proyecto (npm, tronbox, .env).
 - **Verificar antes de actuar:** Comprobar = investigar cuando no se entienda (web, documentación oficial, APIs, exploradores); contrastar con la realidad; actuar en base a evidencia.
 - **No abrir ni poner foco en `tronbox.js`** salvo que el usuario pida editarlo o verlo explícitamente. La configuración real está en `blockchain/trc20-token/config/trc20-networks.js`; usar ese archivo si se necesita verificar redes o compilador. La configuración real está en `blockchain/trc20-token/config/trc20-networks.js`; usar ese archivo si se necesita consultar redes o compilador. La config real está en `blockchain/trc20-token/config/trc20-networks.js`; scripts y migraciones la cargan desde ahí para evitar que se abra tronbox.js. La config real está en `blockchain/trc20-token/config/trc20-networks.js`; los scripts la cargan directamente para evitar aperturas innecesarias. La config real está en `config/trc20-networks.js`; los scripts la cargan desde ahí para evitar aperturas innecesarias.

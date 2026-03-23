@@ -42,33 +42,33 @@
 
 ## Regla inviolable — Vitácora única
 
-**Toda documentación, registros, logs, transcripts e información nueva va SOLO en:**
+**Toda documentación, registros, logs, transcripts e información nueva de registro va SOLO en `docs/vitacora`:**
 
-- `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` (o su continuación si supera 5 MB)
+- **Operativo (obligatorio para entradas nuevas):** `docs/vitacora/registro/YYYY-MM-DD.md` — **un archivo por día** (fecha local). Varias entradas el mismo día en el mismo archivo.
+- **Índice:** `docs/vitacora/REGISTRO_DIARIO_INDICE.md`
+- **Guía:** `docs/vitacora/registro/README.md`
+- **Histórico:** `CONSOLIDACION_COMPLETA_TODO.md` — solo lectura acotada; **no** registrar ahí el día a día (evita RAM/OOM).
 
-**Nunca crear** archivos `.md`, `.txt`, `.log` o similares con documentación fuera de `docs/vitacora`.
+**Nunca crear** archivos `.md`, `.txt`, `.log` o similares con documentación de registro fuera de `docs/vitacora`.
 
 **Alcance:** Aplica a todos los proyectos del workspace (existentes y nuevos), en cualquier carpeta.
 
 ## Verificación antes de crear archivos
 
 Antes de crear cualquier archivo de documentación:
-1. ¿Va en `docs/vitacora/`? → Sí: añadir al archivo único (sección "Registro de interacciones").
+1. ¿Va en `docs/vitacora/` (p. ej. `registro/`)? → Sí: usar el **archivo del día** o crear `registro/YYYY-MM-DD.md` si es el primer registro de ese día.
 2. ¿Otra ruta? → No crear. Usar la vitácora.
 
 ## Obligatorio: registrar antes de finalizar
 
-Antes de terminar cualquier respuesta en la que se ejecutó una acción: añadir al final de `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` las acciones realizadas. Sin excepciones.
+Antes de terminar cualquier respuesta en la que se ejecutó una acción: añadir una viñeta al **archivo del día** `docs/vitacora/registro/YYYY-MM-DD.md` (sección «Registro del día»). Actualizar el índice si abres un día nuevo. Sin excepciones.
 
-## Vitácora monolítica — consulta y registro sin OOM ni errores de herramienta
+## Registro diario — consulta y escritura sin OOM
 
-`CONSOLIDACION_COMPLETA_TODO.md` puede ser **muy grande**. Para cumplir vitácora sin saturar memoria ni fallar:
-
-1. **No abrir ni leer el archivo completo** sin acotar: usar lectura con **rango de líneas** (`offset` + `limit`) o solo el **final** del archivo (últimas 80–200 líneas donde suele estar «Registro de interacciones (append)»).
-2. **Localizar texto** con búsqueda por patrón (p. ej. `Registro de interacciones (append)` o la fecha/entrada más reciente) antes de editar; no asumir números de línea fijos.
-3. **Registrar (append):** usar sustitución anclada en **una línea reciente única** del registro (p. ej. la última entrada `- **20…** —`) para insertar la nueva línea justo debajo; evitar reescribir el archivo entero.
-4. **Si la lectura directa falla** por tamaño o permisos: usar la terminal del workspace con comandos que lean solo cola o busquen patrón (PowerShell `Select-String`, `Get-Content -Tail`), sin volcar el monolito entero al contexto.
-5. **Workspace:** `docs/vitacora` **no** está excluida de búsqueda en archivos (`search.exclude`) para que consultas y el agente puedan localizar entradas; los **watchers** siguen excluyendo esa ruta donde aplica para aligerar el IDE (no impide leer ni editar).
+1. **Consultar contexto reciente:** `REGISTRO_DIARIO_INDICE.md` + archivos `registro/YYYY-MM-DD.md` de hoy y días previos necesarios (típicamente pocos KB).
+2. **Registrar:** append al final de «Registro del día» del archivo de hoy; no cargar el monolito.
+3. **Histórico antiguo:** `CONSOLIDACION_COMPLETA_TODO.md` solo con grep, `offset`/`limit` o cola — nunca entero en contexto salvo necesidad excepcional.
+4. **Búsqueda en workspace:** `docs/vitacora` sigue siendo buscable; los **watchers** pueden seguir excluyendo parte de vitácora en `.vscode/settings.json` para aligerar el IDE sin impedir leer/editar archivos pequeños del día.
 
 ## Aplicación total
 

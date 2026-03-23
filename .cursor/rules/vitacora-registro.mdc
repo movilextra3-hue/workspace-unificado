@@ -1,9 +1,9 @@
 ---
-description: Vitácora — un único archivo en docs/vitacora. Todo nuevo va ahí. Continuación si supera límite.
+description: Vitácora — registro en docs/vitacora/registro/YYYY-MM-DD.md (un archivo por día); monolito solo histórico.
 alwaysApply: true
 ---
 
-# Vitácora — Registro único
+# Vitácora — Registro (diario + histórico)
 
 ## Alcance permanente
 
@@ -15,49 +15,41 @@ No delegar lo asignado. Solo delegar si existe una limitación real, comprobable
 
 ## Ubicación única — Sin excepciones
 
-- **Carpeta:** `docs/vitacora` — única ubicación para toda documentación, registros, logs, transcripts e información generada por interacciones.
-- **Archivo principal:** `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`
-- **No crear** documentos nuevos en ningún otro lugar del workspace. Todo lo generado (registros, cambios, información adicional, logs, transcripts, documentación nueva) va **solo** en esta carpeta y en este archivo.
+- **Carpeta:** `docs/vitacora` — única ubicación para documentación, registros, logs, transcripts e información generada por interacciones.
+- **Registro operativo (obligatorio para entradas nuevas):** `docs/vitacora/registro/YYYY-MM-DD.md` — **un archivo por día civil** (fecha local). Misma día: varias entradas en el mismo archivo (append al final de «Registro del día»).
+- **Índice ligero:** `docs/vitacora/REGISTRO_DIARIO_INDICE.md` — añadir fila al abrir un día nuevo en el registro.
+- **Guía y plantilla:** `docs/vitacora/registro/README.md`.
+- **Histórico consolidado (solo lectura acotada):** `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` y continuaciones `_02`, `_03`… si existen. **No** usar para append del registro diario desde 2026-03-22.
+- **No crear** documentación de registro fuera de `docs/vitacora`.
 
-## Un solo archivo — Continuación si supera límite
+## Consulta sin OOM
 
-- **Regla:** Toda la información nueva se añade (append) al archivo principal `CONSOLIDACION_COMPLETA_TODO.md`.
-- **Límite:** Si el archivo alcanza **5 MB** o se vuelve difícil de leer/manejar, crear **una** continuación: `CONSOLIDACION_COMPLETA_TODO_02.md` y seguir añadiendo ahí. No crear muchos archivos; solo continuaciones cuando sea necesario.
-- **Formato de continuación:** `CONSOLIDACION_COMPLETA_TODO_02.md`, `CONSOLIDACION_COMPLETA_TODO_03.md`, etc. Cada uno con enlace al anterior y al siguiente al inicio.
+- **Contexto reciente:** `REGISTRO_DIARIO_INDICE.md` + archivos `registro/YYYY-MM-DD.md` de los días necesarios (típicamente hoy y pocos días previos).
+- **Monolito:** solo con grep, offset/limit o cola; nunca cargar entero en contexto salvo necesidad excepcional y acotada.
 
-## Qué va en la vitácora
+## Qué va en el registro diario
 
 - Registros de interacciones (fecha, descripción, comando/archivo)
 - Cambios realizados
 - Información nueva o adicional
-- Logs de ejecución
+- Logs de ejecución relevantes
 - Transcripts relevantes
-- Toda documentación generada a partir de interacciones
+- Documentación breve derivada de interacciones
 
-## Dónde añadir en el archivo
+## Formato de entrada
 
-- Al final del archivo, en la sección **"Registro de interacciones"** (append-only).
-- Formato: `- **YYYY-MM-DD HH:MM** — Descripción. (Contexto si aplica.)`
-
-## Archivo muy grande — sin OOM ni fallos de herramienta
-
-`CONSOLIDACION_COMPLETA_TODO.md` puede superar decenas de miles de líneas. **No leerlo entero de una vez** salvo acotación (`offset`/`limit`, cola del archivo, o búsqueda por patrón). Para append: anclar la sustitución en una entrada reciente única del registro. Detalle operativo: `AGENTS.md` → sección **«Vitácora monolítica — consulta y registro sin OOM ni errores de herramienta»**.
+- En el archivo del día, sección **«Registro del día»**, formato: `- **YYYY-MM-DD HH:MM** — Descripción. (Contexto si aplica.)`
 
 ## Reglas
 
-1. **Consultar** el archivo de vitácora antes de actuar (información consolidada).
-2. **Registrar** cada acción relevante en la sección "Registro de interacciones" (append-only).
-3. **No crear** archivos nuevos fuera de `docs/vitacora`. No crear múltiples documentos; todo en el archivo único (o su continuación).
+1. **Consultar** antes de actuar: índice + registro de fechas recientes; monolito solo si hace falta histórico antiguo (acotado).
+2. **Registrar** cada acción relevante en el **archivo del día** correspondiente.
+3. **No crear** archivos de registro fuera de `docs/vitacora`.
 
 ## Obligatorio antes de finalizar
 
-**Antes de terminar cualquier respuesta en la que se haya ejecutado una acción (editar, crear, ejecutar comando, cambiar configuración):** comprobar si hay algo que registrar y añadirlo al final de `CONSOLIDACION_COMPLETA_TODO.md`. Sin excepciones. Si la sesión tuvo acciones relevantes y no se registraron, la respuesta está incompleta.
-
-## Garantía de cumplimiento
-
-- **Obligatorio sin excepciones:** Registrar en vitácora es requisito para considerar la respuesta completa. No omitir ni posponer el registro.
-- **Verificar antes de finalizar:** Comprobar activamente que toda acción ejecutada esté registrada. Si falta registro, la tarea no está terminada.
+**Antes de terminar cualquier respuesta en la que se haya ejecutado una acción (editar, crear, ejecutar comando, cambiar configuración):** comprobar si hay algo que registrar y añadirlo al archivo **`docs/vitacora/registro/YYYY-MM-DD.md`** del día (crear el archivo y fila en índice si es el primer registro de ese día). Sin excepciones.
 
 ## Resumen
 
-**Todo en docs/vitacora. Un solo archivo. Append al registro. Antes de finalizar: verificar y registrar. Continuación solo si supera 5 MB.**
+**Registro nuevo → `docs/vitacora/registro/YYYY-MM-DD.md`. Índice → `REGISTRO_DIARIO_INDICE.md`. Monolito → histórico, sin append operativo.**

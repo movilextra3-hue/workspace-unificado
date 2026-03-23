@@ -24,7 +24,7 @@ alwaysApply: true
 1. **Primero** — Lo pedido **explícitamente** por el usuario (`ejecucion-explicita.mdc`). No añadir alcance, entregables ni documentación nueva no solicitada.
 2. **Si falta criterio** para cumplirlo (formato, ruta, alcance) — **Preguntar** antes de asumir.
 3. **Resto de reglas** — Rigen **cómo** ejecutar: no delegar, cero hipótesis comprobables, seguimiento hasta cerrar, corrección de errores antes de seguir, respuestas limpias, foco en tarea principal, **tareas activas sin tiempos muertos** dentro del alcance pedido, etc.
-4. **Vitácora** — Append en `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md` cuando haya **acciones relevantes** (comandos, ediciones, cambios de configuración). No usar el registro para crear documentación fuera de `docs/vitacora/`.
+4. **Vitácora** — Append en `docs/vitacora/registro/YYYY-MM-DD.md` («Registro del día») cuando haya **acciones relevantes** (comandos, ediciones, cambios de configuración). No usar el registro para crear documentación fuera de `docs/vitacora/`. No append operativo en el monolito `CONSOLIDACION_COMPLETA_TODO.md`.
 
 ## Reglas que se aplican siempre
 
@@ -32,7 +32,7 @@ alwaysApply: true
 1. **workspace-unificado.mdc** — No delegar; no omitir, excluir ni suponer; cero hipótesis (todo comprobado y verificado); seguimiento en tiempo real hasta finalizar; aseguramiento de actualizaciones e IDE (aplicar cambios a todos los archivos involucrados); comprobaciones previas antes de cualquier ejecución (corregir errores, asegurar ejecuciones correctas y eficientes); automatizar procesos posibles y monitorear para garantizar flujo y funcionamiento operativo 100%; antes de reportar o parar, asegurarse de haber completado las tareas designadas y el avance correspondiente; consultar vitácora; calidad de respuestas; convenciones.
 2. **vitacora-registro.mdc** — Ubicación única docs/vitacora; registrar antes de finalizar; append al registro.
 3. **vitacora-obligatoria-todos-proyectos.mdc** — Alcance a todos los proyectos (existentes y nuevos).
-4. **vitacora-al-crear-docs.mdc** — Al crear .md, .txt, .log: solo en docs/vitacora; añadir a CONSOLIDACION_COMPLETA_TODO.md.
+4. **vitacora-al-crear-docs.mdc** — Al crear .md, .txt, .log: solo en docs/vitacora; registro en `registro/YYYY-MM-DD.md`.
 5. **ejecucion-explicita.mdc** — Hacer solo lo pedido explícitamente; preguntar antes de aplicar criterios propios.
 6. **seguimiento-tiempo-real.mdc** — Seguimiento en tiempo real hasta finalizar; identificar errores en el momento; corregir antes de seguir; no continuar con procedimientos siguientes hasta resolver errores actuales; solución completa efectiva y exitosa.
 7. **respuestas-limpias.mdc** — Respuestas solo en lenguaje natural; NUNCA incluir sintaxis de herramientas, JSON crudo ni "Content from" en lo que ve el usuario.
@@ -51,7 +51,7 @@ alwaysApply: true
 2. **Durante la tarea:** Aplicar todas las reglas (no delegar, no omitir, verificar, no suponer, cero hipótesis — todo comprobado; seguimiento en tiempo real; identificar errores en el momento; corregir antes de continuar; no ejecutar procedimientos siguientes con errores sin resolver).
 3. **Continuidad sin tiempos muertos:** Mientras queden pasos ejecutables dentro del pedido, **ejecutarlos** en la misma interacción o en el flujo lógico; actualizar lista de tareas multi-paso; no parar con trabajo abordable por el agente.
 4. **Tras cada tarea secundaria:** Retornar automáticamente a la tarea principal; no perder el foco; continuar con el siguiente paso lógico sin pedir confirmación innecesaria.
-5. **Antes de finalizar:** Registrar acciones relevantes en la sección "Registro de interacciones" de `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`.
+5. **Antes de finalizar:** Registrar acciones relevantes en `docs/vitacora/registro/YYYY-MM-DD.md` (sección «Registro del día»).
 6. **Continuar con lo dispuesto:** Si existe una tarea o objetivo pendiente documentado (vitácora, registro, sesión anterior), retomarlo y completarlo hasta lograr el resultado correcto.
 
 ## Ejecución obligatoria — Todas, siempre
@@ -69,7 +69,7 @@ Antes de reportar al usuario o dar por finalizada la respuesta:
 
 - [ ] 00-INSTRUCCION-PRIMERA: reglas y vitácora consultadas.
 - [ ] workspace-unificado: no delegado; no omitido; cero hipótesis; seguimiento hasta finalizar.
-- [ ] vitacora-registro: documentación en docs/vitacora; registro append.
+- [ ] vitacora-registro: documentación en docs/vitacora; registro append en `registro/YYYY-MM-DD.md`.
 - [ ] vitacora-obligatoria: ningún doc nuevo fuera de docs/vitacora.
 - [ ] vitacora-al-crear-docs: .md/.txt/.log solo en docs/vitacora.
 - [ ] ejecucion-explicita: solo lo pedido; preguntado si hay duda.

@@ -1,5 +1,5 @@
 ---
-description: Al crear/editar .md, .txt o .log — todo debe ir en docs/vitacora
+description: Al crear/editar .md, .txt o .log — registro en docs/vitacora/registro diario
 globs: "**/*.md,**/*.txt,**/*.log"
 alwaysApply: true
 ---
@@ -9,7 +9,8 @@ alwaysApply: true
 Cuando crees o edites archivos `.md`, `.txt` o `.log` con documentación, registros o logs:
 
 1. **No crear** en `blockchain/`, `solana/`, `apps/`, `docs/` (excepto `docs/vitacora/`), ni en la raíz.
-2. **Solo crear** en `docs/vitacora/` — y únicamente el archivo `CONSOLIDACION_COMPLETA_TODO.md` (o su continuación `_02`, `_03` si supera 5 MB).
-3. **Si el contenido es nuevo:** Añadirlo (append) a la sección "Registro de interacciones" al final de `docs/vitacora/CONSOLIDACION_COMPLETA_TODO.md`.
+2. **Registro e interacciones nuevas:** crear o actualizar **`docs/vitacora/registro/YYYY-MM-DD.md`** (append en «Registro del día»). Actualizar **`docs/vitacora/REGISTRO_DIARIO_INDICE.md`** si es el primer archivo de ese día.
+3. **No añadir** registro cotidiano a `CONSOLIDACION_COMPLETA_TODO.md` (histórico; evitar RAM/OOM).
+4. **Guía:** `docs/vitacora/registro/README.md`.
 
-**Excepción:** Archivos de código o config (package.json, README mínimo en raíz de proyecto que solo enlace a vitacora) según reglas del workspace.
+**Excepción:** Archivos de código o config (package.json, README mínimo en raíz de proyecto que solo enlace a vitácora) según reglas del workspace.
