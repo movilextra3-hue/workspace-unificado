@@ -21,7 +21,8 @@
     "install:tenderly-tools": "npm install --no-fund --prefix blockchain/tenderly_tools",
     "gallery": "node docs/vitacora/gallery-viewer/server.js",
     "fix:cursor": "powershell -ExecutionPolicy Bypass -File scripts/cerrar-cursor-y-fix-extensions.ps1",
-    "crear:lanzador": "powershell -ExecutionPolicy Bypass -File scripts/crear-lanzador-escritorio.ps1"
+    "crear:lanzador": "powershell -ExecutionPolicy Bypass -File scripts/crear-lanzador-escritorio.ps1",
+    "sync:cursor-rules-global": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/sync-cursor-global-rules.ps1"
   },
   "devDependencies": {
     "markdownlint-cli2": "^0.21.0"
